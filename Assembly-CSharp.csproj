@@ -63,7 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controller2D.cs" />
+    <Compile Include="Assets\Scripts\PlatformController.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\RaycastController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/repos/Unity2D/2D Platformer Raycast/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
