@@ -10,7 +10,8 @@ public class Controller2D : RaycastController
 
     public CollisionInfo collisions;
 
-    public void Move(Vector3 velocity)
+    //We have standingOnPlatform bool her because with platforms, we can be moving up vertically but still want to be able to jump
+    public void Move(Vector3 velocity, bool standingOnPlatform = false)
     {
         UpdateRaycastOrigins();
         collisions.Reset();
@@ -32,6 +33,11 @@ public class Controller2D : RaycastController
         }
 
         transform.Translate(velocity);
+        
+        if (standingOnPlatform)
+        {
+            collisions.below = true;
+        }
     }
 
     void HorizontalCollisions(ref Vector3 velocity)

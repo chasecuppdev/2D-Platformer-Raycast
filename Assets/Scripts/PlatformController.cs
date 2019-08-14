@@ -6,6 +6,23 @@ public class PlatformController : RaycastController
 {
     public LayerMask passengerMask;
     public Vector3 move;
+    List<PassengerMovement> passengerMovement;
+
+    struct PassengerMovement
+    {
+        public Transform transform;
+        public Vector3 velocity;
+        public bool standingOnPlatform;
+        public bool moveBeforePlatform;
+
+        public PassengerMovement(Transform _transform, Vector3 _velocity, bool _standingOnPlatform, bool _moveBeforePlatform)
+        {
+            transform = _transform;
+            velocity = _velocity;
+            standingOnPlatform = _standingOnPlatform;
+            moveBeforePlatform = _moveBeforePlatform;
+        }
+    }
 
     public override void Start()
     {
@@ -18,13 +35,29 @@ public class PlatformController : RaycastController
 
         Vector3 velocity = move * Time.deltaTime;
 
-        MovePassengers(velocity);
+        CalulatePassengerMovement(velocity);
+
+        MovePassengers(true);
         transform.Translate(velocity);
+        MovePassengers(false);
     }
 
-    void MovePassengers(Vector3 velocity)
+    void MovePassengers(bool beforeMovePlatform)
+    {
+        foreach(PassengerMovement passenger in passengerMovement)
+        {
+            if (passenger.moveBeforePlatform == beforeMovePlatform)
+            {
+                passenger.transform.GetComponent<Controller2D>().Move(passenger.velocity, passenger.standingOnPlatform);
+            }
+        }
+    }
+
+    void CalulatePassengerMovement(Vector3 velocity)
     {
         HashSet<Transform> movedPassengers = new HashSet<Transform>(); //We need to keep track if multiple objects are on the moving platform
+        passengerMovement = new List<PassengerMovement>();
+
         float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction
         float directionY = Mathf.Sign(velocity.y); //Get the vertical direction
 
@@ -41,16 +74,15 @@ public class PlatformController : RaycastController
 
                 if (hit)
                 {
-                    //If the current object being detected isn't already on the list, add it
+                    //We only want to move each object once per frame (without this, an object could update for each raycast)
                     if (!movedPassengers.Contains(hit.transform))
                     {
                         movedPassengers.Add(hit.transform);
+                        float pushX = (directionY == 1) ? velocity.x : 0; //The horizontal velocity we will add to the object
+                        float pushY = velocity.y - (hit.distance - skinWidth) * directionY; //The vertical velocity we will add to the object
+
+                        passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), directionY == 1, true));
                     }
-
-                    float pushX = (directionY == 1) ? velocity.x : 0; //The horizontal velocity we will add to the object
-                    float pushY = velocity.y - (hit.distance - skinWidth) * directionY; //The vertical velocity we will add to the object
-
-                    hit.transform.Translate(new Vector3(pushX, pushY)); //Add the x and y velocities to our object on the platform
                 }
             }
         }
@@ -67,15 +99,15 @@ public class PlatformController : RaycastController
 
                 if (hit)
                 {
-                    //If the current object being detected isn't already on the list, add it
+                    //We only want to move each object once per frame (without this, an object could update for each raycast)
                     if (!movedPassengers.Contains(hit.transform))
                     {
                         movedPassengers.Add(hit.transform);
-                    }
-                    float pushX = velocity.x - (hit.distance - skinWidth) * directionX; //The horizontal velocity we will add to the object
-                    float pushY = 0; //We won't add any vertical velocity from a platform colliding from the side (assuimg zero friction)
+                        float pushX = velocity.x - (hit.distance - skinWidth) * directionX; //The horizontal velocity we will add to the object
+                        float pushY = 0; //We won't add any vertical velocity from a platform colliding from the side (assuimg zero friction)
 
-                    hit.transform.Translate(new Vector3(pushX, pushY)); //Add the x and y velocities to our object on the platform
+                        passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), false, true));
+                    }
                 }
             }
         }
@@ -92,17 +124,17 @@ public class PlatformController : RaycastController
 
                 if (hit)
                 {
-                    //If the current object being detected isn't already on the list, add it
+                    //We only want to move each object once per frame (without this, an object could update for each raycast)
                     if (!movedPassengers.Contains(hit.transform))
                     {
                         movedPassengers.Add(hit.transform);
-                    }
-                    //We don't need to account for skinWidth here since nothing is being "pushed", rather we are just moving along with the platform
-                    //We just straight up add the platforms velocity to the objects
-                    float pushX = velocity.x; 
-                    float pushY = velocity.y;
+                        //We don't need to account for skinWidth here since nothing is being "pushed", rather we are just moving along with the platform
+                        //We just straight up add the platforms velocity to the objects
+                        float pushX = velocity.x; 
+                        float pushY = velocity.y;
 
-                    hit.transform.Translate(new Vector3(pushX, pushY)); //Add the x and y velocities to our object on the platform
+                        passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), true, false));
+                    }
                 }
             }
         }
