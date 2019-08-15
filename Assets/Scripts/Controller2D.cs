@@ -55,6 +55,12 @@ public class Controller2D : RaycastController
 
             if (hit) //returns null if nothing was hit
             {
+                //If the hit.distance is 0, we are "in front" of a moving platform
+                if (hit.distance == 0)
+                {
+                    collisions.insidePlatform = true;
+                    return; //We are assuming the platform is not taller than the object, so continue and let another raycast determine horizontal movement
+                }
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up); //Find the angle between our raycast and the normal of whatever we hit
 
                 if (i == 0 && slopeAngle <= maxClimbAngle) //We will only want to calculate how to climb with the bottom raycast

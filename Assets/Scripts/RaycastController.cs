@@ -7,7 +7,11 @@ public class RaycastController : MonoBehaviour
 {
     public LayerMask collisionMask;
 
-   public const float skinWidth = 0.015f; //We use a "skin" width so the rays aren't fire directly from the edges of the collider
+    public int PlayerLayer = 8;
+    public int ObstacleLayer = 9;
+    public int PlatformLayer = 10;
+
+    public const float skinWidth = 0.015f; //We use a "skin" width so the rays aren't fire directly from the edges of the collider
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
 
@@ -16,7 +20,6 @@ public class RaycastController : MonoBehaviour
     [HideInInspector]
     public float verticalRaySpacing;
 
-    [HideInInspector]
     public BoxCollider2D collider;
     public RaycastOrigins raycastOrigins;
 
@@ -26,6 +29,8 @@ public class RaycastController : MonoBehaviour
         public bool below;
         public bool left;
         public bool right;
+
+        public bool insidePlatform;
 
         public bool climbingSlope;
         public float slopeAngle;
@@ -41,6 +46,7 @@ public class RaycastController : MonoBehaviour
             below = false;
             left = false;
             right = false;
+            insidePlatform = false;
             climbingSlope = false;
             descendingSlope = false;
 

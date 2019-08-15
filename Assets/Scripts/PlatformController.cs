@@ -7,6 +7,7 @@ public class PlatformController : RaycastController
     public LayerMask passengerMask;
     public Vector3 move;
     List<PassengerMovement> passengerMovement;
+    Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>();
 
     struct PassengerMovement
     {
@@ -46,9 +47,15 @@ public class PlatformController : RaycastController
     {
         foreach(PassengerMovement passenger in passengerMovement)
         {
+            //Keep a list of passengers to move so we can only call GetComponent<Controller2D> once per passenger
+            if (!passengerDictionary.ContainsKey(passenger.transform))
+            {
+                passengerDictionary.Add(passenger.transform, passenger.transform.GetComponent<Controller2D>());
+            }
+
             if (passenger.moveBeforePlatform == beforeMovePlatform)
             {
-                passenger.transform.GetComponent<Controller2D>().Move(passenger.velocity, passenger.standingOnPlatform);
+                passengerDictionary[passenger.transform].Move(passenger.velocity, passenger.standingOnPlatform);
             }
         }
     }
@@ -104,7 +111,7 @@ public class PlatformController : RaycastController
                     {
                         movedPassengers.Add(hit.transform);
                         float pushX = velocity.x - (hit.distance - skinWidth) * directionX; //The horizontal velocity we will add to the object
-                        float pushY = 0; //We won't add any vertical velocity from a platform colliding from the side (assuimg zero friction)
+                        float pushY = -skinWidth; //Add a super small downward velocity when being pushed to flag collisions.below and allow jumping
 
                         passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), false, true));
                     }
