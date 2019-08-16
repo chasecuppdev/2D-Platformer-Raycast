@@ -58,7 +58,7 @@ public class Controller2D : RaycastController
                 //If the hit.distance is 0, we are "in front" of a moving platform
                 if (hit.distance == 0)
                 {
-                    collisions.insidePlatform = true;
+                    collisions.insidePlatform = true; //TODO: Come back to this and try to fix the case where platform goes in front of the player while they are on the ground. I think turning removing the Platform collision mask when casting rays will do most of the job, but it will stick to the platform while the platform is in the skinwidth
                     return; //We are assuming the platform is not taller than the object, so continue and let another raycast determine horizontal movement
                 }
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up); //Find the angle between our raycast and the normal of whatever we hit
