@@ -10,9 +10,16 @@ public class Player : MonoBehaviour
     float jumpVelocity;
     float gravity;
     bool facingRight = true;
-    bool isJumping;
+
+    public Vector2 wallJumpClimb;
+    public Vector2 wallJumpOff;
+    public Vector2 wallLeap;
+
+    public float wallStickTime;
+    float timeToWallUnstick;
 
     float moveSpeed = 5;
+    public float wallSlideSpeedMax;
     Vector3 velocity;
     float velocityXSmoothing;
 
@@ -32,10 +39,10 @@ public class Player : MonoBehaviour
         sprite = GetComponentInChildren<SpriteRenderer>();
         //sprite.enabled = false;
         collisionRenderer.enabled = false;
-        
+
         CalculateGravity();
         CalculateJumpVelocity();
-        Debug.Log("Gravity: " + gravity + " |||||| " + "JumpVelocity:" + jumpVelocity );
+        Debug.Log("Gravity: " + gravity + " |||||| " + "JumpVelocity:" + jumpVelocity);
     }
 
     void CalculateGravity()
@@ -66,15 +73,70 @@ public class Player : MonoBehaviour
         }
     }
 
-    void JumpController()
+    void JumpController(Vector2 input)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
+        int WallDirX = (controller.collisions.left) ? -1 : 1;
+        bool wallSliding = false;
+
+        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
         {
-            isJumping = true;
-            animator.SetBool("IsJumping", true);
-            velocity.y = jumpVelocity;
+            wallSliding = true;
+            if (velocity.y < -wallSlideSpeedMax)
+            {
+                velocity.y = -wallSlideSpeedMax;
+            }
+
+            if (timeToWallUnstick > 0)
+            {
+                if (input.x != WallDirX && input.x != 0)
+                {
+                    velocityXSmoothing = 0;
+                    velocity.x = 0;
+                    timeToWallUnstick -= Time.deltaTime;
+                }
+                else
+                {
+                    timeToWallUnstick = wallStickTime;
+                }
+            }
+            else
+            {
+                timeToWallUnstick = wallStickTime;
+            }
         }
-        
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (wallSliding)
+            {
+                if (WallDirX == input.x)
+                {
+                    velocity.x = -WallDirX * wallJumpClimb.x;
+                    velocity.y = wallJumpClimb.y;
+                }
+                else if (input.x == 0)
+                {
+                    velocity.x = -WallDirX * wallJumpClimb.x;
+                    velocity.y = wallJumpOff.y;
+                }
+                else
+                {
+                    velocity.x = -WallDirX * wallLeap.x;
+                    velocity.y = wallLeap.y;
+                }
+            }
+            if (controller.collisions.below)
+            {
+                animator.SetBool("IsJumping", true);
+                velocity.y = jumpVelocity;
+            }
+        }
+
         if (velocity.y < 0 && !controller.collisions.below)
         {
             animator.SetBool("IsFalling", true);
@@ -89,49 +151,48 @@ public class Player : MonoBehaviour
 
     void DirectionController()
     {
-        float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
+        if (Mathf.Abs(velocity.x) != 0)
+        {
+            float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
 
-        if (directionX == 1)
-        {
-            if (!facingRight)
+            if (directionX == 1)
             {
-                sprite.transform.Rotate(new Vector3(0, 180, 0));
-                facingRight = true;
+                if (!facingRight)
+                {
+                    sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    facingRight = true;
+                }
             }
-        }
-        else if (directionX == -1)
-        {
-            if (facingRight)
+            else if (directionX == -1)
             {
-                sprite.transform.Rotate(new Vector3(0, 180, 0));
-                facingRight = false;
+                if (facingRight)
+                {
+                    sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    facingRight = false;
+                }
             }
         }
     }
 
     private void Update()
     {
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
-
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        JumpController();
-
         float targetVelocityX = input.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+
+        JumpController(input);
+
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
         DirectionController();
         RunController();
-        
+
     }
 
     private void FixedUpdate()
     {
+        Debug.Log("Horiz velocity : " + velocity.x);
         animator.SetBool("IsLanding", false);
         animator.SetBool("IsJumping", false);
     }

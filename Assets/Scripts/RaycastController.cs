@@ -40,6 +40,8 @@ public class RaycastController : MonoBehaviour
 
         public Vector3 velocityOld;
 
+        public int faceDir;
+
         public void Reset()
         {
             above = false;

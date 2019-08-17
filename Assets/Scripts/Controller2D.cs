@@ -10,6 +10,11 @@ public class Controller2D : RaycastController
 
     public CollisionInfo collisions;
 
+    public override void Start()
+    {
+        base.Start();
+        collisions.faceDir = 1;
+    }
     //We have standingOnPlatform bool her because with platforms, we can be moving up vertically but still want to be able to jump
     public void Move(Vector3 velocity, bool standingOnPlatform = false)
     {
@@ -17,16 +22,22 @@ public class Controller2D : RaycastController
         collisions.Reset();
         collisions.velocityOld = velocity;
 
+        if (velocity.x != 0)
+        {
+            collisions.faceDir = (int)Mathf.Sign(velocity.x);
+        }
         if (velocity.y < 0)
         {
             DescendSlope(ref velocity);
         }
         
-        if (velocity.x != 0) //No need to check for collisions if we aren't moving horizontally
-        {
-            HorizontalCollisions(ref velocity);
-        }
-        
+        //if (velocity.x != 0) //No need to check for collisions if we aren't moving horizontally
+        //{
+        //    HorizontalCollisions(ref velocity);
+        //}
+
+        HorizontalCollisions(ref velocity);
+
         if (velocity.y != 0) //No need to check for collisions if we aren't moving vertically
         {
             VerticalCollisions(ref velocity);
@@ -42,8 +53,14 @@ public class Controller2D : RaycastController
 
     void HorizontalCollisions(ref Vector3 velocity)
     {
-        float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
+        //float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
+        float directionX = collisions.faceDir;
         float rayLength = Mathf.Abs(velocity.x) + skinWidth; //Get the length of the movement and remember to add back in skin width
+
+        if (Mathf.Abs(velocity.x) < skinWidth)
+        {
+            rayLength = 2 * skinWidth;
+        }
 
         for (int i = 0; i < horizontalRayCount; i++)
         {
