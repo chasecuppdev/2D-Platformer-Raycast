@@ -50,31 +50,14 @@ public class Player : MonoBehaviour
 
     void RunController()
     {
-        float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
         animator.SetFloat("Speed", Mathf.Abs(velocity.x));
 
         if (Mathf.Abs(velocity.x) > 0.1f)
         {
             if (controller.collisions.below)
             {
-                if (directionX == 1)
-                {
-                    if (!facingRight)
-                    {
-                        sprite.transform.Rotate(new Vector3(0, 180, 0));
-                        facingRight = true;
-                    }
-                    animator.SetBool("IsRunning", true);
-                }
-                else if (directionX == -1)
-                {
-                    if (facingRight)
-                    {
-                        sprite.transform.Rotate(new Vector3(0, 180, 0));
-                        facingRight = false;
-                    }
-                    animator.SetBool("IsRunning", true);
-                }
+                animator.SetBool("IsRunning", true);
+
             }
         }
         else
@@ -85,11 +68,11 @@ public class Player : MonoBehaviour
 
     void JumpController()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
         {
             isJumping = true;
             animator.SetBool("IsJumping", true);
-            Debug.Log("IsJumping is " + animator.GetBool("IsJumping").ToString());
+            velocity.y = jumpVelocity;
         }
         
         if (velocity.y < 0 && !controller.collisions.below)
@@ -104,6 +87,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    void DirectionController()
+    {
+        float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
+
+        if (directionX == 1)
+        {
+            if (!facingRight)
+            {
+                sprite.transform.Rotate(new Vector3(0, 180, 0));
+                facingRight = true;
+            }
+        }
+        else if (directionX == -1)
+        {
+            if (facingRight)
+            {
+                sprite.transform.Rotate(new Vector3(0, 180, 0));
+                facingRight = false;
+            }
+        }
+    }
+
     private void Update()
     {
         if (controller.collisions.above || controller.collisions.below)
@@ -113,18 +118,16 @@ public class Player : MonoBehaviour
 
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
-        {
-            velocity.y = jumpVelocity;
-        }
+        JumpController();
 
         float targetVelocityX = input.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        RunController();
-        JumpController();
 
+        DirectionController();
+        RunController();
+        
     }
 
     private void FixedUpdate()
