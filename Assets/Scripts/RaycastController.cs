@@ -12,8 +12,8 @@ public class RaycastController : MonoBehaviour
     public int PlatformLayer = 10;
 
     public const float skinWidth = 0.015f; //We use a "skin" width so the rays aren't fire directly from the edges of the collider
-    public int horizontalRayCount = 4;
-    public int verticalRayCount = 4;
+    public int horizontalRayCount;
+    public int verticalRayCount;
 
     [HideInInspector]
     public float horizontalRaySpacing;

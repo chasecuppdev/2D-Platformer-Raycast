@@ -9,6 +9,11 @@ public class PlatformController : RaycastController
     public float speed;
     int fromWaypointIndex = 0;
     float percentBetweenWaypoints;
+    public bool cyclic;
+    public float waitTime;
+    float nextMoveTime;
+    [Range(0, 2)]
+    public float easeAmount;
 
     public Vector3[] localWaypoints;
     Vector3[] globalWaypoints;
@@ -49,6 +54,7 @@ public class PlatformController : RaycastController
     {
         UpdateRaycastOrigins();
 
+        //Vector3 velocity = CalculatePlatformMovement();
         Vector3 velocity = CalculatePlatformMovement();
 
         CalulatePassengerMovement(velocity);
@@ -58,29 +64,53 @@ public class PlatformController : RaycastController
         MovePassengers(false);
     }
 
+    float Ease(float x)
+    {
+        float a = easeAmount + 1;
+        return Mathf.Pow(x, a) / (Mathf.Pow(x, a) + Mathf.Pow(1 - x, a));
+    }
+
     Vector3 CalculatePlatformMovement()
     {
-        int toWaypointIndex = fromWaypointIndex + 1;
-        float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
-        percentBetweenWaypoints += Time.deltaTime * (speed / distanceBetweenWaypoints);
-
-        //Debug.Log(percentBetweenWaypoints);
-
-        Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], percentBetweenWaypoints);
-
-        if (percentBetweenWaypoints >= 1)
+        if (globalWaypoints.Length != 0)
         {
-            percentBetweenWaypoints = 0;
-            fromWaypointIndex++;
-
-            if (fromWaypointIndex >= globalWaypoints.Length - 1)
+            if (Time.time < nextMoveTime)
             {
-                fromWaypointIndex = 0;
-                System.Array.Reverse(globalWaypoints);
+                return Vector3.zero;
             }
-        }
+            fromWaypointIndex %= globalWaypoints.Length;
+            int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length;
+            float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
+            percentBetweenWaypoints += Time.deltaTime * (speed / distanceBetweenWaypoints);
+            percentBetweenWaypoints = Mathf.Clamp01(percentBetweenWaypoints);
+            float easedPercentBetweenWaypoints = Ease(percentBetweenWaypoints);
 
-        return newPos - transform.position;
+            //Debug.Log(percentBetweenWaypoints);
+
+            Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], easedPercentBetweenWaypoints);
+
+            if (percentBetweenWaypoints >= 1)
+            {
+                percentBetweenWaypoints = 0;
+                fromWaypointIndex++;
+
+                if (!cyclic)
+                {
+                    if (fromWaypointIndex >= globalWaypoints.Length - 1)
+                    {
+                        fromWaypointIndex = 0;
+                        System.Array.Reverse(globalWaypoints);
+                    }
+                }
+                nextMoveTime = Time.time + waitTime;
+            }
+
+            return newPos - transform.position;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
     }
 
     void MovePassengers(bool beforeMovePlatform)
@@ -125,7 +155,8 @@ public class PlatformController : RaycastController
                     if (!movedPassengers.Contains(hit.transform))
                     {
                         movedPassengers.Add(hit.transform);
-                        float pushX = (directionY == 1) ? velocity.x : 0; //The horizontal velocity we will add to the object
+                        //float pushX = (directionY == 1) ? velocity.x : 0; //The horizontal velocity we will add to the object
+                        float pushX = 0;
                         float pushY = velocity.y - (hit.distance - skinWidth) * directionY; //The vertical velocity we will add to the object
 
                         passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), directionY == 1, true));

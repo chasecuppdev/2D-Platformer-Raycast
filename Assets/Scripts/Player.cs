@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     float jumpVelocity;
     float gravity;
     bool facingRight = true;
+    bool isJumping;
 
     float moveSpeed = 5;
     Vector3 velocity;
@@ -18,15 +19,19 @@ public class Player : MonoBehaviour
     float accelerationTimeAirborne = 0.2f;
     float accelerationTimeGrounded = 0;
 
+    Renderer collisionRenderer;
     Controller2D controller;
     Animator animator;
+    SpriteRenderer sprite;
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
+        collisionRenderer = GetComponent<Renderer>();
         animator = GetComponentInChildren<Animator>();
-        this.GetComponentInChildren<SpriteRenderer>().enabled = false;
-        //this.GetComponent<Renderer>().enabled = false;
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        //sprite.enabled = false;
+        collisionRenderer.enabled = false;
         
         CalculateGravity();
         CalculateJumpVelocity();
@@ -43,11 +48,12 @@ public class Player : MonoBehaviour
         jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
     }
 
-    void RenderAnimations()
+    void RunController()
     {
         float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
+        animator.SetFloat("Speed", Mathf.Abs(velocity.x));
 
-        if (velocity.x > 0.1f || velocity.x < -0.1f)
+        if (Mathf.Abs(velocity.x) > 0.1f)
         {
             if (controller.collisions.below)
             {
@@ -55,25 +61,46 @@ public class Player : MonoBehaviour
                 {
                     if (!facingRight)
                     {
-                        animator.transform.Rotate(new Vector3(0, 180, 0));
+                        sprite.transform.Rotate(new Vector3(0, 180, 0));
                         facingRight = true;
                     }
-                    animator.SetBool("Run", true);
+                    animator.SetBool("IsRunning", true);
                 }
                 else if (directionX == -1)
                 {
                     if (facingRight)
                     {
-                        animator.transform.Rotate(new Vector3(0, 180, 0));
+                        sprite.transform.Rotate(new Vector3(0, 180, 0));
                         facingRight = false;
                     }
-                    animator.SetBool("Run", true);
+                    animator.SetBool("IsRunning", true);
                 }
             }
         }
         else
         {
-            animator.SetBool("Run", false);
+            animator.SetBool("IsRunning", false);
+        }
+    }
+
+    void JumpController()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumping = true;
+            animator.SetBool("IsJumping", true);
+            Debug.Log("IsJumping is " + animator.GetBool("IsJumping").ToString());
+        }
+        
+        if (velocity.y < 0 && !controller.collisions.below)
+        {
+            animator.SetBool("IsFalling", true);
+        }
+
+        if (animator.GetBool("IsFalling") && controller.collisions.below)
+        {
+            animator.SetBool("IsFalling", false);
+            animator.SetBool("IsLanding", true);
         }
     }
 
@@ -95,6 +122,14 @@ public class Player : MonoBehaviour
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTimeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        RenderAnimations();
+        RunController();
+        JumpController();
+
+    }
+
+    private void FixedUpdate()
+    {
+        animator.SetBool("IsLanding", false);
+        animator.SetBool("IsJumping", false);
     }
 }
