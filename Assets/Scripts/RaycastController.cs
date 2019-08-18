@@ -31,6 +31,7 @@ public class RaycastController : MonoBehaviour
         public bool right;
 
         public bool insidePlatform;
+        public bool fallingThroughPlatform;
 
         public bool climbingSlope;
         public float slopeAngle;
@@ -41,6 +42,7 @@ public class RaycastController : MonoBehaviour
         public Vector3 velocityOld;
 
         public int faceDir;
+
 
         public void Reset()
         {
@@ -65,9 +67,13 @@ public class RaycastController : MonoBehaviour
         public Vector2 bottomRight;
     }
 
+    private void Awake()
+    {
+        collider = GetComponent<BoxCollider2D>(); //Declaring this in Awake to ensure it gets created first, as CameraFollow also uses collider in its Start method
+    }
+
     public virtual void Start()
     {
-        collider = GetComponent<BoxCollider2D>();
         CalculateRaySpacing();
     }
 

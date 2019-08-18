@@ -5,9 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] float jumpHeight = 4;
+    [SerializeField] float maxJumpHeight = 4;
+    [SerializeField] float minJumpHeight = 2;
     [SerializeField] float timeToJumpApex = 0.4f;
-    float jumpVelocity;
+    float maxJumpVelocity;
+    float minJumpVelocity;
     float gravity;
     bool facingRight = true;
 
@@ -42,17 +44,18 @@ public class Player : MonoBehaviour
 
         CalculateGravity();
         CalculateJumpVelocity();
-        Debug.Log("Gravity: " + gravity + " |||||| " + "JumpVelocity:" + jumpVelocity);
+        Debug.Log("Gravity: " + gravity + " |||||| " + "JumpVelocity:" + maxJumpVelocity);
     }
 
     void CalculateGravity()
     {
-        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
     }
 
     void CalculateJumpVelocity()
     {
-        jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
 
     void RunController()
@@ -105,11 +108,6 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (wallSliding)
@@ -133,7 +131,15 @@ public class Player : MonoBehaviour
             if (controller.collisions.below)
             {
                 animator.SetBool("IsJumping", true);
-                velocity.y = jumpVelocity;
+                velocity.y = maxJumpVelocity;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (velocity.y > minJumpVelocity)
+            {
+                velocity.y = minJumpVelocity;
             }
         }
 
@@ -183,7 +189,12 @@ public class Player : MonoBehaviour
         JumpController(input);
 
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime, input);
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
 
         DirectionController();
         RunController();
@@ -192,7 +203,6 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("Horiz velocity : " + velocity.x);
         animator.SetBool("IsLanding", false);
         animator.SetBool("IsJumping", false);
     }

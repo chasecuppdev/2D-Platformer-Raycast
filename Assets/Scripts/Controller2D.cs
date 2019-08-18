@@ -8,6 +8,9 @@ public class Controller2D : RaycastController
     float maxClimbAngle = 80.0f;
     float maxDescendAngle = 75.0f;
 
+    [HideInInspector]
+    public Vector2 playerInput;
+
     public CollisionInfo collisions;
 
     public override void Start()
@@ -15,12 +18,20 @@ public class Controller2D : RaycastController
         base.Start();
         collisions.faceDir = 1;
     }
+
+    //Overloading move method so the platform controller doesn't need to worry about passing the input vector
+    public void Move(Vector3 velocity, bool standingOnPlatfrom)
+    {
+        Move(velocity, Vector2.zero, standingOnPlatfrom);
+    }
+
     //We have standingOnPlatform bool her because with platforms, we can be moving up vertically but still want to be able to jump
-    public void Move(Vector3 velocity, bool standingOnPlatform = false)
+    public void Move(Vector3 velocity, Vector2 input, bool standingOnPlatform = false)
     {
         UpdateRaycastOrigins();
         collisions.Reset();
         collisions.velocityOld = velocity;
+        playerInput = input;
 
         if (velocity.x != 0)
         {
@@ -142,6 +153,24 @@ public class Controller2D : RaycastController
 
             if (hit) //Returns null if nothing was hit
             {
+                //We want to be able to jump up through platforms
+                if (hit.collider.tag == "Through")
+                {
+                    if (directionY == 1 || hit.distance == 0) //check for hit distance zero so we don't get "pushed" up through the platform if we don't quite make it
+                    {
+                        continue;
+                    }
+                    if (collisions.fallingThroughPlatform)
+                    {
+                        continue;
+                    }
+                    if (playerInput.y == -1) //Allow players to fall through platforms if they press down
+                    {
+                        collisions.fallingThroughPlatform = true;
+                        Invoke("ResetFallingThroughPlatorm", 0.5f);
+                        continue;
+                    }
+                }
                 velocity.y = (hit.distance - skinWidth) * directionY; //We set the distance we want to move vertically equal to the distance of the raycast that intersected with an obstacle, keeping in mind the skin width
                 //Setting the rayLength here is very important. Suppose the left half of the collider is over a ledge and the right half is over the ground.
                 //If we did not set the raylength once we hit something, then the last ray (the rightmost ray in this case) would always have priority in setting the moveDistance,
@@ -231,5 +260,10 @@ public class Controller2D : RaycastController
                 }
             }
         }
+    }
+
+    void ResetFallingThroughPlatorm()
+    {
+        collisions.fallingThroughPlatform = false;
     }
 }

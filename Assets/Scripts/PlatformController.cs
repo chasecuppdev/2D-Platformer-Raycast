@@ -149,7 +149,7 @@ public class PlatformController : RaycastController
                 rayOrigin += Vector2.right * (verticalRaySpacing * i); //Updating the starting position for each vertical raycast for each loop iteration
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, passengerMask); //Draw a vertical ray and check for collision
 
-                if (hit)
+                if (hit && hit.distance != 0) //We don't want to move the passengers if they are "inside" the platform
                 {
                     //We only want to move each object once per frame (without this, an object could update for each raycast)
                     if (!movedPassengers.Contains(hit.transform))
@@ -175,7 +175,7 @@ public class PlatformController : RaycastController
                 rayOrigin += Vector2.up * (horizontalRaySpacing * i); //Updating the starting position for each horizontal raycast for each loop iteration
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask); //Draw a horizontal ray and check for collision
 
-                if (hit)
+                if (hit && hit.distance != 0) //We don't want to move the passengers if they are "inside" the platform
                 {
                     //We only want to move each object once per frame (without this, an object could update for each raycast)
                     if (!movedPassengers.Contains(hit.transform))
@@ -200,7 +200,7 @@ public class PlatformController : RaycastController
                 rayOrigin += Vector2.right * (verticalRaySpacing * i); //Updating the starting position for each vertical raycast for each loop iteration
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, passengerMask); //Draw a vertical ray and check for collision
 
-                if (hit)
+                if (hit && hit.distance != 0) //We don't want to move the passengers if they are "inside" the platform
                 {
                     //We only want to move each object once per frame (without this, an object could update for each raycast)
                     if (!movedPassengers.Contains(hit.transform))
