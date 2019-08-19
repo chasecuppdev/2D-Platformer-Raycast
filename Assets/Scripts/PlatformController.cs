@@ -125,7 +125,9 @@ public class PlatformController : RaycastController
 
             if (passenger.moveBeforePlatform == beforeMovePlatform)
             {
-                passengerDictionary[passenger.transform].Move(passenger.velocity, passenger.standingOnPlatform);
+                //This originally used the overload with just 2 parameter (no player input), but this caused the camera to not adjust horizontally when on a platform
+                //This works now for the player character, but I'm not sure if it will work with ai characters on platforms. Might need to revisit
+                passengerDictionary[passenger.transform].Move(passenger.velocity, passengerDictionary[passenger.transform].playerInput, passenger.standingOnPlatform);
             }
         }
     }

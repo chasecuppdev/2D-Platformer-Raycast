@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    int lookAheadStopFrameCount = 0;
     public Controller2D target;
     public Vector2 focusAreaSize;
     public float verticalOffset;
@@ -19,7 +20,7 @@ public class CameraFollow : MonoBehaviour
     float smoothLookVelocityX;
     float smoothVelocityY;
 
-    bool lookAheadStopped;
+    bool lookAheadStopped = true;
 
     struct FocusArea
     {
@@ -97,12 +98,13 @@ public class CameraFollow : MonoBehaviour
             {
                 if (!lookAheadStopped)
                 {
+                    lookAheadStopFrameCount++;
+                    Debug.Log("lookedAheadStopFrameCount: " + lookAheadStopFrameCount);
                     lookAheadStopped = true;
                     targetLookAheadX = currentLookAheadX + (lookAheadDirectionX * lookAheadDistanceX - currentLookAheadX) / 4f;
                 }
             }
         }
-        targetLookAheadX = lookAheadDirectionX * lookAheadDistanceX;
         currentLookAheadX = Mathf.SmoothDamp(currentLookAheadX, targetLookAheadX, ref smoothLookVelocityX, lookSmoothTimeX);
 
         focusPosition.y = Mathf.SmoothDamp(transform.position.y, focusPosition.y, ref smoothVelocityY, verticalSmoothTime);

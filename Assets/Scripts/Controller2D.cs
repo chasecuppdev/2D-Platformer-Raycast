@@ -33,6 +33,8 @@ public class Controller2D : RaycastController
         collisions.velocityOld = velocity;
         playerInput = input;
 
+        if (playerInput.x == 0) ;
+
         if (velocity.x != 0)
         {
             collisions.faceDir = (int)Mathf.Sign(velocity.x);

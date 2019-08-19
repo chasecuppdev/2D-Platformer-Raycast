@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     float velocityXSmoothing;
 
     float accelerationTimeAirborne = 0.2f;
-    float accelerationTimeGrounded = 0;
+    float accelerationTimeGrounded = 0.01f;
 
     Renderer collisionRenderer;
     Controller2D controller;
