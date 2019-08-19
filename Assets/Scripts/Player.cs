@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     float accelerationTimeAirborne = 0.2f;
     float accelerationTimeGrounded = 0.01f;
 
-    Renderer collisionRenderer;
+    //Renderer collisionRenderer;
     Controller2D controller;
     Animator animator;
     SpriteRenderer sprite;
@@ -36,11 +36,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GetComponent<Controller2D>();
-        collisionRenderer = GetComponent<Renderer>();
-        animator = GetComponentInChildren<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        //collisionRenderer = GetComponent<Renderer>();
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         //sprite.enabled = false;
-        collisionRenderer.enabled = false;
+        //collisionRenderer.enabled = false;
 
         CalculateGravity();
         CalculateJumpVelocity();
@@ -67,7 +67,6 @@ public class Player : MonoBehaviour
             if (controller.collisions.below)
             {
                 animator.SetBool("IsRunning", true);
-
             }
         }
         else
@@ -165,7 +164,8 @@ public class Player : MonoBehaviour
             {
                 if (!facingRight)
                 {
-                    sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    //sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    sprite.flipX = false;
                     facingRight = true;
                 }
             }
@@ -173,7 +173,8 @@ public class Player : MonoBehaviour
             {
                 if (facingRight)
                 {
-                    sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    //sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    sprite.flipX = true;
                     facingRight = false;
                 }
             }
@@ -183,6 +184,10 @@ public class Player : MonoBehaviour
     private void Update()
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (input.x == -1)
+        {
+
+        }
         float targetVelocityX = input.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 
@@ -190,6 +195,8 @@ public class Player : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime, input);
+
+        //Debug.Log("Horizontal Velocity : " + velocity.x);
 
         if (controller.collisions.above || controller.collisions.below)
         {

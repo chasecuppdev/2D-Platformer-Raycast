@@ -7,9 +7,9 @@ public class RaycastController : MonoBehaviour
 {
     public LayerMask collisionMask;
 
-    public int PlayerLayer = 8;
-    public int ObstacleLayer = 9;
-    public int PlatformLayer = 10;
+    int PlayerLayer = 8;
+    int ObstacleLayer = 9;
+    int PlatformLayer = 10;
 
     public const float skinWidth = 0.015f; //We use a "skin" width so the rays aren't fire directly from the edges of the collider
     public int horizontalRayCount;

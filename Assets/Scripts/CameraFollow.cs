@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    int lookAheadStopFrameCount = 0;
     public Controller2D target;
     public Vector2 focusAreaSize;
     public float verticalOffset;
@@ -98,8 +97,6 @@ public class CameraFollow : MonoBehaviour
             {
                 if (!lookAheadStopped)
                 {
-                    lookAheadStopFrameCount++;
-                    Debug.Log("lookedAheadStopFrameCount: " + lookAheadStopFrameCount);
                     lookAheadStopped = true;
                     targetLookAheadX = currentLookAheadX + (lookAheadDirectionX * lookAheadDistanceX - currentLookAheadX) / 4f;
                 }
