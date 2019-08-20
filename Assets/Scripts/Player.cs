@@ -63,7 +63,14 @@ public class Player : MonoBehaviour
 
         if (controller.collisions.above || controller.collisions.below)
         {
-            velocity.y = 0;
+            if (controller.collisions.slidingDownMaxSlope)
+            {
+                velocity.y += controller.collisions.slopeNormal.y * -gravity * Time.deltaTime;
+            }
+            else
+            {
+                velocity.y = 0;
+            }
         }
 
         DirectionController();
@@ -104,8 +111,21 @@ public class Player : MonoBehaviour
         }
         if (controller.collisions.below)
         {
-            animator.SetBool("IsJumping", true);
-            velocity.y = maxJumpVelocity;
+            if (controller.collisions.slidingDownMaxSlope)
+            {
+                if (directionalInput.x != -Mathf.Sign(controller.collisions.slopeNormal.x)) //Not jumping against maxSlope
+                {
+                    animator.SetBool("IsJumping", true);
+                    velocity.y = maxJumpVelocity * controller.collisions.slopeNormal.y;
+                    velocity.x = maxJumpVelocity * controller.collisions.slopeNormal.x;
+
+                }
+            }
+            else
+            {
+                animator.SetBool("IsJumping", true);
+                velocity.y = maxJumpVelocity;
+            }
         }
     }
 

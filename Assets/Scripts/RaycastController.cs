@@ -39,10 +39,11 @@ public class RaycastController : MonoBehaviour
         public bool climbingSlope;
         public float slopeAngle;
         public float slopeAngleOld;
-
         public bool descendingSlope;
+        public bool slidingDownMaxSlope;
+        public Vector2 slopeNormal;
 
-        public Vector3 velocityOld;
+        public Vector2 velocityOld;
 
         public int faceDir;
 
@@ -56,9 +57,11 @@ public class RaycastController : MonoBehaviour
             insidePlatform = false;
             climbingSlope = false;
             descendingSlope = false;
+            slidingDownMaxSlope = false;
 
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;
+            slopeNormal = Vector2.zero;
         }
     }
 
