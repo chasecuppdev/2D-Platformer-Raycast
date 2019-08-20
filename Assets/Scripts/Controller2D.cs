@@ -20,43 +20,43 @@ public class Controller2D : RaycastController
     }
 
     //Overloading move method so the platform controller doesn't need to worry about passing the input vector
-    public void Move(Vector3 velocity, bool standingOnPlatfrom)
+    public void Move(Vector2 moveDistance, bool standingOnPlatfrom)
     {
-        Move(velocity, Vector2.zero, standingOnPlatfrom);
+        Move(moveDistance, Vector2.zero, standingOnPlatfrom);
     }
 
     //We have standingOnPlatform bool her because with platforms, we can be moving up vertically but still want to be able to jump
-    public void Move(Vector3 velocity, Vector2 input, bool standingOnPlatform = false)
+    public void Move(Vector2 moveDistance, Vector2 input, bool standingOnPlatform = false)
     {
         UpdateRaycastOrigins();
         collisions.Reset();
-        collisions.velocityOld = velocity;
+        collisions.velocityOld = moveDistance;
         playerInput = input;
 
-        if (velocity.x != 0)
+        if (moveDistance.x != 0)
         {
-            collisions.faceDir = (int)Mathf.Sign(velocity.x);
+            collisions.faceDir = (int)Mathf.Sign(moveDistance.x);
         }
-        if (velocity.y < 0)
+        if (moveDistance.y < 0)
         {
-            DescendSlope(ref velocity);
+            DescendSlope(ref moveDistance);
         }
         
-        //if (velocity.x != 0) //No need to check for collisions if we aren't moving horizontally
+        //if (moveDistance.x != 0) //No need to check for collisions if we aren't moving horizontally
         //{
-        //    HorizontalCollisions(ref velocity);
+        //    HorizontalCollisions(ref moveDistance);
         //}
 
-        HorizontalCollisions(ref velocity);
+        HorizontalCollisions(ref moveDistance);
 
-        if (velocity.y != 0) //No need to check for collisions if we aren't moving vertically
+        if (moveDistance.y != 0) //No need to check for collisions if we aren't moving vertically
         {
-            VerticalCollisions(ref velocity);
+            VerticalCollisions(ref moveDistance);
         }
 
-        Debug.Log("Horizontal Velocity : " + velocity.x);
+        Debug.Log("Horizontal moveDistance : " + moveDistance.x);
 
-        transform.Translate(velocity);
+        transform.Translate(moveDistance);
         
         if (standingOnPlatform)
         {
@@ -64,13 +64,13 @@ public class Controller2D : RaycastController
         }
     }
 
-    void HorizontalCollisions(ref Vector3 velocity)
+    void HorizontalCollisions(ref Vector2 moveDistance)
     {
-        //float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
+        //float directionX = Mathf.Sign(moveDistance.x); //Get the horizontal direction of movement
         float directionX = collisions.faceDir;
-        float rayLength = Mathf.Abs(velocity.x) + skinWidth; //Get the length of the movement and remember to add back in skin width
+        float rayLength = Mathf.Abs(moveDistance.x) + skinWidth; //Get the length of the movement and remember to add back in skin width
 
-        if (Mathf.Abs(velocity.x) < skinWidth)
+        if (Mathf.Abs(moveDistance.x) < skinWidth)
         {
             rayLength = 2 * skinWidth;
         }
@@ -98,7 +98,7 @@ public class Controller2D : RaycastController
                     if (collisions.descendingSlope) //If we were descending and then hit another slope that causes us to start ascending
                     {
                         collisions.descendingSlope = false;
-                        velocity = collisions.velocityOld;
+                        moveDistance = collisions.velocityOld;
                     }
                     float distanceToSlopeStart = 0;
                     if (slopeAngle != collisions.slopeAngleOld) //Only redo this calculation if we are hitting a new slope
@@ -109,29 +109,29 @@ public class Controller2D : RaycastController
                         //from our x moveDistance, we allow the ClimbSlope calculations to happen correctly based on where the object is when the raycast detects the slope,
                         //and then add back in the distance such that our object will be sitting on the slope and not hovering over it. 
                         distanceToSlopeStart = hit.distance - skinWidth; //Since the raycast is a little in front of our object, we need to keep track of that distance so we don't float on the slope after climbing
-                        velocity.x -= distanceToSlopeStart * directionX; //Our velocity (or position) is where it will be after this frame, not where it is now that we have hit the slope. We want to calculate the climbing vector with our current position
+                        moveDistance.x -= distanceToSlopeStart * directionX; //Our moveDistance (or position) is where it will be after this frame, not where it is now that we have hit the slope. We want to calculate the climbing vector with our current position
                     }
-                    ClimbSlope(ref velocity, slopeAngle); 
-                    velocity.x += (distanceToSlopeStart) * directionX; //Add back in the horizontal distance we removed earlier so we aren't misaligned horizontally and thus floating on the slope
+                    ClimbSlope(ref moveDistance, slopeAngle); 
+                    moveDistance.x += (distanceToSlopeStart) * directionX; //Add back in the horizontal distance we removed earlier so we aren't misaligned horizontally and thus floating on the slope
                 }
 
                 //If we aren't on a slope or if we hit a wall (even if we are on a slope)
                 if (!collisions.climbingSlope || slopeAngle > maxClimbAngle) 
                 {
-                    //velocity.x = (hit.distance - skinWidth) * directionX; //We set the distance we want to move horizontally equal to the distance of the raycast that intersected with an obstacle, keeping in mind the skin width
-                    velocity.x = Mathf.Min(Mathf.Abs(velocity.x), (hit.distance - skinWidth)) * directionX;
+                    //moveDistance.x = (hit.distance - skinWidth) * directionX; //We set the distance we want to move horizontally equal to the distance of the raycast that intersected with an obstacle, keeping in mind the skin width
+                    moveDistance.x = Mathf.Min(Mathf.Abs(moveDistance.x), (hit.distance - skinWidth)) * directionX;
                     //Setting the rayLength here is very important. Suppose the collider is moving right into a step such that the collider is twice as tall as the step.
                     //If we did not set the raylength once we hit something, then the last ray (the uppermost ray in this case) would always have priority in setting the moveDistance,
                     //and in this example we would go through the step and collide with the next step. But since we have set the rayLength to be the distance in which we collided with
                     //closest step, none of the raycasts that are taller than the step will be long enough to collide with the second step and we will collide with the first step.
                     //Basically, the closest object a raycast hits in this example will be how much we should move down in the horizontal direction.
                     //rayLength = hit.distance; //Set the rayLength each time a collision is detected so we ensure we collide with the closest obstacle
-                    rayLength = Mathf.Min(Mathf.Abs(velocity.x) + skinWidth, hit.distance);
+                    rayLength = Mathf.Min(Mathf.Abs(moveDistance.x) + skinWidth, hit.distance);
 
-                    //If we hit an obstacle horizontally that is not climbable while climbing, we need to adjust our y velocity as our x velocity is reducing (since we hit something and are no longer moving)
+                    //If we hit an obstacle horizontally that is not climbable while climbing, we need to adjust our y moveDistance as our x moveDistance is reducing (since we hit something and are no longer moving)
                     if (collisions.climbingSlope) 
                     {
-                        velocity.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x);
+                        moveDistance.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(moveDistance.x);
                     }
                     collisions.left = (directionX == -1);
                     collisions.right = (directionX == 1);
@@ -140,15 +140,15 @@ public class Controller2D : RaycastController
         }
     }
 
-    void VerticalCollisions(ref Vector3 velocity)
+    void VerticalCollisions(ref Vector2 moveDistance)
     {
-        float directionY = Mathf.Sign(velocity.y); //Get the vertical direction of movement
-        float rayLength = Mathf.Abs(velocity.y) + skinWidth; //Get the length of the movement and remember to add back in skin width
+        float directionY = Mathf.Sign(moveDistance.y); //Get the vertical direction of movement
+        float rayLength = Mathf.Abs(moveDistance.y) + skinWidth; //Get the length of the movement and remember to add back in skin width
 
         for (int i = 0; i < verticalRayCount; i++)
         {
             Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft; //If we are moving down, iteratively cast down from the bottom left, and if not, iteratively cast up from the top left
-            rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x); //Updating the starting position for each vertical raycast for each loop iteration
+            rayOrigin += Vector2.right * (verticalRaySpacing * i + moveDistance.x); //Updating the starting position for each vertical raycast for each loop iteration
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask); //Draw a vertical ray and check for collision
 
             Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
@@ -173,7 +173,7 @@ public class Controller2D : RaycastController
                         continue;
                     }
                 }
-                velocity.y = (hit.distance - skinWidth) * directionY; //We set the distance we want to move vertically equal to the distance of the raycast that intersected with an obstacle, keeping in mind the skin width
+                moveDistance.y = (hit.distance - skinWidth) * directionY; //We set the distance we want to move vertically equal to the distance of the raycast that intersected with an obstacle, keeping in mind the skin width
                 //Setting the rayLength here is very important. Suppose the left half of the collider is over a ledge and the right half is over the ground.
                 //If we did not set the raylength once we hit something, then the last ray (the rightmost ray in this case) would always have priority in setting the moveDistance,
                 //and in this example we would go through the ledge and collide with the ground. But since we have set the rayLength to be the distance in which we collided with
@@ -181,10 +181,10 @@ public class Controller2D : RaycastController
                 //Basically, the highest object a raycast hits in this example will be how much we should move down in the vertical direction.
                 rayLength = hit.distance; //Set the rayLength each time a collision is detected so we ensure we collide with the closest obstacle
 
-                //If we hit an obstacle above us while climbing, we need to adjust our x velocity as our y velocity is reducing (since we hit something and are no longer moving)
+                //If we hit an obstacle above us while climbing, we need to adjust our x moveDistance as our y moveDistance is reducing (since we hit something and are no longer moving)
                 if (collisions.climbingSlope)
                 {
-                    velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
+                    moveDistance.x = moveDistance.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(moveDistance.x);
                 }
 
                 collisions.below = (directionY == -1);
@@ -196,9 +196,9 @@ public class Controller2D : RaycastController
         //Even though this is a horizontal collision check, we want it at the end of vertical collisions since it always gets called second and having this logic run last results in smoother movement.
         if (collisions.climbingSlope)
         {
-            float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
-            rayLength = Mathf.Abs(velocity.x) + skinWidth; //Only check the distance we could move in one frame based on our current x velocity
-            Vector2 rayOrigin = ((directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight) + Vector2.up * velocity.y; //This will check a little further up (our new height after ascending the new slope) than from the bottom based on our y velocity
+            float directionX = Mathf.Sign(moveDistance.x); //Get the horizontal direction of movement
+            rayLength = Mathf.Abs(moveDistance.x) + skinWidth; //Only check the distance we could move in one frame based on our current x moveDistance
+            Vector2 rayOrigin = ((directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight) + Vector2.up * moveDistance.y; //This will check a little further up (our new height after ascending the new slope) than from the bottom based on our y moveDistance
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask); //Draw a horizontal ray and check for collision
         
             if (hit) //Returns null if nothing was hit
@@ -208,23 +208,23 @@ public class Controller2D : RaycastController
                 {
                     //Since we were increasing our y component for the new slope, we should be decreasing our x
                     //Since we already have our new y position, we adjust our x component to be the hit distance to the new slope
-                    velocity.x = (hit.distance - skinWidth) * directionX;
+                    moveDistance.x = (hit.distance - skinWidth) * directionX;
                     collisions.slopeAngle = slopeAngle;
                 }
             }
         }
     }
 
-    void ClimbSlope(ref Vector3 velocity, float slopeAngle)
+    void ClimbSlope(ref Vector2 moveDistance, float slopeAngle)
     {
-        float moveDistance = Mathf.Abs(velocity.x); //Get the magnitude of horizontal movement
-        //The vertical component of the movement vector will be the sin of the slope angle times moveDistance [y = x * sin(theta)]
-        float climbVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance; //SOH (opposite / hypotenuse)
-        if (velocity.y <= climbVelocityY) //Climbing the slope and not jumping
+        float moveMagnitude = Mathf.Abs(moveDistance.x); //Get the magnitude of horizontal movement
+        //The vertical component of the movement vector will be the sin of the slope angle times moveMagnitude [y = x * sin(theta)]
+        float climbVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveMagnitude; //SOH (opposite / hypotenuse)
+        if (moveDistance.y <= climbVelocityY) //Climbing the slope and not jumping
         {
-            velocity.y = climbVelocityY;
-            //The horizontal component of the movement vector will be the cos of the slope angle times moveDistance [x = y * cos(theta)]
-            velocity.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(velocity.x);//CAH (adjacent / hypotenuse)
+            moveDistance.y = climbVelocityY;
+            //The horizontal component of the movement vector will be the cos of the slope angle times moveMagnitude [x = y * cos(theta)]
+            moveDistance.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveMagnitude * Mathf.Sign(moveDistance.x);//CAH (adjacent / hypotenuse)
 
             collisions.below = true;
             collisions.climbingSlope = true;
@@ -232,28 +232,28 @@ public class Controller2D : RaycastController
         }
     }
 
-    void DescendSlope(ref Vector3 velocity)
+    void DescendSlope(ref Vector2 moveDistance)
     {
-        float directionX = Mathf.Sign(velocity.x); //Get the horizontal direction of movement
+        float directionX = Mathf.Sign(moveDistance.x); //Get the horizontal direction of movement
         Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomRight : raycastOrigins.bottomLeft; //If we are moving left, cast down from the bottom right, and if not, cast down from the bottom left
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, Mathf.Infinity, collisionMask); // Draw a horizontal ray downward and check for collision
  
         if (hit) //Returns null if nothing was hit
         {
             float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-            //Since this method is called when we have negative velocity, only make adjustments if we are actually descending a valid slope
+            //Since this method is called when we have negative moveDistance, only make adjustments if we are actually descending a valid slope
             if (slopeAngle != 0 && slopeAngle <= maxDescendAngle)
             {
                 if (Mathf.Sign(hit.normal.x) == directionX) //if we are actually travelling in the same direction the slope descends
                 {
-                    //Since we are casting an infinite ray downwards, check to see the ray hit distance is smaller (closer) than than what our y component of velocity would be if we were moving down the slope (based on our current x velocity)
+                    //Since we are casting an infinite ray downwards, check to see the ray hit distance is smaller (closer) than than what our y component of moveDistance would be if we were moving down the slope (based on our current x moveDistance)
                     //If it is then we are close enough to begin descending
-                    if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x)) 
+                    if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(moveDistance.x)) 
                     {
-                        float moveDistance = Mathf.Abs(velocity.x); //Get the magnitude of horizontal movement
-                        float descendVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance; //The vertical component of the movement vector will be the sin of the slope angle times moveDistance [y = x * sin(theta)]
-                        velocity.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(velocity.x); //The horizontal component of the movement vector will be the cos of the slope angle times moveDistance [x = y * cos(theta)]
-                        velocity.y -= descendVelocityY; //Basically the same as setting to -descendVelocity, but this is safter as the y velocity can fluctuate with gravity
+                        float moveMagnitude = Mathf.Abs(moveDistance.x); //Get the magnitude of horizontal movement
+                        float descendVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveMagnitude; //The vertical component of the movement vector will be the sin of the slope angle times moveMagnitude [y = x * sin(theta)]
+                        moveDistance.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveMagnitude * Mathf.Sign(moveDistance.x); //The horizontal component of the movement vector will be the cos of the slope angle times moveMagnitude [x = y * cos(theta)]
+                        moveDistance.y -= descendVelocityY; //Basically the same as setting to -descendVelocity, but this is safter as the y moveDistance can fluctuate with gravity
 
                         collisions.slopeAngle = slopeAngle;
                         collisions.descendingSlope = true;

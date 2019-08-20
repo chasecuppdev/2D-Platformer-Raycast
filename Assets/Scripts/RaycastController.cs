@@ -12,7 +12,10 @@ public class RaycastController : MonoBehaviour
     int PlatformLayer = 10;
 
     public const float skinWidth = 0.015f; //We use a "skin" width so the rays aren't fire directly from the edges of the collider
+    const float distanceBetweenRays = 0.1f;
+    [HideInInspector]
     public int horizontalRayCount;
+    [HideInInspector]
     public int verticalRayCount;
 
     [HideInInspector]
@@ -93,6 +96,12 @@ public class RaycastController : MonoBehaviour
     {
         Bounds bounds = collider.bounds;
         bounds.Expand(skinWidth * -2); //We want the rays firing from slightly within the collider so that we still have room to cast rays even when grounded or touching an obstacle
+
+        float boundsWidth = bounds.size.x;
+        float boundsHeight = bounds.size.y;
+
+        horizontalRayCount = Mathf.RoundToInt(boundsHeight / distanceBetweenRays);
+        verticalRayCount = Mathf.RoundToInt(boundsWidth / distanceBetweenRays);
 
         //Ensure that we always have at least 2 raycasts for both horizontal and vertical
         horizontalRayCount = Mathf.Clamp(horizontalRayCount, 2, int.MaxValue);

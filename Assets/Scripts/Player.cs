@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     float gravity;
     bool facingRight = true;
 
+    bool wallSliding;
+    int wallDirectionX;
+
     public Vector2 wallJumpClimb;
     public Vector2 wallJumpOff;
     public Vector2 wallLeap;
@@ -33,6 +36,8 @@ public class Player : MonoBehaviour
     Animator animator;
     SpriteRenderer sprite;
 
+    Vector2 directionalInput;
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -45,6 +50,111 @@ public class Player : MonoBehaviour
         CalculateGravity();
         CalculateJumpVelocity();
         Debug.Log("Gravity: " + gravity + " |||||| " + "JumpVelocity:" + maxJumpVelocity);
+    }
+
+    private void Update()
+    {
+
+        CalculateVelocity();
+        HandleWallSliding();
+        CheckFallingAndLanding();
+
+        controller.Move(velocity * Time.deltaTime, directionalInput);
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
+
+        DirectionController();
+        RunController();
+
+    }
+
+    private void FixedUpdate()
+    {
+        animator.SetBool("IsLanding", false);
+        animator.SetBool("IsJumping", false);
+    }
+
+    public void SetDirectionalInput(Vector2 input)
+    {
+        directionalInput = input;
+    }
+
+    public void OnJumpInputDown()
+    {
+        if (wallSliding)
+        {
+            if (wallDirectionX == directionalInput.x)
+            {
+                velocity.x = -wallDirectionX * wallJumpClimb.x;
+                velocity.y = wallJumpClimb.y;
+            }
+            else if (directionalInput.x == 0)
+            {
+                velocity.x = -wallDirectionX * wallJumpClimb.x;
+                velocity.y = wallJumpOff.y;
+            }
+            else
+            {
+                velocity.x = -wallDirectionX * wallLeap.x;
+                velocity.y = wallLeap.y;
+            }
+        }
+        if (controller.collisions.below)
+        {
+            animator.SetBool("IsJumping", true);
+            velocity.y = maxJumpVelocity;
+        }
+    }
+
+    public void OnJumpInputUp()
+    {
+        if (velocity.y > minJumpVelocity)
+        {
+            velocity.y = minJumpVelocity;
+        }
+    }
+
+    void CalculateVelocity()
+    {
+        float targetVelocityX = directionalInput.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        velocity.y += gravity * Time.deltaTime;
+    }
+
+    void HandleWallSliding()
+    {
+        wallDirectionX = (controller.collisions.left) ? -1 : 1;
+        wallSliding = false;
+
+        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
+        {
+            wallSliding = true;
+            if (velocity.y < -wallSlideSpeedMax)
+            {
+                velocity.y = -wallSlideSpeedMax;
+            }
+
+            if (timeToWallUnstick > 0)
+            {
+                if (directionalInput.x != wallDirectionX && directionalInput.x != 0)
+                {
+                    velocityXSmoothing = 0;
+                    velocity.x = 0;
+                    timeToWallUnstick -= Time.deltaTime;
+                }
+                else
+                {
+                    timeToWallUnstick = wallStickTime;
+                }
+            }
+            else
+            {
+                timeToWallUnstick = wallStickTime;
+            }
+        }
     }
 
     void CalculateGravity()
@@ -75,73 +185,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    void JumpController(Vector2 input)
+    void CheckFallingAndLanding()
     {
-        int WallDirX = (controller.collisions.left) ? -1 : 1;
-        bool wallSliding = false;
-
-        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
-        {
-            wallSliding = true;
-            if (velocity.y < -wallSlideSpeedMax)
-            {
-                velocity.y = -wallSlideSpeedMax;
-            }
-
-            if (timeToWallUnstick > 0)
-            {
-                if (input.x != WallDirX && input.x != 0)
-                {
-                    velocityXSmoothing = 0;
-                    velocity.x = 0;
-                    timeToWallUnstick -= Time.deltaTime;
-                }
-                else
-                {
-                    timeToWallUnstick = wallStickTime;
-                }
-            }
-            else
-            {
-                timeToWallUnstick = wallStickTime;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (wallSliding)
-            {
-                if (WallDirX == input.x)
-                {
-                    velocity.x = -WallDirX * wallJumpClimb.x;
-                    velocity.y = wallJumpClimb.y;
-                }
-                else if (input.x == 0)
-                {
-                    velocity.x = -WallDirX * wallJumpClimb.x;
-                    velocity.y = wallJumpOff.y;
-                }
-                else
-                {
-                    velocity.x = -WallDirX * wallLeap.x;
-                    velocity.y = wallLeap.y;
-                }
-            }
-            if (controller.collisions.below)
-            {
-                animator.SetBool("IsJumping", true);
-                velocity.y = maxJumpVelocity;
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            if (velocity.y > minJumpVelocity)
-            {
-                velocity.y = minJumpVelocity;
-            }
-        }
-
         if (velocity.y < 0 && !controller.collisions.below)
         {
             animator.SetBool("IsFalling", true);
@@ -179,38 +224,5 @@ public class Player : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void Update()
-    {
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (input.x == -1)
-        {
-
-        }
-        float targetVelocityX = input.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-
-        JumpController(input);
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime, input);
-
-        //Debug.Log("Horizontal Velocity : " + velocity.x);
-
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
-
-        DirectionController();
-        RunController();
-
-    }
-
-    private void FixedUpdate()
-    {
-        animator.SetBool("IsLanding", false);
-        animator.SetBool("IsJumping", false);
     }
 }
