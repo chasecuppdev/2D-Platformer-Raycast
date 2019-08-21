@@ -27,5 +27,11 @@ public class PlayerInput : MonoBehaviour
         {
             player.OnJumpInputUp();
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            player.OnAttackInput();
+        }
+
     }
 }

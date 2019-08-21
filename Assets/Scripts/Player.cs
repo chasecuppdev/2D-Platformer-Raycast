@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     float gravity;
     bool facingRight = true;
 
+    bool isAttacking;
+
     bool wallSliding;
     int wallDirectionX;
 
@@ -54,7 +56,15 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!isAttacking)
+        {
+            PlayerMove();
+        }
 
+    }
+
+    void PlayerMove()
+    {
         CalculateVelocity();
         HandleWallSliding();
         CheckFallingAndLanding();
@@ -75,7 +85,6 @@ public class Player : MonoBehaviour
 
         DirectionController();
         RunController();
-
     }
 
     private void FixedUpdate()
@@ -135,6 +144,24 @@ public class Player : MonoBehaviour
         {
             velocity.y = minJumpVelocity;
         }
+    }
+
+    public void OnAttackInput()
+    {
+        if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
+        {
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsFalling", false);
+            isAttacking = true;
+            animator.SetBool("IsAttacking", true);
+            velocity.x = 0;
+        }
+    }
+
+    public void OnAttackEnd()
+    {
+        animator.SetBool("IsAttacking", false);
+        isAttacking = false;
     }
 
     void CalculateVelocity()
