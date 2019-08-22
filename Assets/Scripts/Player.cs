@@ -5,39 +5,42 @@ using UnityEngine;
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
+    //Jump Height
+    [Header("Jump Height")]
     [SerializeField] float maxJumpHeight = 4;
     [SerializeField] float minJumpHeight = 2;
     [SerializeField] float timeToJumpApex = 0.4f;
     float maxJumpVelocity;
     float minJumpVelocity;
-    float gravity;
-    bool facingRight = true;
+    float gravity; 
 
-    bool isAttacking;
-
-    bool wallSliding;
-    int wallDirectionX;
-
+    //Wall Sliding and Wall Jumping
+    [Header ("Wall Climbing")]
     public Vector2 wallJumpClimb;
     public Vector2 wallJumpOff;
     public Vector2 wallLeap;
-
+    public float wallSlideSpeedMax;
     public float wallStickTime;
+    bool wallSliding;
+    int wallDirectionX;
     float timeToWallUnstick;
 
+    bool facingRight = true;
+    bool isAttacking;
+
+    //Velocity
     float moveSpeed = 5;
-    public float wallSlideSpeedMax;
     Vector3 velocity;
     float velocityXSmoothing;
-
     float accelerationTimeAirborne = 0.2f;
     float accelerationTimeGrounded = 0.01f;
 
-    //Renderer collisionRenderer;
+    //Components
     Controller2D controller;
     Animator animator;
     SpriteRenderer sprite;
-
+    
+    //Input
     Vector2 directionalInput;
 
     void Start()
@@ -60,7 +63,6 @@ public class Player : MonoBehaviour
         {
             PlayerMove();
         }
-
     }
 
     void PlayerMove()
@@ -102,16 +104,19 @@ public class Player : MonoBehaviour
     {
         if (wallSliding)
         {
+            //Wall Climb
             if (wallDirectionX == directionalInput.x)
             {
                 velocity.x = -wallDirectionX * wallJumpClimb.x;
                 velocity.y = wallJumpClimb.y;
             }
+            //Jump off the wall
             else if (directionalInput.x == 0)
             {
                 velocity.x = -wallDirectionX * wallJumpClimb.x;
                 velocity.y = wallJumpOff.y;
             }
+            //Large horizontal leap off the wall 
             else
             {
                 velocity.x = -wallDirectionX * wallLeap.x;
@@ -122,7 +127,10 @@ public class Player : MonoBehaviour
         {
             if (controller.collisions.slidingDownMaxSlope)
             {
-                if (directionalInput.x != -Mathf.Sign(controller.collisions.slopeNormal.x)) //Not jumping against maxSlope
+                //Check if a player is currently facing and jumping into a maxSlope
+                //We don't want them jumping via wallSliding, but I might change this later
+                //Seems weird to be able to climp vertical walls but not steep slopes
+                if (directionalInput.x != -Mathf.Sign(controller.collisions.slopeNormal.x))
                 {
                     animator.SetBool("IsJumping", true);
                     velocity.y = maxJumpVelocity * controller.collisions.slopeNormal.y;
@@ -150,14 +158,20 @@ public class Player : MonoBehaviour
     {
         if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
         {
+            //We want to reset these animator bools to avoid a race condition with hitting attack as soon as the player hits the ground
+            //Right now this is because attack input is check in Update, while resetting these flags are in FixedUpdate
+            //Will probably want to change this later
             animator.SetBool("IsRunning", false);
             animator.SetBool("IsFalling", false);
             isAttacking = true;
             animator.SetBool("IsAttacking", true);
-            velocity.x = 0;
+            velocity.x = 0; //We don't want the player moving right now while attacking
         }
     }
 
+    /// <summary>
+    /// Called at the end of the attack animation. Is currently attached as an Animation Event to the Player_Standard_Attack animation
+    /// </summary>
     public void OnAttackEnd()
     {
         animator.SetBool("IsAttacking", false);
@@ -173,28 +187,33 @@ public class Player : MonoBehaviour
 
     void HandleWallSliding()
     {
-        wallDirectionX = (controller.collisions.left) ? -1 : 1;
-        wallSliding = false;
+        wallDirectionX = (controller.collisions.left) ? -1 : 1; //Get the wall direction
+        wallSliding = false; //Reset wallSliding for each check
 
+        //If we have a collision on the right or left and we are falling with no collisions below
         if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
         {
             wallSliding = true;
+            //Make sure we don't fall faster than max wall slide speed
             if (velocity.y < -wallSlideSpeedMax)
             {
                 velocity.y = -wallSlideSpeedMax;
             }
 
+            //We want to give the player a small window to move away from the wall to perform a leap
             if (timeToWallUnstick > 0)
             {
+                //Check if the player input is opposite the wall direction
                 if (directionalInput.x != wallDirectionX && directionalInput.x != 0)
                 {
                     velocityXSmoothing = 0;
                     velocity.x = 0;
+                    //This will keep track of the window to leap as long as they keep the correct direction held down
                     timeToWallUnstick -= Time.deltaTime;
                 }
                 else
                 {
-                    timeToWallUnstick = wallStickTime;
+                    timeToWallUnstick = wallStickTime; //Reset unstick time if they stop input opposite the wall
                 }
             }
             else

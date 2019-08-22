@@ -7,17 +7,18 @@ public class RaycastController : MonoBehaviour
 {
     public LayerMask collisionMask;
 
+    //Keeping track of layermasks in case we need them
     int PlayerLayer = 8;
     int ObstacleLayer = 9;
     int PlatformLayer = 10;
 
     public const float skinWidth = 0.015f; //We use a "skin" width so the rays aren't fire directly from the edges of the collider
     const float distanceBetweenRays = 0.1f;
+
     [HideInInspector]
     public int horizontalRayCount;
     [HideInInspector]
     public int verticalRayCount;
-
     [HideInInspector]
     public float horizontalRaySpacing;
     [HideInInspector]
@@ -28,6 +29,7 @@ public class RaycastController : MonoBehaviour
 
     public struct CollisionInfo
     {
+        //Keep track of collisions on each side of the collider
         public bool above;
         public bool below;
         public bool left;
@@ -46,7 +48,6 @@ public class RaycastController : MonoBehaviour
         public Vector2 velocityOld;
 
         public int faceDir;
-
 
         public void Reset()
         {
@@ -75,7 +76,8 @@ public class RaycastController : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<BoxCollider2D>(); //Declaring this in Awake to ensure it gets created first, as CameraFollow also uses collider in its Start method
+        //Declaring this in Awake to ensure it gets created first, as CameraFollow also uses collider in its Start method
+        collider = GetComponent<BoxCollider2D>();
     }
 
     public virtual void Start()
@@ -103,6 +105,7 @@ public class RaycastController : MonoBehaviour
         float boundsWidth = bounds.size.x;
         float boundsHeight = bounds.size.y;
 
+        //Determine the amount of rays we want based on the distanceBetweenRays variable
         horizontalRayCount = Mathf.RoundToInt(boundsHeight / distanceBetweenRays);
         verticalRayCount = Mathf.RoundToInt(boundsWidth / distanceBetweenRays);
 
