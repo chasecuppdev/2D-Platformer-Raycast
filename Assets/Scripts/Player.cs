@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
         RunController();
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         animator.SetBool("IsLanding", false);
         animator.SetBool("IsJumping", false);
@@ -127,14 +127,14 @@ public class Player : MonoBehaviour
         {
             if (controller.collisions.slidingDownMaxSlope)
             {
-                //Check if a player is currently facing and jumping into a maxSlope
+                //Check to make sure the player isn't trying to jump up the slope
                 //We don't want them jumping via wallSliding, but I might change this later
                 //Seems weird to be able to climp vertical walls but not steep slopes
                 if (directionalInput.x != -Mathf.Sign(controller.collisions.slopeNormal.x))
                 {
                     animator.SetBool("IsJumping", true);
                     velocity.y = maxJumpVelocity * controller.collisions.slopeNormal.y;
-                    velocity.x = maxJumpVelocity * controller.collisions.slopeNormal.x;
+                    velocity.x = maxJumpVelocity * controller.collisions.slopeNormal.x * 10f;
 
                 }
             }

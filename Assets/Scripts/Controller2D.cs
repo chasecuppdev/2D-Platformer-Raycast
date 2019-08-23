@@ -82,7 +82,7 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i); //Updating the starting position for each horizontal raycast for each loop iteration
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask); //Draw a horizontal ray and check for collision
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
 
             if (hit) //returns null if nothing was hit
             {
@@ -152,7 +152,7 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.right * (verticalRaySpacing * i + moveDistance.x); //Updating the starting position for each vertical raycast for each loop iteration
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask); //Draw a vertical ray and check for collision
 
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
 
             if (hit) //Returns null if nothing was hit
             {
@@ -269,7 +269,7 @@ public class Controller2D : RaycastController
                             float moveMagnitude = Mathf.Abs(moveDistance.x); //Get the magnitude of horizontal movement
                             float descendVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveMagnitude; //The vertical component of the movement vector will be the sin of the slope angle times moveMagnitude [y = x * sin(theta)]
                             moveDistance.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveMagnitude * Mathf.Sign(moveDistance.x); //The horizontal component of the movement vector will be the cos of the slope angle times moveMagnitude [x = y * cos(theta)]
-                            moveDistance.y -= descendVelocityY; //Basically the same as setting to -descendVelocity, but this is safter as the y moveDistance can fluctuate with gravity
+                            moveDistance.y -= descendVelocityY; //Basically the same as setting to -descendVelocity, but this is safer as the y moveDistance can fluctuate with gravity
 
                             collisions.slopeAngle = slopeAngle;
                             collisions.descendingSlope = true;
@@ -282,6 +282,9 @@ public class Controller2D : RaycastController
         }
     }
 
+    //This needs serious work. 2 major issues
+    //1) Slows down and gets a little stuck at the bottom of the slope
+    //2) Jumping while sliding down the slope isn't working correctly. The x-component of movement gets reset to 0 right after jumping so the jump goes straight up
     void SlideDownMaxSlope(RaycastHit2D hit, ref Vector2 moveDistance)
     {
         if (hit)
@@ -291,7 +294,7 @@ public class Controller2D : RaycastController
             {
                 //hit.normal.x will give us the direction of the slope
                 //If the slope goes down to the left, the x value of the normal vector will be negative
-                moveDistance.x = Mathf.Sign(hit.normal.x) * (Mathf.Abs(moveDistance.y) - hit.distance) / Mathf.Tan(slopeAngle * Mathf.Deg2Rad);
+                moveDistance.x = hit.normal.x * (Mathf.Abs(moveDistance.y) - hit.distance) / Mathf.Tan(slopeAngle * Mathf.Deg2Rad) *.4f; //This is going too fast, so scaling it down some
 
                 collisions.slopeAngle = slopeAngle;
                 collisions.slidingDownMaxSlope = true;

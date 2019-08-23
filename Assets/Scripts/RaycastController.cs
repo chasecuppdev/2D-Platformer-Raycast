@@ -13,7 +13,7 @@ public class RaycastController : MonoBehaviour
     int PlatformLayer = 10;
 
     public const float skinWidth = 0.015f; //We use a "skin" width so the rays aren't fire directly from the edges of the collider
-    const float distanceBetweenRays = 0.1f;
+    const float distanceBetweenRays = 0.25f;
 
     [HideInInspector]
     public int horizontalRayCount;
