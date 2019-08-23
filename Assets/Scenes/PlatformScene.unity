@@ -1434,7 +1434,7 @@ MonoBehaviour:
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   collider: {fileID: 481630241}
-  maxSlopeAngle: 30
+  maxSlopeAngle: 60
   playerInput: {x: 0, y: 0}
 --- !u!61 &481630241
 BoxCollider2D:

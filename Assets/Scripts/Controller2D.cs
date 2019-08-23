@@ -55,8 +55,6 @@ public class Controller2D : RaycastController
             VerticalCollisions(ref moveDistance);
         }
 
-        Debug.Log("Horizontal moveDistance : " + moveDistance.x);
-
         transform.Translate(moveDistance);
         
         if (standingOnPlatform)
