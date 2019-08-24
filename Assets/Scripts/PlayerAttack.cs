@@ -6,21 +6,36 @@ public class PlayerAttack : MonoBehaviour
 {
     public CameraShake cameraShake;
     public Camera mainCamera;
-    public Transform attackPosition;
+    public Transform leftAttackPosition;
+    public Transform rightAttackPosition;
+    [HideInInspector]
+    public Transform currentAttackPosition;
     public LayerMask hitMask;
     public Vector2 attackSize;
+    public Controller2D player;
     public int damage;
 
     bool isAttacking;
 
     private void Start()
     {
+        currentAttackPosition = rightAttackPosition;
         mainCamera = Camera.main;
         cameraShake = mainCamera.GetComponent<CameraShake>();
+        player = GetComponentInParent<Controller2D>();
     }
     void Attack()
     {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(attackPosition.position, attackSize, 0, hitMask);
+        if (player.collisions.faceDir == 1)
+        {
+            currentAttackPosition = rightAttackPosition;
+        }
+        else
+        {
+            currentAttackPosition = leftAttackPosition;
+        }
+
+        Collider2D[] enemiesToDamage = Physics2D.OverlapBoxAll(currentAttackPosition.position, attackSize, 0, hitMask);
         if (enemiesToDamage.Length != 0)
         {
             StartCoroutine(cameraShake.Shake(0.05f, 0.15f));
@@ -32,9 +47,19 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(attackPosition.position, attackSize);
+
+        if (Application.isPlaying)
+        {
+            Gizmos.DrawWireCube(currentAttackPosition.position, attackSize);
+        }
+        else
+        {
+            Gizmos.DrawWireCube(rightAttackPosition.position, attackSize);
+        }
+        
+        
     }
 }

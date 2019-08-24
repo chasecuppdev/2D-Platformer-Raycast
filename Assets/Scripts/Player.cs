@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     float timeToWallUnstick;
 
     bool facingRight = true;
+
     bool isAttacking;
 
     //Velocity
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
     Animator animator;
     SpriteRenderer sprite;
     Transform attackPosition;
+    PlayerAttack hitbox;
     
     //Input
     Vector2 directionalInput;
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         attackPosition = GetComponentInChildren<Transform>();
+        hitbox = GetComponent<PlayerAttack>();
         //sprite.enabled = false;
         //collisionRenderer.enabled = false;
 
@@ -237,7 +240,6 @@ public class Player : MonoBehaviour
             animator.SetBool("IsFalling", false);
             isAttacking = true;
             animator.SetBool("IsAttacking", true);
-            velocity.x = 0; //We don't want the player moving right now while attacking
         }
     }
 
@@ -300,7 +302,7 @@ public class Player : MonoBehaviour
             {
                 if (!facingRight)
                 {
-                    //attackPosition.transform.Translate(new Vector2(-attackPosition.transform.position.x, attackPosition.transform.position.y));
+                    //attackPosition.localPosition.Set(-attackPosition.transform.position.x, attackPosition.transform.position.y, 0);
                     sprite.flipX = false;
                     facingRight = true;
                 }
@@ -315,6 +317,16 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        //Remember the direction after the attack animation
+        //else 
+        //{
+        //    if (hitbox.currentAttackPosition == hitbox.leftAttackPosition )
+        //    {
+        //        sprite.flipX = true;
+        //        facingRight = false;
+        //    }
+        //
+        //}
     }
 
     /// <summary>
