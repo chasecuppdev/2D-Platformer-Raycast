@@ -31,5 +31,10 @@ public class PlayerInput : MonoBehaviour
         {
             player.OnAttackInput();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.OnHeavyAttackInput();
+        }
     }
 }

@@ -253,6 +253,32 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks to see if player can attack, plays attack animation, and limits movement
+    /// </summary>
+    public void OnHeavyAttackInput()
+    {
+        if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
+        {
+            //We want to reset these animator bools to avoid a race condition with hitting attack as soon as the player hits the ground
+            //Right now this is because attack input is check in Update, while resetting these flags are in FixedUpdate
+            //Will probably want to change this later
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsFalling", false);
+            isAttacking = true;
+            animator.SetBool("IsHeavyAttack", true);
+        }
+    }
+
+    /// <summary>
+    /// Called at the end of the attack animation. Is currently attached as an Animation Event to the Player_Standard_Attack animation
+    /// </summary>
+    public void OnHeavyAttackEnd()
+    {
+        animator.SetBool("IsHeavyAttack", false);
+        isAttacking = false;
+    }
+
+    /// <summary>
     /// Determines when to play the running animation
     /// </summary>
     void RunAnimationController()
