@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(attackPosition.position, attackSize);

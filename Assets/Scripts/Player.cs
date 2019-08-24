@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     Controller2D controller;
     Animator animator;
     SpriteRenderer sprite;
+    Transform attackPosition;
     
     //Input
     Vector2 directionalInput;
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
         //collisionRenderer = GetComponent<Renderer>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        attackPosition = GetComponentInChildren<Transform>();
         //sprite.enabled = false;
         //collisionRenderer.enabled = false;
 
@@ -65,6 +67,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Using LateUpdate to reset animation flags
+    /// </summary>
+    private void LateUpdate()
+    {
+        animator.SetBool("IsLanding", false);
+        animator.SetBool("IsJumping", false);
+    }
+
+    /// <summary>
+    /// Calls all necessary movement methods and also does some minor collision checking
+    /// </summary>
     void PlayerMove()
     {
         CalculateVelocity();
@@ -86,20 +100,72 @@ public class Player : MonoBehaviour
         }
 
         DirectionController();
-        RunController();
+        RunAnimationController();
     }
 
-    private void LateUpdate()
+    /// <summary>
+    /// Calculates x velocity based on direction input and y velocity based on gravity
+    /// </summary>
+    void CalculateVelocity()
     {
-        animator.SetBool("IsLanding", false);
-        animator.SetBool("IsJumping", false);
+        float targetVelocityX = directionalInput.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+        velocity.y += gravity * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Function to handle all wallsliding and implements a wall stick time in order to be more lenient on leap input
+    /// </summary>
+    void HandleWallSliding()
+    {
+        wallDirectionX = (controller.collisions.left) ? -1 : 1; //Get the wall direction
+        wallSliding = false; //Reset wallSliding for each check
+
+        //If we have a collision on the right or left and we are falling with no collisions below
+        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
+        {
+            wallSliding = true;
+            //Make sure we don't fall faster than max wall slide speed
+            if (velocity.y < -wallSlideSpeedMax)
+            {
+                velocity.y = -wallSlideSpeedMax;
+            }
+
+            //We want to give the player a small window to move away from the wall to perform a leap
+            if (timeToWallUnstick > 0)
+            {
+                //Check if the player input is opposite the wall direction
+                if (directionalInput.x != wallDirectionX && directionalInput.x != 0)
+                {
+                    velocityXSmoothing = 0;
+                    velocity.x = 0;
+                    //This will keep track of the window to leap as long as they keep the correct direction held down
+                    timeToWallUnstick -= Time.deltaTime;
+                }
+                else
+                {
+                    timeToWallUnstick = wallStickTime; //Reset unstick time if they stop input opposite the wall
+                }
+            }
+            else
+            {
+                timeToWallUnstick = wallStickTime;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Takes in the direction input when called from the PlayerInput class
+    /// </summary>
+    /// <param name="input"></param>
     public void SetDirectionalInput(Vector2 input)
     {
         directionalInput = input;
     }
 
+    /// <summary>
+    /// Handles jumping animations, normal jumping, wall jumping, and jumping while sliding down max slopes
+    /// </summary>
     public void OnJumpInputDown()
     {
         if (wallSliding)
@@ -146,6 +212,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Used to detect if the player released the button, resulting in a shorter jump if they had not reached the apex of the jump
+    /// </summary>
     public void OnJumpInputUp()
     {
         if (velocity.y > minJumpVelocity)
@@ -154,6 +223,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks to see if player can attack, plays attack animation, and limits movement
+    /// </summary>
     public void OnAttackInput()
     {
         if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
@@ -178,63 +250,10 @@ public class Player : MonoBehaviour
         isAttacking = false;
     }
 
-    void CalculateVelocity()
-    {
-        float targetVelocityX = directionalInput.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        velocity.y += gravity * Time.deltaTime;
-    }
-
-    void HandleWallSliding()
-    {
-        wallDirectionX = (controller.collisions.left) ? -1 : 1; //Get the wall direction
-        wallSliding = false; //Reset wallSliding for each check
-
-        //If we have a collision on the right or left and we are falling with no collisions below
-        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
-        {
-            wallSliding = true;
-            //Make sure we don't fall faster than max wall slide speed
-            if (velocity.y < -wallSlideSpeedMax)
-            {
-                velocity.y = -wallSlideSpeedMax;
-            }
-
-            //We want to give the player a small window to move away from the wall to perform a leap
-            if (timeToWallUnstick > 0)
-            {
-                //Check if the player input is opposite the wall direction
-                if (directionalInput.x != wallDirectionX && directionalInput.x != 0)
-                {
-                    velocityXSmoothing = 0;
-                    velocity.x = 0;
-                    //This will keep track of the window to leap as long as they keep the correct direction held down
-                    timeToWallUnstick -= Time.deltaTime;
-                }
-                else
-                {
-                    timeToWallUnstick = wallStickTime; //Reset unstick time if they stop input opposite the wall
-                }
-            }
-            else
-            {
-                timeToWallUnstick = wallStickTime;
-            }
-        }
-    }
-
-    void CalculateGravity()
-    {
-        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-    }
-
-    void CalculateJumpVelocity()
-    {
-        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-    }
-
-    void RunController()
+    /// <summary>
+    /// Determines when to play the running animation
+    /// </summary>
+    void RunAnimationController()
     {
         animator.SetFloat("Speed", Mathf.Abs(velocity.x));
 
@@ -251,6 +270,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Simple check to see if the character is falling or landing in order to play the correct animations
+    /// </summary>
     void CheckFallingAndLanding()
     {
         if (velocity.y < 0 && !controller.collisions.below)
@@ -265,6 +287,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checks the horizontal velocity direction and ensures the sprite is facing in that direction
+    /// </summary>
     void DirectionController()
     {
         if (Mathf.Abs(velocity.x) != 0)
@@ -275,7 +300,7 @@ public class Player : MonoBehaviour
             {
                 if (!facingRight)
                 {
-                    //sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    //attackPosition.transform.Translate(new Vector2(-attackPosition.transform.position.x, attackPosition.transform.position.y));
                     sprite.flipX = false;
                     facingRight = true;
                 }
@@ -284,11 +309,28 @@ public class Player : MonoBehaviour
             {
                 if (facingRight)
                 {
-                    //sprite.transform.Rotate(new Vector3(0, 180, 0));
+                    //attackPosition.transform.Translate(new Vector2(-attackPosition.transform.position.x, attackPosition.transform.position.y));
                     sprite.flipX = true;
                     facingRight = false;
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Calculates the gravity based on desired jump height and time to jump apex
+    /// </summary>
+    void CalculateGravity()
+    {
+        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+    }
+
+    /// <summary>
+    /// Calculates the min and max jump velocity using gravity and kinematics equations
+    /// </summary>
+    void CalculateJumpVelocity()
+    {
+        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
 }
