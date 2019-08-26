@@ -14,7 +14,7 @@ public class Spawner : MonoBehaviour
         if (elapsed >= 5f)
         {
             elapsed = 0;
-            Instantiate(enemyPrefab, new Vector2(10.02f, -2.73f), Quaternion.identity);
+            Instantiate(enemyPrefab, new Vector2(7.08f, -3.51f), Quaternion.identity);
         }
         else
         {

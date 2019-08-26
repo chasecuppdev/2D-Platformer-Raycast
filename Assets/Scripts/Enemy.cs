@@ -62,6 +62,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Die()
     {
         animator.SetBool("IsDead", true);
+        collider.enabled = false;
         float elapsed = 0f;
         float duration = AnimationLength("Crab_Death");
 
