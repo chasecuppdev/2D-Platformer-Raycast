@@ -9,6 +9,10 @@ public class Enemy : MonoBehaviour
     public float speed;
     Animator animator;
     BoxCollider2D collider;
+    Controller2D controller;
+    Vector3 velocity;
+
+    float gravity = -50;
 
     //Patrolling Variables
     [Header("Patrolling")]
@@ -23,6 +27,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        controller = GetComponent<Controller2D>();
         animator = GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
 
@@ -50,8 +55,14 @@ public class Enemy : MonoBehaviour
 
     void Move()
     {
-        Vector3 velocity = EnemyPatrol();
-        transform.Translate(velocity);
+        velocity = EnemyPatrol();
+        //velocity.y += gravity * Time.deltaTime;
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
+        controller.Move(velocity * Time.deltaTime);
+
     }
 
     private void LateUpdate()

@@ -20,7 +20,7 @@ public class Controller2D : RaycastController
     }
 
     //Overloading move method so the platform controller doesn't need to worry about passing the input vector
-    public void Move(Vector2 moveDistance, bool standingOnPlatfrom)
+    public void Move(Vector2 moveDistance, bool standingOnPlatfrom = false)
     {
         Move(moveDistance, Vector2.zero, standingOnPlatfrom);
     }
