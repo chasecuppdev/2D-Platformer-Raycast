@@ -22,8 +22,8 @@ TagManager:
   - BG2
   - BG3
   - BG4
-  - 
-  - 
+  - PlayerHurtbox
+  - EnemyHurtbox
   - 
   - 
   - 

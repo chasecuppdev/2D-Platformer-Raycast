@@ -1,0 +1,400 @@
+fileFormatVersion: 2
+guid: 8321694afae5af842a6749808e3663a6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5791289564395038150
+    second: 110x60Enemy2.Attack_0
+  - first:
+      213: -8183484250896693628
+    second: 110x60Enemy2.Attack_1
+  - first:
+      213: -8966953215758029113
+    second: 110x60Enemy2.Attack_2
+  - first:
+      213: -6294740691992322325
+    second: 110x60Enemy2.Attack_3
+  - first:
+      213: 6619605031188085472
+    second: 110x60Enemy2.Attack_4
+  - first:
+      213: 8482878248280515214
+    second: 110x60Enemy2.Attack_5
+  - first:
+      213: 659449953003698356
+    second: 110x60Enemy2.Attack_6
+  - first:
+      213: -1387913564658191818
+    second: 110x60Enemy2.Attack_7
+  - first:
+      213: -6922402640609609304
+    second: 110x60Enemy2.Attack_8
+  - first:
+      213: 6206261694177537029
+    second: 110x60Enemy2.Attack_9
+  - first:
+      213: -4399223195636662601
+    second: 110x60Enemy2.Attack_10
+  - first:
+      213: 7292670819687916147
+    second: 110x60Enemy2.Attack_11
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 24
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_0
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 60
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.62987536, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c875d53f182c6f48aad8186e1a98a6d
+      internalID: 5791289564395038150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_1
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 60
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.63435334, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2affa1753d9ca84eb8829bab6c6db3e
+      internalID: -8183484250896693628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_2
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 60
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.59404784, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa5396abfc65ca642af63f8df5917d0a
+      internalID: -8966953215758029113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_3
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 60
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.61363524, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a277cc7ace09d1b49a9359f0ae87e709
+      internalID: -6294740691992322325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_4
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 60
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.67465943, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7edb5fd3760a36c408c58b26c55fc5a1
+      internalID: 6619605031188085472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_5
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 60
+        width: 60
+        height: 45
+      alignment: 9
+      pivot: {x: 0.9602468, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8b2f3ebfbadfd74796904873024a755
+      internalID: 8482878248280515214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_6
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 60
+        width: 96
+        height: 45
+      alignment: 9
+      pivot: {x: 0.987868, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3324fd115e3c47e428ba24dea1935226
+      internalID: 659449953003698356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_7
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 60
+        width: 94
+        height: 43
+      alignment: 9
+      pivot: {x: 0.98945975, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ac244c1bb95c124c8bca58fb8f94048
+      internalID: -1387913564658191818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 96
+        height: 43
+      alignment: 9
+      pivot: {x: 0.9882975, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afe8f04713d2d8e468573a8751a917d7
+      internalID: -6922402640609609304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_9
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 0
+        width: 97
+        height: 44
+      alignment: 9
+      pivot: {x: 0.98950166, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2dff79f108c2224fbddc9fecef052e1
+      internalID: 6206261694177537029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_10
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 0
+        width: 101
+        height: 46
+      alignment: 9
+      pivot: {x: 0.9497034, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d500679c43c91ee4297420f0c18c59ce
+      internalID: -4399223195636662601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 110x60Enemy2.Attack_11
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 0
+        width: 50
+        height: 50
+      alignment: 9
+      pivot: {x: 0.63531435, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2661988646c0f8b468a7e2f665852381
+      internalID: 7292670819687916147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5c4f267b79b57c441be694e0433ab079
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
