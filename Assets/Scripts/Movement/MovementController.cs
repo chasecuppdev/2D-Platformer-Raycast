@@ -10,7 +10,7 @@ public class MovementController : MonoBehaviour
     [HideInInspector] public Vector2 velocity;
     [SerializeField] float moveSpeed = 5;
     float velocityXSmoothing;
-    float accelerationTimeGrounded = 0.01f;
+    float accelerationTimeGrounded = 0f;
     private bool movementStopped = false;
 
     public Controller2D controller2D;
@@ -36,7 +36,10 @@ public class MovementController : MonoBehaviour
 
     public void Update()
     {
-        Move();
+        //if (!isAttacking)
+        //{
+            Move();
+        //}
     }
 
     private void Start()
@@ -53,8 +56,8 @@ public class MovementController : MonoBehaviour
     {
         if (!isAttacking)
         {
-            float targetVelocityX = directionalInput.x * moveSpeed;
-            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
+        float targetVelocityX = directionalInput.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
         }
         else
         {

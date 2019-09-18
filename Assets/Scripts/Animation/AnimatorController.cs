@@ -19,6 +19,7 @@ public class AnimatorController : MonoBehaviour
     AnimationClip currentAnimationClip;
 
     bool facingRight = true;
+    int rememberFaceDir;
 
     protected virtual void Start()
     {
@@ -39,7 +40,7 @@ public class AnimatorController : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         CheckFallingAndLanding();
         DirectionController();
@@ -111,9 +112,10 @@ public class AnimatorController : MonoBehaviour
     {
         if (!movementController.isAttacking)
         {
-            movementController.isAttacking = true;
-            //StartCoroutine(AttackAnimation(animationClipInfo));
-            animator.Play("Enemy2_Attack");
+            //movementController.isAttacking = true;
+            rememberFaceDir = movementController.controller2D.collisions.faceDir;
+            StartCoroutine(AttackAnimation(animationClipInfo));
+            //animator.Play("Enemy2_Attack");
         }
     }
 
@@ -137,6 +139,7 @@ public class AnimatorController : MonoBehaviour
         {
             if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
             {
+                movementController.isAttacking = true;
                 animator.SetBool("IsFalling", false);
                 animator.SetBool(animationClipInfo[1], true);
 
@@ -149,6 +152,7 @@ public class AnimatorController : MonoBehaviour
                 animator.SetBool(animationClipInfo[1], false);
                 movementController.isAttacking = false;
                 currentAnimationClip = null;
+                movementController.controller2D.collisions.faceDir = rememberFaceDir;
             }
         }
     }
@@ -181,7 +185,8 @@ public class AnimatorController : MonoBehaviour
     /// </summary>
     protected void DirectionController()
     {
-        if (Mathf.Abs(movementController.velocity.x) != 0)
+        //Have to check to see if this is greater than a relatively small value due to floating point precision errors
+        if (Mathf.Abs(movementController.velocity.x) > 0.01f )
         {
             float directionX = Mathf.Sign(movementController.velocity.x); //Get the horizontal direction of movement
 

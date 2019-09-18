@@ -32,7 +32,7 @@ public class WallSliding : MonoBehaviour
         jumpController = GetComponent<JumpController>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         HandleWallSliding();
     }
@@ -93,6 +93,8 @@ public class WallSliding : MonoBehaviour
             {
                 movementController.velocity.x = -wallDirectionX * wallJumpClimb.x;
                 movementController.velocity.y = wallJumpClimb.y;
+                Debug.Log("X: " + movementController.velocity.x);
+                Debug.Log("Y: " + movementController.velocity.y);
             }
             //Jump off the wall
             else if (movementController.directionalInput.x == 0)

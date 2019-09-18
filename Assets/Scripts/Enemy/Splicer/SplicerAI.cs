@@ -35,7 +35,7 @@ public class SplicerAI : MonoBehaviour
         attackAnimationInfo[1] = "IsAttacking";
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateDirection();
         if ((movementController.controller2D.collisions.right && horizontalDirection.x > 0) || (movementController.controller2D.collisions.left && horizontalDirection.x < 0))
