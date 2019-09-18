@@ -7,14 +7,14 @@ public class Hurtbox : MonoBehaviour
 {
     public LayerMask hurtboxMask;
     BoxCollider2D collider;
-    IDamageable parent;
+    IDamageable parentHealthComponent;
 
     public Vector2 hurtboxSize = Vector3.one;
 
     private void Start()
     {
         collider = GetComponent<BoxCollider2D>();
-        parent = GetComponentInParent<IDamageable>();
+        parentHealthComponent = GetComponentInParent<IDamageable>();
         collider.size = hurtboxSize * 2;
     }
 
@@ -26,7 +26,7 @@ public class Hurtbox : MonoBehaviour
 
     public void ApplyAttack(int damage)
     {
-        parent.TakeDamage(damage);
+        parentHealthComponent.TakeDamage(damage);
     }
 
     public void OnDrawGizmos()

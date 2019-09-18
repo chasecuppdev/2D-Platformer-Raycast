@@ -53,6 +53,7 @@ public class AnimatorController : MonoBehaviour
     {
         animator.SetBool("IsLanding", false);
         animator.SetBool("IsJumping", false);
+        animator.SetBool("TakeDamage", false);
     }
 
     /// <summary>
@@ -61,18 +62,19 @@ public class AnimatorController : MonoBehaviour
     protected void RunAnimation()
     {
         animator.SetFloat("Speed", Mathf.Abs(movementController.velocity.x));
+        animator.SetFloat("DirectionalInput", Mathf.Abs(movementController.directionalInput.x));
 
-        if (Mathf.Abs(movementController.velocity.x) > 0.1f)
-        {
-            if (controller.collisions.below)
-            {
-                animator.SetBool("IsRunning", true);
-            }
-        }
-        else
-        {
-            animator.SetBool("IsRunning", false);
-        }
+        //if (Mathf.Abs(movementController.velocity.x) > 0.1f)
+        //{
+        //    if (controller.collisions.below)
+        //    {
+        //        animator.SetBool("IsRunning", true);
+        //    }
+        //}
+        //else
+        //{
+        //    animator.SetBool("IsRunning", false);
+        //}
     }
 
     protected void JumpAnimation()
@@ -96,6 +98,11 @@ public class AnimatorController : MonoBehaviour
         }
     }
 
+    public void TakeDamageAnimation()
+    {
+        animator.SetBool("TakeDamage", true);
+    }
+
     /// <summary>
     /// Triggers the AttackAnimation coroutine. animationClipInfo[0] = Animation_Clip_Name, animationClipInfo[1] = Animator_Parameter_Name
     /// </summary>
@@ -104,7 +111,9 @@ public class AnimatorController : MonoBehaviour
     {
         if (!movementController.isAttacking)
         {
-            StartCoroutine(AttackAnimation(animationClipInfo));
+            movementController.isAttacking = true;
+            //StartCoroutine(AttackAnimation(animationClipInfo));
+            animator.Play("Enemy2_Attack");
         }
     }
 
@@ -128,14 +137,8 @@ public class AnimatorController : MonoBehaviour
         {
             if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
             {
-                //We want to reset these animator bools to avoid a race condition with hitting attack as soon as the player hits the ground
-                //Right now this is because attack input is check in Update, while resetting these flags are in FixedUpdate
-                //Will probably want to change this later
-                animator.SetBool("IsRunning", false);
                 animator.SetBool("IsFalling", false);
-                movementController.isAttacking = true;
                 animator.SetBool(animationClipInfo[1], true);
-
 
                 while (elapsed < currentAnimationClip.length)
                 {

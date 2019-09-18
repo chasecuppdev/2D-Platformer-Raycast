@@ -11,8 +11,9 @@ public class MovementController : MonoBehaviour
     [SerializeField] float moveSpeed = 5;
     float velocityXSmoothing;
     float accelerationTimeGrounded = 0.01f;
+    private bool movementStopped = false;
 
-    Controller2D controller;
+    public Controller2D controller2D;
     GravityController gravityController;
 
     //Input
@@ -27,18 +28,21 @@ public class MovementController : MonoBehaviour
         set { velocityXSmoothing = value; }
     }
 
+    public bool MovementStopped
+    {
+        get { return movementStopped; }
+        set { movementStopped = value; }
+    }
+
     public void Update()
     {
-        if (!isAttacking)
-        {
-            PlayerMove();
-        }
+        Move();
     }
 
     private void Start()
     {
         //EventManager.Instance.AddListener(EVENT_TYPE.MOVE, this);
-        controller = GetComponent<Controller2D>();
+        controller2D = GetComponent<Controller2D>();
         gravityController = GetComponent<GravityController>();
     }
 
@@ -47,8 +51,15 @@ public class MovementController : MonoBehaviour
     /// </summary>
     void CalculateVelocity()
     {
-        float targetVelocityX = directionalInput.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
+        if (!isAttacking)
+        {
+            float targetVelocityX = directionalInput.x * moveSpeed;
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
+        }
+        else
+        {
+            velocity.x = 0;
+        }
         velocity.y += gravityController.Gravity * Time.deltaTime;
     }
 
@@ -64,17 +75,17 @@ public class MovementController : MonoBehaviour
     /// <summary>
     /// Calls all necessary movement methods and also does some minor collision checking
     /// </summary>
-    void PlayerMove()
+    void Move()
     {
         CalculateVelocity();
 
-        controller.Move(velocity * Time.deltaTime, directionalInput);
+        controller2D.Move(velocity * Time.deltaTime, directionalInput);
 
-        if (controller.collisions.above || controller.collisions.below)
+        if (controller2D.collisions.above || controller2D.collisions.below)
         {
-            if (controller.collisions.slidingDownMaxSlope)
+            if (controller2D.collisions.slidingDownMaxSlope)
             {
-                velocity.y += controller.collisions.slopeNormal.y * -gravityController.Gravity * Time.deltaTime;
+                velocity.y += controller2D.collisions.slopeNormal.y * -gravityController.Gravity * Time.deltaTime;
             }
             else
             {

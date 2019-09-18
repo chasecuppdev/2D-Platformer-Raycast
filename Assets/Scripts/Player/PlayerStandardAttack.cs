@@ -19,8 +19,5 @@ public class PlayerStandardAttack : MonoBehaviour, IHitboxResponder
     {
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         hurtbox.ApplyAttack(damage);
-        MessageKit<float, float>.post(EventTypes.CAMERA_SHAKE_2P, 0.05f, 0.15f);
     }
-
-
 }

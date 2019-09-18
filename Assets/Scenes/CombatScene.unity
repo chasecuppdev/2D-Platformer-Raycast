@@ -146,7 +146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 102963863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 0}
+  m_LocalPosition: {x: -0.09, y: 0.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1390979011}
@@ -167,7 +167,7 @@ MonoBehaviour:
   hurtboxMask:
     serializedVersion: 2
     m_Bits: 131072
-  hurtboxSize: {x: 0.5, y: 0.97}
+  hurtboxSize: {x: 0.47, y: 0.97}
 --- !u!61 &102963866
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.94, y: 1.94}
   m_EdgeRadius: 0
 --- !u!1 &115462434
 GameObject:
@@ -1716,44 +1716,44 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 270307489}
     m_ColliderPaths:
-    - - X: -90000493
+    - - X: -90000029
         Y: -110000000
-      - X: -89999507
+      - X: -89999971
         Y: -50000000
       - X: -80000000
-        Y: -49999507
-      - X: -80000493
+        Y: -49999971
+      - X: -80000029
         Y: -40000000
-      - X: -199999959
-        Y: -39999945
-      - X: -199999988
-        Y: 40000100
-      - X: -210000100
-        Y: 40000012
-      - X: -210000185
-        Y: -40000188
+      - X: -200000000
+        Y: -39999971
+      - X: -200000029
+        Y: 40000000
+      - X: -210000000
+        Y: 39999971
+      - X: -210000029
+        Y: -40000000
       - X: -300000000
-        Y: -40000493
-      - X: -299999507
+        Y: -40000029
+      - X: -299999971
         Y: -50000000
       - X: -270000000
-        Y: -50000493
-      - X: -269999507
+        Y: -50000029
+      - X: -269999971
         Y: -110000000
   m_CompositePaths:
     m_Paths:
-    - - {x: -8.99995, y: -5}
-      - {x: -8, y: -4.999951}
-      - {x: -8.00005, y: -4}
-      - {x: -19.999996, y: -3.9999945}
-      - {x: -19.999998, y: 4.00001}
-      - {x: -21.00001, y: 4.0000014}
-      - {x: -21.00002, y: -4.000019}
-      - {x: -30, y: -4.000049}
-      - {x: -29.999952, y: -5}
-      - {x: -27, y: -5.000049}
-      - {x: -26.999952, y: -11}
-      - {x: -9.00005, y: -11}
+    - - {x: -8.999997, y: -5}
+      - {x: -8, y: -4.999997}
+      - {x: -8.000003, y: -4}
+      - {x: -20, y: -3.9999971}
+      - {x: -20.000004, y: 4}
+      - {x: -21, y: 3.9999971}
+      - {x: -21.000004, y: -4}
+      - {x: -30, y: -4.000003}
+      - {x: -29.999998, y: -5}
+      - {x: -27, y: -5.000003}
+      - {x: -26.999996, y: -11}
+      - {x: -9.000003, y: -11}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.000005
 --- !u!50 &270307493
@@ -1879,7 +1879,7 @@ GameObject:
   - component: {fileID: 503005349}
   - component: {fileID: 503005350}
   - component: {fileID: 503005351}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Standard_Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1894,7 +1894,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503005348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.83, y: 0.94, z: 0}
+  m_LocalPosition: {x: 0.38, y: 0.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1390979011}
@@ -1917,7 +1917,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 65536
   useSphere: 0
-  hitboxSize: {x: 0.5, y: 0.5}
+  hitboxSize: {x: 0.2, y: 0.33}
   radius: 0.5
   collisionClosedColor: {r: 0.7921569, g: 0.0675281, b: 0.054901946, a: 0.5254902}
   collisionOpenColor: {r: 0.4657112, g: 1, b: 0.2688679, a: 0.6431373}
@@ -2363,11 +2363,12 @@ GameObject:
   - component: {fileID: 1390979015}
   - component: {fileID: 1390979014}
   - component: {fileID: 1390979013}
-  - component: {fileID: 1390979012}
   - component: {fileID: 1390979016}
   - component: {fileID: 1390979019}
   - component: {fileID: 1390979018}
   - component: {fileID: 1390979017}
+  - component: {fileID: 1390979020}
+  - component: {fileID: 1390979012}
   m_Layer: 11
   m_Name: Splicer
   m_TagString: Untagged
@@ -2414,7 +2415,7 @@ SpriteRenderer:
   m_SortingOrder: 1000
   m_Sprite: {fileID: 178958581327744957, guid: 04d8ef9f006aeed4cbfe2ce782a02547, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2.0833333, y: 2.0833333}
@@ -2431,7 +2432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390979009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.06, y: -4.93, z: 0}
+  m_LocalPosition: {x: 1.17, y: -4.96, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 503005349}
@@ -2448,16 +2449,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1390979009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4677ab28b399de645bb79dee4c7d73b7, type: 3}
+  m_Script: {fileID: 11500000, guid: b400b3ac82c03b2448e2b475d2cf047d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 40
-  speed: 2
-  localWaypoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: -6.04, y: 0, z: 0}
-  cyclic: 0
-  waitTime: 0
 --- !u!114 &1390979013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2493,18 +2488,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.17010093, y: 0.9816309}
+  m_Offset: {x: -0.053420007, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 2.0833333, y: 2.0833333}
+    pivot: {x: 0.987868, y: 0}
+    oldSize: {x: 4, y: 1.875}
     newSize: {x: 2.0833333, y: 2.0833333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1827998, y: 1.9632618}
+  m_Size: {x: 0.9816309, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &1390979015
 Animator:
@@ -2562,7 +2557,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0}
-  moveSpeed: 5
+  moveSpeed: 0.75
+  controller2D: {fileID: 0}
   directionalInput: {x: 0, y: 0}
   isAttacking: 0
 --- !u!114 &1390979019
@@ -2581,6 +2577,20 @@ MonoBehaviour:
   minJumpHeight: 2
   timeToJumpApex: 0.4
   accelerationTimeAirborne: 0.2
+--- !u!114 &1390979020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390979009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cdf6e29f14a5f48afe5386c8f9e795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 1390979014}
+  detectionLength: 3.54
 --- !u!1 &1473504106 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1920743706501109082, guid: 02e16c3cd64c8d147a69bf963b0d504d,
@@ -2711,7 +2721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1807772064}
   - component: {fileID: 1807772063}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2836,20 +2846,15 @@ PrefabInstance:
       propertyPath: collisionMask.m_Bits
       value: 1536
       objectReference: {fileID: 0}
-    - target: {fileID: 1920743706501109082, guid: 02e16c3cd64c8d147a69bf963b0d504d,
-        type: 3}
-      propertyPath: m_Name
-      value: Standard_Attack
-      objectReference: {fileID: 0}
     - target: {fileID: 1920743704899899551, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.65
+      value: 4.76
       objectReference: {fileID: 0}
     - target: {fileID: 1920743704899899551, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.32
+      value: -3.84
       objectReference: {fileID: 0}
     - target: {fileID: 1920743704899899551, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
@@ -2896,6 +2901,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1920743706501109082, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: m_Name
+      value: Standard_Attack
+      objectReference: {fileID: 0}
     - target: {fileID: 1920743704899899549, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_Enabled
@@ -2910,6 +2920,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1920743704899899556, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: wallJumpClimb.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1920743704899899556, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: wallLeap.x
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1920743706501109081, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
@@ -2954,6 +2974,16 @@ PrefabInstance:
     - target: {fileID: 1920743706501109081, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1920743704899899539, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: maxJumpHeight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1920743704899899548, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
