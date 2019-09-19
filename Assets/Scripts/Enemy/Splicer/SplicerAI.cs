@@ -13,6 +13,12 @@ public class SplicerAI : MonoBehaviour
 
     public LayerMask detectionMask;
 
+    int ObstacleLayer = 9;
+    int PlayerHurtboxLayer = 16;
+
+    int ObstacleMask;
+    int PlayerHurtboxMask;
+
     private Vector2 horizontalDirection;
 
     [SerializeField] private float detectionLength;
@@ -33,6 +39,9 @@ public class SplicerAI : MonoBehaviour
 
         attackAnimationInfo[0] = "Enemy2_Attack";
         attackAnimationInfo[1] = "IsAttacking";
+
+        ObstacleMask = 1 << ObstacleLayer;
+        PlayerHurtboxMask = 1 << PlayerHurtboxLayer;
     }
 
     private void FixedUpdate()
@@ -58,9 +67,12 @@ public class SplicerAI : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, (Vector3.right * directionX), rayLength, detectionMask);
 
-        if (hit && !movementController.isAttacking)
+        if (hit)
         {
-            animController.TriggerAttackAnimation(attackAnimationInfo);
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerHurtbox") && !movementController.isAttacking)
+            {
+                animController.TriggerAttackAnimation(attackAnimationInfo);
+            }
         }
     }
 

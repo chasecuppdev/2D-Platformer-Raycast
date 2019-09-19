@@ -10,16 +10,15 @@ using Prime31.MessageKit;
 [RequireComponent(typeof(SpriteRenderer))]
 public class AnimatorController : MonoBehaviour
 {
-    Controller2D controller;
-    MovementController movementController;
-    Animator animator;
-    SpriteRenderer sprite;
-    JumpController jumpController;
-    AnimationClip[] animationClips;
-    AnimationClip currentAnimationClip;
+    protected Controller2D controller;
+    protected MovementController movementController;
+    protected Animator animator;
+    protected SpriteRenderer sprite;
+    protected JumpController jumpController;
+    protected AnimationClip[] animationClips;
+    protected AnimationClip currentAnimationClip;
 
-    bool facingRight = true;
-    int rememberFaceDir;
+    protected bool facingRight = true;
 
     protected virtual void Start()
     {
@@ -40,7 +39,7 @@ public class AnimatorController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         CheckFallingAndLanding();
         DirectionController();
@@ -50,10 +49,9 @@ public class AnimatorController : MonoBehaviour
     /// <summary>
     /// Using LateUpdate to reset animation flags
     /// </summary>
-    private void LateUpdate()
+    protected virtual void LateUpdate()
     {
         animator.SetBool("IsLanding", false);
-        animator.SetBool("IsJumping", false);
         animator.SetBool("TakeDamage", false);
     }
 
@@ -78,29 +76,9 @@ public class AnimatorController : MonoBehaviour
         //}
     }
 
-    protected void JumpAnimation()
-    {
-        if (jumpController)
-        {
-            if (controller.collisions.below)
-            {
-                if (controller.collisions.slidingDownMaxSlope)
-                {
-                    if (movementController.directionalInput.x != -Mathf.Sign(controller.collisions.slopeNormal.x))
-                    {
-                        animator.SetBool("IsJumping", true);
-                    }
-                }
-                else
-                {
-                    animator.SetBool("IsJumping", true);
-                }
-            }
-        }
-    }
-
     public void TakeDamageAnimation()
     {
+        animator.SetBool("IsLanding", false);
         animator.SetBool("TakeDamage", true);
     }
 
@@ -110,12 +88,16 @@ public class AnimatorController : MonoBehaviour
     /// <param name="animationClipInfo"></param>
     public void TriggerAttackAnimation(string[] animationClipInfo)
     {
-        if (!movementController.isAttacking)
+        if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
         {
-            //movementController.isAttacking = true;
-            rememberFaceDir = movementController.controller2D.collisions.faceDir;
-            StartCoroutine(AttackAnimation(animationClipInfo));
-            //animator.Play("Enemy2_Attack");
+            if (!movementController.isAttacking)
+            {
+                movementController.isAttacking = true;
+                //animator.SetBool(animationClipInfo[1], true);
+                StartCoroutine(AttackAnimation(animationClipInfo));
+                //AttackAnimation(animationClipInfo);
+                //animator.Play("Enemy2_Attack");
+            }
         }
     }
 
@@ -124,7 +106,7 @@ public class AnimatorController : MonoBehaviour
     /// </summary>
     /// <param name="animationClipInfo"></param>
     /// <returns></returns>
-    IEnumerator AttackAnimation(string[] animationClipInfo)
+    public IEnumerator AttackAnimation(string[] animationClipInfo)
     {
         float elapsed = 0f;
         for (int i = 0; i < animationClips.Length; i++)
@@ -134,30 +116,55 @@ public class AnimatorController : MonoBehaviour
                 currentAnimationClip = animationClips[i];
             }
         }
-
+    
         if (currentAnimationClip)
         {
-            if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
-            {
-                movementController.isAttacking = true;
-                animator.SetBool("IsFalling", false);
-                animator.SetBool(animationClipInfo[1], true);
-
-                while (elapsed < currentAnimationClip.length)
-                {
-                    elapsed = elapsed + Time.deltaTime;
-                    yield return 0;
-                }
-
-                animator.SetBool(animationClipInfo[1], false);
-                movementController.isAttacking = false;
-                currentAnimationClip = null;
-                movementController.controller2D.collisions.faceDir = rememberFaceDir;
-            }
+            movementController.isAttacking = true;
+            animator.SetBool("IsFalling", false);
+            animator.SetBool(animationClipInfo[1], true);
+    
+            //while (elapsed < currentAnimationClip.length)
+            //{
+            //    elapsed = elapsed + Time.deltaTime;
+            //    yield return 0;
+            //}
+            yield return new WaitForSeconds(currentAnimationClip.length);
+    
+            animator.SetBool(animationClipInfo[1], false);
+            movementController.isAttacking = false;
+            currentAnimationClip = null;
         }
     }
 
-    //public void AttackAnimationEnd()
+    //public void AttackAnimation(string[] animationClipInfo)
+    //{
+    //    float elapsed = 0f;
+    //    for (int i = 0; i < animationClips.Length; i++)
+    //    {
+    //        if (animationClips[i].name == animationClipInfo[0])
+    //        {
+    //            currentAnimationClip = animationClips[i];
+    //        }
+    //    }
+    //
+    //    if (currentAnimationClip)
+    //    {
+    //        movementController.isAttacking = true;
+    //        animator.SetBool("IsFalling", false);
+    //        animator.SetBool(animationClipInfo[1], true);
+    //
+    //        //while (elapsed < currentAnimationClip.length)
+    //        //{
+    //        //    elapsed = elapsed + Time.deltaTime;
+    //        //    yield return 0;
+    //        //}
+    //        //yield return new WaitForSeconds(currentAnimationClip.length);
+    //
+    //        currentAnimationClip = null;
+    //    }
+    //}
+    //
+    //public void OnAttackAnimationEnd()
     //{
     //    animator.SetBool("IsAttacking", false);
     //    movementController.isAttacking = false;
