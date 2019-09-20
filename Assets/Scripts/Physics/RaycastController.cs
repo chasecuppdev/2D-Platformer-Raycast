@@ -66,9 +66,7 @@ public class RaycastController : MonoBehaviour
 
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;
-            slopeNormal = Vector2.zero;;
-
-            //wallSliding = false;
+            slopeNormal = Vector2.zero;
         }
     }
 
