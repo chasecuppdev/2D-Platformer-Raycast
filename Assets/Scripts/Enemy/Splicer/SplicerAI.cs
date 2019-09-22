@@ -74,6 +74,18 @@ public class SplicerAI : MonoBehaviour
         }
     }
 
+    public bool CanAttack()
+    {
+        if (!movementController.isAttacking && !animController.animationStates.isTakingDamage)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void Patrol()
     {
         if (!currentlyFollowingTarget)
@@ -155,7 +167,7 @@ public class SplicerAI : MonoBehaviour
 
         if (hit)
         {
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerHurtbox") && !movementController.isAttacking)
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerHurtbox") && CanAttack())
             {
                 animController.TriggerAttackAnimation(attackAnimationInfo);
             }

@@ -17,8 +17,19 @@ public class AnimatorController : MonoBehaviour
     protected JumpController jumpController;
     protected AnimationClip[] animationClips;
     protected AnimationClip currentAnimationClip;
+    public AnimationStates animationStates;
 
     protected bool facingRight = true;
+
+    public struct AnimationStates
+    {
+        public float speed;
+        public bool isJumping;
+        public bool isFalling;
+        public bool isLanding;
+        public bool isAttacking;
+        public bool isTakingDamage;
+    }
 
     protected virtual void Start()
     {
@@ -29,6 +40,7 @@ public class AnimatorController : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         animationClips = AnimationUtility.GetAnimationClips(animator.gameObject);
+        UpdateAnimationStates();
 
         if (GetComponent<JumpController>() != null)
         {
@@ -41,9 +53,11 @@ public class AnimatorController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
+        
         CheckFallingAndLanding();
         DirectionController();
         RunAnimation();
+        UpdateAnimationStates();
     }
 
     /// <summary>
@@ -53,6 +67,17 @@ public class AnimatorController : MonoBehaviour
     {
         animator.SetBool("IsLanding", false);
         animator.SetBool("TakeDamage", false);
+    }
+
+    private void UpdateAnimationStates()
+    {
+        animationStates.speed = animator.GetFloat("Speed");
+        animationStates.isJumping = animator.GetBool("IsJumping");
+        animationStates.isFalling = animator.GetBool("IsFalling");
+        animationStates.isLanding = animator.GetBool("IsLanding");
+        animationStates.isAttacking = animator.GetBool("isAttacking");
+        animationStates.isTakingDamage = animator.GetBool("TakeDamage");
+        
     }
 
     /// <summary>
@@ -76,10 +101,32 @@ public class AnimatorController : MonoBehaviour
         //}
     }
 
-    public void TakeDamageAnimation()
+    public void TriggerTakeDamageAnimation(string[] animationClipInfo)
     {
-        animator.SetBool("IsLanding", false);
-        animator.SetBool("TakeDamage", true);
+        StartCoroutine(TakeDamageAnimation(animationClipInfo));
+    }
+
+    private IEnumerator TakeDamageAnimation(string[] animationClipInfo)
+    {
+        for (int i = 0; i < animationClips.Length; i++)
+        {
+            if (animationClips[i].name == animationClipInfo[0])
+            {
+                currentAnimationClip = animationClips[i];
+            }
+        }
+
+        if (currentAnimationClip)
+        {
+            animator.SetBool("IsLanding", false);
+            animator.SetBool("IsAttacking", false);
+            animator.SetBool(animationClipInfo[1], true);
+
+            yield return new WaitForSeconds(currentAnimationClip.length);
+
+            animator.SetBool(animationClipInfo[1], false);
+            currentAnimationClip = null;
+        }
     }
 
     /// <summary>
@@ -108,7 +155,6 @@ public class AnimatorController : MonoBehaviour
     /// <returns></returns>
     public IEnumerator AttackAnimation(string[] animationClipInfo)
     {
-        float elapsed = 0f;
         for (int i = 0; i < animationClips.Length; i++)
         {
             if (animationClips[i].name == animationClipInfo[0])
@@ -122,12 +168,7 @@ public class AnimatorController : MonoBehaviour
             movementController.isAttacking = true;
             animator.SetBool("IsFalling", false);
             animator.SetBool(animationClipInfo[1], true);
-    
-            //while (elapsed < currentAnimationClip.length)
-            //{
-            //    elapsed = elapsed + Time.deltaTime;
-            //    yield return 0;
-            //}
+
             yield return new WaitForSeconds(currentAnimationClip.length);
     
             animator.SetBool(animationClipInfo[1], false);
