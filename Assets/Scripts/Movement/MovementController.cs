@@ -15,6 +15,7 @@ public class MovementController : MonoBehaviour
 
     public Controller2D controller2D;
     GravityController gravityController;
+    AnimatorController animatorController;
 
     //Input
     [HideInInspector] public Vector2 directionalInput;
@@ -42,11 +43,13 @@ public class MovementController : MonoBehaviour
         //}
     }
 
-    private void Start()
+    private void Awake()
     {
         //EventManager.Instance.AddListener(EVENT_TYPE.MOVE, this);
         controller2D = GetComponent<Controller2D>();
         gravityController = GetComponent<GravityController>();
+
+        animatorController = GetComponent<AnimatorController>();
     }
 
     /// <summary>
@@ -54,7 +57,7 @@ public class MovementController : MonoBehaviour
     /// </summary>
     void CalculateVelocity()
     {
-        if (!isAttacking)
+        if (animatorController?.animationStates.isAttacking == false)
         {
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);

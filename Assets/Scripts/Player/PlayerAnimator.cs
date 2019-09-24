@@ -18,6 +18,12 @@ public class PlayerAnimator : AnimatorController
         base.LateUpdate();
     }
 
+    protected override void UpdateAnimationStates()
+    {
+        base.UpdateAnimationStates();
+        animationStates.isJumping = animator.GetBool("IsJumping");
+    }
+
     protected void JumpAnimation()
     {
         if (jumpController)

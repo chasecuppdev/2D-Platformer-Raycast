@@ -63,7 +63,7 @@ public class SplicerAI : MonoBehaviour
     private void FixedUpdate()
     {
         ScanForTarget();
-        CheckAttackRange();
+        AttackWhenInRange();
         if ((movementController.controller2D.collisions.right && horizontalDirection.x > 0) || (movementController.controller2D.collisions.left && horizontalDirection.x < 0))
         {
             movementController.SetDirectionalInput(Vector2.zero);
@@ -76,13 +76,13 @@ public class SplicerAI : MonoBehaviour
 
     public bool CanAttack()
     {
-        if (!movementController.isAttacking && !animController.animationStates.isTakingDamage)
+        if (animController.animationStates.isAttacking || animController.animationStates.isTakingDamage)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 
@@ -123,25 +123,10 @@ public class SplicerAI : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(aggroRayOrigin, (PlayerPosition - aggroRayOrigin).normalized, aggroRange, detectionMask);
         Debug.DrawRay(aggroRayOrigin, targetDirection);
 
-        if (hit)
+        if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerHurtbox"))
         {
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerHurtbox"))
-            {
-                currentlyFollowingTarget = true;
-                UpdateDirection();
-            }
-            else
-            {
-                currentlyFollowingTarget = false;
-                if (patrollingEnabled)
-                {
-                    Patrol();
-                }
-                else
-                {
-                    horizontalDirection = Vector2.zero;
-                }
-            }
+            currentlyFollowingTarget = true;
+            UpdateDirection();
         }
         else
         {
@@ -157,7 +142,7 @@ public class SplicerAI : MonoBehaviour
         }
     }
 
-    private void CheckAttackRange()
+    private void AttackWhenInRange()
     {
         int directionX = movementController.controller2D.collisions.faceDir;
         Vector3 rayOrigin = collider.bounds.center + ((Vector3.right * directionX) * collider.bounds.extents.x);

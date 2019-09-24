@@ -19,6 +19,8 @@ public class AnimatorController : MonoBehaviour
     protected AnimationClip currentAnimationClip;
     public AnimationStates animationStates;
 
+    private IEnumerator AttackCoroutine;
+
     protected bool facingRight = true;
 
     public struct AnimationStates
@@ -69,13 +71,13 @@ public class AnimatorController : MonoBehaviour
         animator.SetBool("TakeDamage", false);
     }
 
-    private void UpdateAnimationStates()
+    protected virtual void UpdateAnimationStates()
     {
         animationStates.speed = animator.GetFloat("Speed");
         animationStates.isJumping = animator.GetBool("IsJumping");
         animationStates.isFalling = animator.GetBool("IsFalling");
         animationStates.isLanding = animator.GetBool("IsLanding");
-        animationStates.isAttacking = animator.GetBool("isAttacking");
+        animationStates.isAttacking = animator.GetBool("IsAttacking");
         animationStates.isTakingDamage = animator.GetBool("TakeDamage");
         
     }
@@ -118,6 +120,7 @@ public class AnimatorController : MonoBehaviour
 
         if (currentAnimationClip)
         {
+            StopCoroutine(AttackCoroutine);
             animator.SetBool("IsLanding", false);
             animator.SetBool("IsAttacking", false);
             animator.SetBool(animationClipInfo[1], true);
@@ -137,13 +140,10 @@ public class AnimatorController : MonoBehaviour
     {
         if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
         {
-            if (!movementController.isAttacking)
+            if (!animationStates.isAttacking)
             {
-                movementController.isAttacking = true;
-                //animator.SetBool(animationClipInfo[1], true);
-                StartCoroutine(AttackAnimation(animationClipInfo));
-                //AttackAnimation(animationClipInfo);
-                //animator.Play("Enemy2_Attack");
+                AttackCoroutine = AttackAnimation(animationClipInfo);
+                StartCoroutine(AttackCoroutine);
             }
         }
     }
@@ -165,51 +165,17 @@ public class AnimatorController : MonoBehaviour
     
         if (currentAnimationClip)
         {
-            movementController.isAttacking = true;
+            animationStates.isAttacking = true;
             animator.SetBool("IsFalling", false);
             animator.SetBool(animationClipInfo[1], true);
 
             yield return new WaitForSeconds(currentAnimationClip.length);
     
             animator.SetBool(animationClipInfo[1], false);
-            movementController.isAttacking = false;
+            animationStates.isAttacking = false;
             currentAnimationClip = null;
         }
     }
-
-    //public void AttackAnimation(string[] animationClipInfo)
-    //{
-    //    float elapsed = 0f;
-    //    for (int i = 0; i < animationClips.Length; i++)
-    //    {
-    //        if (animationClips[i].name == animationClipInfo[0])
-    //        {
-    //            currentAnimationClip = animationClips[i];
-    //        }
-    //    }
-    //
-    //    if (currentAnimationClip)
-    //    {
-    //        movementController.isAttacking = true;
-    //        animator.SetBool("IsFalling", false);
-    //        animator.SetBool(animationClipInfo[1], true);
-    //
-    //        //while (elapsed < currentAnimationClip.length)
-    //        //{
-    //        //    elapsed = elapsed + Time.deltaTime;
-    //        //    yield return 0;
-    //        //}
-    //        //yield return new WaitForSeconds(currentAnimationClip.length);
-    //
-    //        currentAnimationClip = null;
-    //    }
-    //}
-    //
-    //public void OnAttackAnimationEnd()
-    //{
-    //    animator.SetBool("IsAttacking", false);
-    //    movementController.isAttacking = false;
-    //}
 
     /// <summary>
     /// Simple check to see if the character is falling or landing in order to play the correct animations
