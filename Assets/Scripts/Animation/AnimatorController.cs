@@ -68,7 +68,6 @@ public class AnimatorController : MonoBehaviour
     protected virtual void LateUpdate()
     {
         animator.SetBool("IsLanding", false);
-        animator.SetBool("TakeDamage", false);
     }
 
     protected virtual void UpdateAnimationStates()
@@ -79,7 +78,6 @@ public class AnimatorController : MonoBehaviour
         animationStates.isLanding = animator.GetBool("IsLanding");
         animationStates.isAttacking = animator.GetBool("IsAttacking");
         animationStates.isTakingDamage = animator.GetBool("TakeDamage");
-        
     }
 
     /// <summary>
@@ -101,6 +99,34 @@ public class AnimatorController : MonoBehaviour
         //{
         //    animator.SetBool("IsRunning", false);
         //}
+    }
+
+    public void TriggerDieAnimation(string clipName, string clipParameter)
+    {
+        StartCoroutine(DieAnimation(clipName, clipParameter));
+    }
+
+    private IEnumerator DieAnimation(string clipName, string clipParameter)
+    {
+        for (int i = 0; i < animationClips.Length; i++)
+        {
+            if (animationClips[i].name == clipName)
+            {
+                currentAnimationClip = animationClips[i];
+            }
+        }
+        animator.SetBool("IsDead", true);
+
+        if (currentAnimationClip)
+        {
+            animator.SetBool(clipParameter, true);
+
+            yield return new WaitForSeconds(currentAnimationClip.length);
+
+            animator.SetBool(clipParameter, false);
+            currentAnimationClip = null;
+            Destroy(gameObject);
+        }
     }
 
     public void TriggerTakeDamageAnimation(string[] animationClipInfo)

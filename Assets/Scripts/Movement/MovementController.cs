@@ -57,14 +57,14 @@ public class MovementController : MonoBehaviour
     /// </summary>
     void CalculateVelocity()
     {
-        if (animatorController?.animationStates.isAttacking == false)
+        if (animatorController?.animationStates.isAttacking == true || animatorController?.animationStates.isTakingDamage == true)
         {
-        float targetVelocityX = directionalInput.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
+            velocity.x = 0;
         }
         else
         {
-            velocity.x = 0;
+            float targetVelocityX = directionalInput.x * moveSpeed;
+            velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
         }
         velocity.y += gravityController.Gravity * Time.deltaTime;
     }

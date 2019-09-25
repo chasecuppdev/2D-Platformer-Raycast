@@ -18,7 +18,14 @@ public class Enemy : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         health -= damage;
-        animator.TriggerTakeDamageAnimation(takeDamageAnimationInfo);
+        if (health > 0)
+        {
+            animator.TriggerTakeDamageAnimation(takeDamageAnimationInfo);
+        }
+        else
+        {
+            animator.TriggerDieAnimation("Enemy2_Death", "IsDead");
+        }
         Debug.Log(damage + " damage taken.");
     }
 }
