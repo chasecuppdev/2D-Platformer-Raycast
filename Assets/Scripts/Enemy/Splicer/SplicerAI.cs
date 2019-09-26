@@ -60,10 +60,15 @@ public class SplicerAI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Since the MovementController is used for both player controlled characters and AI, we mimic input in order to move ai characters to keep it general
+    /// </summary>
     private void FixedUpdate()
     {
         TryToMoveTowardsTarget();
         AttackWhenInRange();
+
+        //Don't keep walking forward if walking into an obstacle
         if ((movementController.controller2D.collisions.right && horizontalDirection.x > 0) || (movementController.controller2D.collisions.left && horizontalDirection.x < 0))
         {
             movementController.SetDirectionalInput(Vector2.zero);

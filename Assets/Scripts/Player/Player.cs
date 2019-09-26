@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Prime31.MessageKit;
 
 public class Player : MonoBehaviour, IDamageable
 {
-    public int health;
+    public int maxHealth;
+    public int currentHealth;
+    public int startingHealth;
+
+    public void Awake()
+    {
+        currentHealth = startingHealth;
+    }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log(damage + " damage taken.");
+        currentHealth -= damage;
+        MessageKit<int, int>.post(EventTypes.PLAYER_TAKE_DAMAGE_1P, currentHealth, maxHealth);
     }
 }
