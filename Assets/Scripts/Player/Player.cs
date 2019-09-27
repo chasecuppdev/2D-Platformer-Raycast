@@ -18,5 +18,6 @@ public class Player : MonoBehaviour, IDamageable
     {
         currentHealth -= damage;
         MessageKit<int, int>.post(EventTypes.PLAYER_TAKE_DAMAGE_1P, currentHealth, maxHealth);
+        MessageKit<float, float>.post(EventTypes.CAMERA_SHAKE_2P, 0.05f, 0.15f);
     }
 }

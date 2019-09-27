@@ -187,13 +187,16 @@ public class SplicerAI : MonoBehaviour
     /// </summary>
     private void UpdateDirection()
     {
-        if (PlayerPosition.x > transform.position.x)
+        if (CanAttack())
         {
-            horizontalDirection =  Vector2.right;
-        }
-        else
-        {
-            horizontalDirection = Vector2.left;
+            if (PlayerPosition.x > transform.position.x)
+            {
+                horizontalDirection = Vector2.right;
+            }
+            else
+            {
+                horizontalDirection = Vector2.left;
+            }
         }
     }
 

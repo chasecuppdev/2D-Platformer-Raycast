@@ -22,7 +22,6 @@ public class AnimatorController : MonoBehaviour
     private IEnumerator AttackCoroutine;
 
     protected bool facingRight = true;
-    private float rememberLastDirection;
 
     public struct AnimationStates
     {
@@ -45,7 +44,6 @@ public class AnimatorController : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         animationClips = AnimationUtility.GetAnimationClips(animator.gameObject);
         UpdateAnimationStates();
-        rememberLastDirection = Mathf.Sign(movementController.directionalInput.x);
 
         if (GetComponent<JumpController>() != null)
         {
@@ -235,10 +233,10 @@ public class AnimatorController : MonoBehaviour
             //float directionX = Mathf.Sign(movementController.velocity.x); //Get the horizontal direction of movement
             float directionX = movementController.directionalInput.x; //Get the horizontal direction of movement
 
-        Debug.Log("DirictionalInput is : " + movementController.directionalInput.x);
+            Debug.Log("DirictionalInput is : " + movementController.directionalInput.x);
             if (directionX == 1)
             {
-                if (!facingRight && directionX != rememberLastDirection)
+                if (!facingRight)
                 {
                     transform.localScale = new Vector3(1,1,1);
                     facingRight = true;
@@ -246,7 +244,7 @@ public class AnimatorController : MonoBehaviour
             }
             else if (directionX == -1)
             {
-                if (facingRight && directionX != rememberLastDirection)
+                if (facingRight)
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
                     facingRight = false;
