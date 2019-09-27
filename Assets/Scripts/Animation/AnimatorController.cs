@@ -22,10 +22,12 @@ public class AnimatorController : MonoBehaviour
     private IEnumerator AttackCoroutine;
 
     protected bool facingRight = true;
+    private float rememberLastDirection;
 
     public struct AnimationStates
     {
         public float speed;
+        public float directionalInput;
         public bool isJumping;
         public bool isFalling;
         public bool isLanding;
@@ -43,6 +45,7 @@ public class AnimatorController : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         animationClips = AnimationUtility.GetAnimationClips(animator.gameObject);
         UpdateAnimationStates();
+        rememberLastDirection = Mathf.Sign(movementController.directionalInput.x);
 
         if (GetComponent<JumpController>() != null)
         {
@@ -73,6 +76,7 @@ public class AnimatorController : MonoBehaviour
     protected virtual void UpdateAnimationStates()
     {
         animationStates.speed = animator.GetFloat("Speed");
+        animationStates.directionalInput = animator.GetFloat("DirectionalInput");
         animationStates.isJumping = animator.GetBool("IsJumping");
         animationStates.isFalling = animator.GetBool("IsFalling");
         animationStates.isLanding = animator.GetBool("IsLanding");
@@ -225,32 +229,30 @@ public class AnimatorController : MonoBehaviour
     /// </summary>
     protected void DirectionController()
     {
-        //Have to check to see if this is greater than a relatively small value due to floating point precision errors
-        if (Mathf.Abs(movementController.velocity.x) > 0.01f )
-        {
-            float directionX = Mathf.Sign(movementController.velocity.x); //Get the horizontal direction of movement
+        ////Have to check to see if this is greater than a relatively small value due to floating point precision errors
+        //if (Mathf.Abs(movementController.velocity.x) > 0.01f )
+        //{
+            //float directionX = Mathf.Sign(movementController.velocity.x); //Get the horizontal direction of movement
+            float directionX = movementController.directionalInput.x; //Get the horizontal direction of movement
 
+        Debug.Log("DirictionalInput is : " + movementController.directionalInput.x);
             if (directionX == 1)
             {
-                if (!facingRight)
+                if (!facingRight && directionX != rememberLastDirection)
                 {
-                    //attackPosition.localPosition.Set(-attackPosition.transform.position.x, attackPosition.transform.position.y, 0);
-                    //sprite.flipX = false;
                     transform.localScale = new Vector3(1,1,1);
                     facingRight = true;
                 }
             }
             else if (directionX == -1)
             {
-                if (facingRight)
+                if (facingRight && directionX != rememberLastDirection)
                 {
-                    //attackPosition.transform.Translate(new Vector2(-attackPosition.transform.position.x, attackPosition.transform.position.y));
-                    //sprite.flipX = true;
                     transform.localScale = new Vector3(-1, 1, 1);
                     facingRight = false;
                 }
             }
-        }
+        //}
         //Remember the direction after the attack animation
         //else 
         //{
