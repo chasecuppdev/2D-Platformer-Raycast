@@ -56,7 +56,6 @@ public class AnimatorController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        
         CheckFallingAndLanding();
         DirectionController();
         RunAnimation();
@@ -80,6 +79,18 @@ public class AnimatorController : MonoBehaviour
         animationStates.isLanding = animator.GetBool("IsLanding");
         animationStates.isAttacking = animator.GetBool("IsAttacking");
         animationStates.isTakingDamage = animator.GetBool("TakeDamage");
+    }
+
+    public bool HasControl()
+    {
+        if (animationStates.isAttacking || animationStates.isTakingDamage)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     /// <summary>
@@ -193,6 +204,8 @@ public class AnimatorController : MonoBehaviour
     
         if (currentAnimationClip)
         {
+            //Calling DirectionController here is a special case for continuously attacking enemy AIs
+            DirectionController(); //The way this coroutine is called, this needs to be updated just before the attack begins, as the parameters will be set before DirectionController is run again in FixedUpdate
             animationStates.isAttacking = true;
             animator.SetBool("IsFalling", false);
             animator.SetBool(animationClipInfo[1], true);
@@ -227,9 +240,8 @@ public class AnimatorController : MonoBehaviour
     /// </summary>
     protected void DirectionController()
     {
-        ////Have to check to see if this is greater than a relatively small value due to floating point precision errors
-        //if (Mathf.Abs(movementController.velocity.x) > 0.01f )
-        //{
+        if (HasControl())
+        { 
             //float directionX = Mathf.Sign(movementController.velocity.x); //Get the horizontal direction of movement
             float directionX = movementController.directionalInput.x; //Get the horizontal direction of movement
 
@@ -250,16 +262,6 @@ public class AnimatorController : MonoBehaviour
                     facingRight = false;
                 }
             }
-        //}
-        //Remember the direction after the attack animation
-        //else 
-        //{
-        //    if (hitbox.currentAttackPosition == hitbox.leftAttackPosition )
-        //    {
-        //        sprite.flipX = true;
-        //        facingRight = false;
-        //    }
-        //
-        //}
+        }
     }
 }
