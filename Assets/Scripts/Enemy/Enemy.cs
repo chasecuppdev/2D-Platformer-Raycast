@@ -6,13 +6,10 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     public int health;
     AnimatorController animator;
-    string[] takeDamageAnimationInfo = new string[2];
 
     private void Start()
     {
         animator = GetComponent<AnimatorController>();
-        takeDamageAnimationInfo[0] = "Enemy2_Hit";
-        takeDamageAnimationInfo[1] = "TakeDamage";
     }
 
     public void TakeDamage(int damage)
@@ -20,12 +17,11 @@ public class Enemy : MonoBehaviour, IDamageable
         health -= damage;
         if (health > 0)
         {
-            animator.TriggerTakeDamageAnimation(takeDamageAnimationInfo);
+            animator.TriggerTakeDamageAnimation(SplicerAnimationClips.TakeDamageAnimation, SplicerAnimationParameters.HurtParameter);
         }
         else
         {
-            animator.TriggerDieAnimation("Enemy2_Death", "IsDead");
+            animator.TriggerDieAnimation(SplicerAnimationClips.DeathAnimation, SplicerAnimationParameters.DeathParameter);
         }
-        Debug.Log(damage + " damage taken.");
     }
 }

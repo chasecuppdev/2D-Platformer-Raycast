@@ -33,8 +33,6 @@ public class SplicerAI : MonoBehaviour
 
     [SerializeField] private bool patrollingEnabled;
 
-    string[] attackAnimationInfo = new string[2];
-
     private Vector3 PlayerPosition
     {
         get { return player.transform.position; }
@@ -46,9 +44,6 @@ public class SplicerAI : MonoBehaviour
         movementController = GetComponent<MovementController>();
         standardAttack = GetComponent<SplicerStandardAttack>();
         animController = GetComponent<AnimatorController>();
-
-        attackAnimationInfo[0] = "Enemy2_Attack";
-        attackAnimationInfo[1] = "IsAttacking";
 
         ObstacleMask = 1 << ObstacleLayer;
         PlatformMask = 1 << PlatformLayer;
@@ -165,7 +160,7 @@ public class SplicerAI : MonoBehaviour
         {
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerHurtbox") && animController.HasControl())
             {
-                animController.TriggerAttackAnimation(attackAnimationInfo);
+                animController.TriggerAttackAnimation(SplicerAnimationClips.Attack1Animation, SplicerAnimationParameters.Attack1Parameter);
             }
         }
     }

@@ -142,16 +142,16 @@ public class AnimatorController : MonoBehaviour
         }
     }
 
-    public void TriggerTakeDamageAnimation(string[] animationClipInfo)
+    public void TriggerTakeDamageAnimation(string clipName, string clipParameter)
     {
-        StartCoroutine(TakeDamageAnimation(animationClipInfo));
+        StartCoroutine(TakeDamageAnimation(clipName, clipParameter));
     }
 
-    private IEnumerator TakeDamageAnimation(string[] animationClipInfo)
+    private IEnumerator TakeDamageAnimation(string clipName, string clipParameter)
     {
         for (int i = 0; i < animationClips.Length; i++)
         {
-            if (animationClips[i].name == animationClipInfo[0])
+            if (animationClips[i].name == clipName)
             {
                 currentAnimationClip = animationClips[i];
             }
@@ -159,14 +159,17 @@ public class AnimatorController : MonoBehaviour
 
         if (currentAnimationClip)
         {
-            StopCoroutine(AttackCoroutine);
+            if (AttackCoroutine != null)
+            {
+                StopCoroutine(AttackCoroutine);
+            }
             animator.SetBool("IsLanding", false);
             animator.SetBool("IsAttacking", false);
-            animator.SetBool(animationClipInfo[1], true);
+            animator.SetBool(clipParameter, true);
 
             yield return new WaitForSeconds(currentAnimationClip.length);
 
-            animator.SetBool(animationClipInfo[1], false);
+            animator.SetBool(clipParameter, false);
             currentAnimationClip = null;
         }
     }
@@ -175,13 +178,13 @@ public class AnimatorController : MonoBehaviour
     /// Triggers the AttackAnimation coroutine. animationClipInfo[0] = Animation_Clip_Name, animationClipInfo[1] = Animator_Parameter_Name
     /// </summary>
     /// <param name="animationClipInfo"></param>
-    public void TriggerAttackAnimation(string[] animationClipInfo)
+    public void TriggerAttackAnimation(string clipName, string clipParameter)
     {
         if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
         {
             if (!animationStates.isAttacking)
             {
-                AttackCoroutine = AttackAnimation(animationClipInfo);
+                AttackCoroutine = AttackAnimation(clipName, clipParameter);
                 StartCoroutine(AttackCoroutine);
             }
         }
@@ -192,11 +195,11 @@ public class AnimatorController : MonoBehaviour
     /// </summary>
     /// <param name="animationClipInfo"></param>
     /// <returns></returns>
-    public IEnumerator AttackAnimation(string[] animationClipInfo)
+    public IEnumerator AttackAnimation(string clipName, string clipParameter)
     {
         for (int i = 0; i < animationClips.Length; i++)
         {
-            if (animationClips[i].name == animationClipInfo[0])
+            if (animationClips[i].name == clipName)
             {
                 currentAnimationClip = animationClips[i];
             }
@@ -208,11 +211,11 @@ public class AnimatorController : MonoBehaviour
             DirectionController(); //The way this coroutine is called, this needs to be updated just before the attack begins, as the parameters will be set before DirectionController is run again in FixedUpdate
             animationStates.isAttacking = true;
             animator.SetBool("IsFalling", false);
-            animator.SetBool(animationClipInfo[1], true);
+            animator.SetBool(clipParameter, true);
 
             yield return new WaitForSeconds(currentAnimationClip.length);
     
-            animator.SetBool(animationClipInfo[1], false);
+            animator.SetBool(clipParameter, false);
             animationStates.isAttacking = false;
             currentAnimationClip = null;
         }

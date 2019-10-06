@@ -9,7 +9,7 @@ public class PlayerAnimator : AnimatorController
     {
         base.Start();
         MessageKit.addObserver(EventTypes.JUMP_INPUT_DOWN, JumpAnimation);
-        MessageKit<string[]>.addObserver(EventTypes.ATTACK_INPUT_DOWN_1P, TriggerAttackAnimation);
+        MessageKit<string, string>.addObserver(EventTypes.ATTACK_INPUT_DOWN_2P, TriggerAttackAnimation);
     }
 
     protected override void LateUpdate()

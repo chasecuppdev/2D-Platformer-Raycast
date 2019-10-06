@@ -60,7 +60,7 @@ public class Enemy_Old : MonoBehaviour, IDamageable
         if (elapsed >= 5f)
         {
             elapsed = 0;
-            animatorController.TriggerAttackAnimation(attackParameters);
+            //animatorController.TriggerAttackAnimation(attackParameters);
         }
         else
         {

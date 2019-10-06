@@ -352,18 +352,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &481630240 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8427882175128524933, guid: 02e16c3cd64c8d147a69bf963b0d504d,
-    type: 3}
-  m_PrefabInstance: {fileID: 8427882174800511141}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5531acad216594ea92527cc0c9e480, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &503005348
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad861063fb0e90f4fbd86b2ecafb77f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 481630240}
+  target: {fileID: 0}
   focusAreaSize: {x: 3, y: 5}
   verticalOffset: 0
   lookAheadDistanceX: 4
@@ -532,7 +520,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
