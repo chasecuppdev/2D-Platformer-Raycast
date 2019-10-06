@@ -42,7 +42,12 @@ public class PlayerInput : MonoBehaviour
         {
             MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.Attack1Animation, PlayerAnimationParameters.Attack1Parameter);
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedDashAttackAnimation, PlayerAnimationParameters.DashAttackParameter);
+        }
+
         //if (Input.GetKeyDown(KeyCode.R))
         //{
         //    attackParameters[0] = "Player_Attack_Heavy";

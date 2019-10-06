@@ -1,28 +1,22 @@
 fileFormatVersion: 2
-guid: af0848857d62fc24c9a1d348685553b9
+guid: 38fd0be8a81b11d4686c5c74afc5dedb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2115686509336090790
-    second: Player.Jump_0
+      213: -1943406299485593411
+    second: 36x32BladeDestroy_0
   - first:
-      213: -3631511264646357729
-    second: Player.Jump_1
+      213: 4467872506149671615
+    second: 36x32BladeDestroy_1
   - first:
-      213: -8250574063425162181
-    second: Player.Jump_2
+      213: -3156235428310522232
+    second: 36x32BladeDestroy_2
   - first:
-      213: 3030625867011149674
-    second: Player.Jump_3
+      213: -3438324886773923775
+    second: 36x32BladeDestroy_3
   - first:
-      213: 1576816115420379169
-    second: Player.Jump_4
-  - first:
-      213: -8972991291423538183
-    second: Player.Jump_5
-  - first:
-      213: -4838425231484038373
-    second: Player.Jump_6
+      213: -593843715883535498
+    second: 36x32BladeDestroy_4
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -101,152 +95,121 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player.Jump_0
+      name: 36x32BladeDestroy_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46cb2c38816276949821fe99c9c17f41
-      internalID: 2115686509336090790
+      spriteID: b76d25240cc129d468294e8512e64ba4
+      internalID: -1943406299485593411
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_1
+      name: 36x32BladeDestroy_1
       rect:
         serializedVersion: 2
-        x: 50
+        x: 36
         y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f85507e4ff7414a4d97b7fb89c4f1c64
-      internalID: -3631511264646357729
+      spriteID: a33bdb673bd673c4e8c3815bdcd285c1
+      internalID: 4467872506149671615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_2
+      name: 36x32BladeDestroy_2
       rect:
         serializedVersion: 2
-        x: 100
+        x: 72
         y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e331ea832047ed47ac21365ca307099
-      internalID: -8250574063425162181
+      spriteID: 3037848325e387e408d81ee9328eadb4
+      internalID: -3156235428310522232
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_3
+      name: 36x32BladeDestroy_3
       rect:
         serializedVersion: 2
-        x: 150
+        x: 108
         y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d4b9e7fbb4c7f44390ed8e790b11503
-      internalID: 3030625867011149674
+      spriteID: bb037a0817bf5d14098546e65b4acc44
+      internalID: -3438324886773923775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_4
+      name: 36x32BladeDestroy_4
       rect:
         serializedVersion: 2
-        x: 200
+        x: 144
         y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f800adb573b39d941a0f6851871d098b
-      internalID: 1576816115420379169
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_5
-      rect:
-        serializedVersion: 2
-        x: 250
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc50b4b1cdfdf81459eb4dc7290617f3
-      internalID: -8972991291423538183
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_6
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 488595cc316feba4b95d552ba6039887
-      internalID: -4838425231484038373
+      spriteID: 0b97860f5b2ff6444b95a866aeff4d6a
+      internalID: -593843715883535498
       vertices: []
       indices: 
       edges: []
@@ -254,7 +217,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 48e0efd5d1b897340bf7813c9a936cb1
+    spriteID: 60576fc1572046f46a050dba765b192e
     internalID: 0
     vertices: []
     indices: 

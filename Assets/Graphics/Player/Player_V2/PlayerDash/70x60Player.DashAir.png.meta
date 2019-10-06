@@ -1,28 +1,34 @@
 fileFormatVersion: 2
-guid: af0848857d62fc24c9a1d348685553b9
+guid: f5bcdf3c64bbcd9468e3ae7165b9c110
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2115686509336090790
-    second: Player.Jump_0
+      213: -7683024425380584284
+    second: 70x60Player.DashAir_0
   - first:
-      213: -3631511264646357729
-    second: Player.Jump_1
+      213: -8979484379051719297
+    second: 70x60Player.DashAir_1
   - first:
-      213: -8250574063425162181
-    second: Player.Jump_2
+      213: 3725723343613848824
+    second: 70x60Player.DashAir_2
   - first:
-      213: 3030625867011149674
-    second: Player.Jump_3
+      213: 6587220594529003003
+    second: 70x60Player.DashAir_3
   - first:
-      213: 1576816115420379169
-    second: Player.Jump_4
+      213: -9117436883020462441
+    second: 70x60Player.DashAir_4
   - first:
-      213: -8972991291423538183
-    second: Player.Jump_5
+      213: -173297315835757139
+    second: 70x60Player.DashAir_5
   - first:
-      213: -4838425231484038373
-    second: Player.Jump_6
+      213: -3443279676500387479
+    second: 70x60Player.DashAir_6
+  - first:
+      213: 5474747108091594924
+    second: 70x60Player.DashAir_7
+  - first:
+      213: 3076966169973241665
+    second: 70x60Player.DashAir_8
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -101,152 +107,205 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player.Jump_0
+      name: 70x60Player.DashAir_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9842f233b91c05428768e749e2d08e2
+      internalID: -7683024425380584284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f27edf043c93ff478443e518b4b763d
+      internalID: -8979484379051719297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 124742941fc0dd94c9aec2a5b877a3f2
+      internalID: 3725723343613848824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_3
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f9c4fa49be6da349bc374d9c55241f2
+      internalID: 6587220594529003003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_4
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71884a17dc616524a849e55ecffb66de
+      internalID: -9117436883020462441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_5
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94a13eef0a9575048b23778dc0fc3c07
+      internalID: -173297315835757139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_6
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dc126af549bbbf4bb2204ac36125d5e
+      internalID: -3443279676500387479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_7
+      rect:
+        serializedVersion: 2
+        x: 490
+        y: 60
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 201972abf0e05ea4cbe30ab0b3b803b7
+      internalID: 5474747108091594924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 70x60Player.DashAir_8
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+        width: 70
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46cb2c38816276949821fe99c9c17f41
-      internalID: 2115686509336090790
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_1
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f85507e4ff7414a4d97b7fb89c4f1c64
-      internalID: -3631511264646357729
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_2
-      rect:
-        serializedVersion: 2
-        x: 100
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e331ea832047ed47ac21365ca307099
-      internalID: -8250574063425162181
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_3
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d4b9e7fbb4c7f44390ed8e790b11503
-      internalID: 3030625867011149674
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_4
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f800adb573b39d941a0f6851871d098b
-      internalID: 1576816115420379169
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_5
-      rect:
-        serializedVersion: 2
-        x: 250
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cc50b4b1cdfdf81459eb4dc7290617f3
-      internalID: -8972991291423538183
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_6
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 488595cc316feba4b95d552ba6039887
-      internalID: -4838425231484038373
+      spriteID: 2ff9f48fee8e655468cde964de09352b
+      internalID: 3076966169973241665
       vertices: []
       indices: 
       edges: []
@@ -254,7 +313,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 48e0efd5d1b897340bf7813c9a936cb1
+    spriteID: 84e0cd4dc8d73e84ab9a5f2c82821e4f
     internalID: 0
     vertices: []
     indices: 

@@ -122,18 +122,18 @@ TextureImporter:
       name: Player.Attack1_0
       rect:
         serializedVersion: 2
-        x: 11
+        x: 0
         y: 0
-        width: 36
-        height: 50
+        width: 100
+        height: 60
       alignment: 9
-      pivot: {x: 0.34021127, y: 0.5}
+      pivot: {x: 0.22999999, y: -0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c324a12ed84a36042b53422bca857185
+      spriteID: 513143ca0c36076448721df7ee4fb9d2
       internalID: -5560403001049749528
       vertices: []
       indices: 
@@ -143,18 +143,18 @@ TextureImporter:
       name: Player.Attack1_1
       rect:
         serializedVersion: 2
-        x: 113
+        x: 100
         y: 0
-        width: 35
-        height: 50
+        width: 100
+        height: 60
       alignment: 9
-      pivot: {x: 0.23703286, y: 0.5}
+      pivot: {x: 0.22, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9c47c5558992a149be8ba921a683204
+      spriteID: e272f590364878d41a68812431b37d2d
       internalID: 4691425698128363591
       vertices: []
       indices: 
@@ -164,18 +164,18 @@ TextureImporter:
       name: Player.Attack1_2
       rect:
         serializedVersion: 2
-        x: 208
+        x: 200
         y: 0
-        width: 70
-        height: 50
+        width: 100
+        height: 60
       alignment: 9
-      pivot: {x: 0.14663762, y: 0.5}
+      pivot: {x: 0.19, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c1eb5731073bf5489df935dc9173d61
+      spriteID: 8490397a1c17de74996594d6ce20abdc
       internalID: -7995228509357890085
       vertices: []
       indices: 
@@ -185,18 +185,18 @@ TextureImporter:
       name: Player.Attack1_3
       rect:
         serializedVersion: 2
-        x: 317
+        x: 300
         y: 0
-        width: 61
-        height: 50
+        width: 100
+        height: 60
       alignment: 9
-      pivot: {x: 0.01906048, y: 0.5}
+      pivot: {x: 0.19, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81f7894d7d7b7664c95c74c978a55fc0
+      spriteID: be97e35702f65654b80efe6ea68f5ff2
       internalID: 8824350985063658942
       vertices: []
       indices: 
@@ -206,18 +206,18 @@ TextureImporter:
       name: Player.Attack1_4
       rect:
         serializedVersion: 2
-        x: 379
-        y: 27
-        width: 5
-        height: 4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 400
+        y: 0
+        width: 100
+        height: 60
+      alignment: 9
+      pivot: {x: 0.2, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9ac258ac74972843bb0f4588dd6db11
+      spriteID: 68cf84c68bb5aa7459b0e9652ae26f06
       internalID: 4458988352371288937
       vertices: []
       indices: 
@@ -227,61 +227,19 @@ TextureImporter:
       name: Player.Attack1_5
       rect:
         serializedVersion: 2
-        x: 418
+        x: 501
         y: 0
-        width: 66
-        height: 50
+        width: 100
+        height: 60
       alignment: 9
-      pivot: {x: 0.020632194, y: 0.5}
+      pivot: {x: 0.23, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4843f543bb4fd4142ace2837aeea90e1
+      spriteID: 05455b5e5bd1dce43964b080b909d4f9
       internalID: 6767387933821884023
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Attack1_6
-      rect:
-        serializedVersion: 2
-        x: 523
-        y: 0
-        width: 24
-        height: 50
-      alignment: 9
-      pivot: {x: 0.052589417, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a85a5844578deb64d87aa44d818aceac
-      internalID: -5570068475840185614
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Attack1_7
-      rect:
-        serializedVersion: 2
-        x: 369
-        y: 17
-        width: 14
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f125ca9c6dfa31441afd3f8b86a6c1c6
-      internalID: -351339293752057722
       vertices: []
       indices: 
       edges: []

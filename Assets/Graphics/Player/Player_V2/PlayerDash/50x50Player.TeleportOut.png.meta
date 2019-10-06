@@ -1,28 +1,25 @@
 fileFormatVersion: 2
-guid: af0848857d62fc24c9a1d348685553b9
+guid: 36c29438763a36c48a3f02cc4172b5f1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2115686509336090790
-    second: Player.Jump_0
+      213: -8880719889562445167
+    second: 50x50Player.TeleportOut_0
   - first:
-      213: -3631511264646357729
-    second: Player.Jump_1
+      213: 1062254637798781534
+    second: 50x50Player.TeleportOut_1
   - first:
-      213: -8250574063425162181
-    second: Player.Jump_2
+      213: -3918326760940082626
+    second: 50x50Player.TeleportOut_2
   - first:
-      213: 3030625867011149674
-    second: Player.Jump_3
+      213: 1064408022436556205
+    second: 50x50Player.TeleportOut_3
   - first:
-      213: 1576816115420379169
-    second: Player.Jump_4
+      213: -2860866507857031238
+    second: 50x50Player.TeleportOut_4
   - first:
-      213: -8972991291423538183
-    second: Player.Jump_5
-  - first:
-      213: -4838425231484038373
-    second: Player.Jump_6
+      213: -4957322733152114281
+    second: 50x50Player.TeleportOut_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -101,152 +98,142 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player.Jump_0
+      name: 50x50Player.TeleportOut_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 50
         height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46cb2c38816276949821fe99c9c17f41
-      internalID: 2115686509336090790
+      spriteID: f7b46c824b108954693c5c985c4e1546
+      internalID: -8880719889562445167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_1
+      name: 50x50Player.TeleportOut_1
       rect:
         serializedVersion: 2
         x: 50
         y: 0
         width: 50
         height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f85507e4ff7414a4d97b7fb89c4f1c64
-      internalID: -3631511264646357729
+      spriteID: 690b4cc0f8241a840b37488a3d9daf15
+      internalID: 1062254637798781534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_2
+      name: 50x50Player.TeleportOut_2
       rect:
         serializedVersion: 2
         x: 100
         y: 0
         width: 50
         height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e331ea832047ed47ac21365ca307099
-      internalID: -8250574063425162181
+      spriteID: 633401d8d8d9b0844b3b3c433b1b477d
+      internalID: -3918326760940082626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_3
+      name: 50x50Player.TeleportOut_3
       rect:
         serializedVersion: 2
         x: 150
         y: 0
         width: 50
         height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d4b9e7fbb4c7f44390ed8e790b11503
-      internalID: 3030625867011149674
+      spriteID: 139761005b3e75145a85f0e90ded11da
+      internalID: 1064408022436556205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_4
+      name: 50x50Player.TeleportOut_4
       rect:
         serializedVersion: 2
         x: 200
         y: 0
         width: 50
         height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f800adb573b39d941a0f6851871d098b
-      internalID: 1576816115420379169
+      spriteID: 52de1b34cc42c83488542b9fccafab42
+      internalID: -2860866507857031238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump_5
+      name: 50x50Player.TeleportOut_5
       rect:
         serializedVersion: 2
         x: 250
         y: 0
         width: 50
         height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc50b4b1cdfdf81459eb4dc7290617f3
-      internalID: -8972991291423538183
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump_6
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 50
-        height: 50
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 488595cc316feba4b95d552ba6039887
-      internalID: -4838425231484038373
+      spriteID: 2cc9e9e6ea0158d448e126409dba117c
+      internalID: -4957322733152114281
       vertices: []
       indices: 
       edges: []
@@ -254,7 +241,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 48e0efd5d1b897340bf7813c9a936cb1
+    spriteID: 3999a5a84395a59408fca6eab57774ea
     internalID: 0
     vertices: []
     indices: 

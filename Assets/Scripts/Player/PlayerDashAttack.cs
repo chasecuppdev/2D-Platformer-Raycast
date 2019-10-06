@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Prime31.MessageKit;
 
 [RequireComponent(typeof(Hitbox))]
-public class PlayerStandardAttack : MonoBehaviour, IHitboxResponder
+public class PlayerDashAttack : MonoBehaviour, IHitboxResponder
 {
     public int damage;
 
     Hitbox hitbox;
+    MovementController movementController;
 
     private void Start()
     {
+        movementController = GetComponentInParent<MovementController>();
         hitbox = GetComponent<Hitbox>();
         hitbox.addResponder(this);
     }

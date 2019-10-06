@@ -8,6 +8,6 @@ public class TitleScreenController : MonoBehaviour
 {
     public void LoadOnClick(int sceneIndex)
     {
-        SceneManager.LoadScene(sceneIndex);
+        SceneController.LoadScene(sceneIndex);
     }
 }

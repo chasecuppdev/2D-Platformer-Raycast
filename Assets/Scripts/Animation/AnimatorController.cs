@@ -19,7 +19,7 @@ public class AnimatorController : MonoBehaviour
     protected AnimationClip currentAnimationClip;
     public AnimationStates animationStates;
 
-    private IEnumerator AttackCoroutine;
+    protected IEnumerator AttackCoroutine;
 
     protected bool facingRight = true;
 
@@ -32,6 +32,7 @@ public class AnimatorController : MonoBehaviour
         public bool isLanding;
         public bool isAttacking;
         public bool isTakingDamage;
+        public bool isDashAttacking;
     }
 
     protected virtual void Start()
@@ -79,6 +80,7 @@ public class AnimatorController : MonoBehaviour
         animationStates.isLanding = animator.GetBool("IsLanding");
         animationStates.isAttacking = animator.GetBool("IsAttacking");
         animationStates.isTakingDamage = animator.GetBool("TakeDamage");
+        animationStates.isDashAttacking = animator.GetBool("IsDashAttacking");
     }
 
     public bool HasControl()
@@ -138,7 +140,12 @@ public class AnimatorController : MonoBehaviour
 
             animator.SetBool(clipParameter, false);
             currentAnimationClip = null;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            
+            if (gameObject.name == "Player")
+            {
+                MessageKit.post(EventTypes.PLAYER_DIED);
+            }
         }
     }
 

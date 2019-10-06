@@ -12,4 +12,5 @@ public class PlayerAnimationClips : ScriptableObject
     static public string Attack1Animation = "Player_Standard_Attack";
     static public string HurtAnimation = "Player_Hurt";
     static public string DeathAnimation = "Player_Death";
+    static public string GroundedDashAttackAnimation = "Player_Grounded_Dash_Attack";
 }

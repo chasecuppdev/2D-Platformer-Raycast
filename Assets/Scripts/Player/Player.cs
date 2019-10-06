@@ -19,6 +19,10 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+
+        MessageKit<float, float>.post(EventTypes.CAMERA_SHAKE_2P, 0.05f, 0.15f);
+        MessageKit<int, int>.post(EventTypes.PLAYER_TAKE_DAMAGE_1P, currentHealth, maxHealth);
+
         if (currentHealth > 0)
         {
             animator.TriggerTakeDamageAnimation(PlayerAnimationClips.HurtAnimation, PlayerAnimationParameters.HurtParameter);
@@ -27,7 +31,5 @@ public class Player : MonoBehaviour, IDamageable
         {
             animator.TriggerDieAnimation(PlayerAnimationClips.DeathAnimation, PlayerAnimationParameters.DeathParameter);
         }
-        MessageKit<int, int>.post(EventTypes.PLAYER_TAKE_DAMAGE_1P, currentHealth, maxHealth);
-        MessageKit<float, float>.post(EventTypes.CAMERA_SHAKE_2P, 0.05f, 0.15f);
     }
 }
