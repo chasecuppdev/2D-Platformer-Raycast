@@ -5,6 +5,8 @@ using Prime31.MessageKit;
 
 public class CameraShake : MonoBehaviour
 {
+    [HideInInspector]
+    public bool isShaking;
 
     private void Start()
     {
@@ -19,6 +21,7 @@ public class CameraShake : MonoBehaviour
     public IEnumerator Shake(float duration, float magnitude)
     {
         Vector3 orignalPosition = transform.position;
+        isShaking = true;
         float elapsed = 0f;
 
         while (elapsed < duration)
@@ -30,6 +33,7 @@ public class CameraShake : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return 0;
         }
+        isShaking = false;
         transform.position = orignalPosition;
     }
 }

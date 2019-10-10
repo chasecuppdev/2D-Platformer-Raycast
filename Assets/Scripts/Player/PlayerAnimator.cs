@@ -13,23 +13,29 @@ public class PlayerAnimator : AnimatorController
         MessageKit<string, string>.addObserver(EventTypes.DASH_ATTACK_INPUT_DOWN_2P, TriggerDashAttackAnimation);
     }
 
-    protected override void LateUpdate()
-    {
-        animator.SetBool("IsJumping", false);
-        base.LateUpdate();
-    }
+    //protected override void LateUpdate()
+    //{
+    //    animator.SetBool("IsJumping", false);
+    //    base.LateUpdate();
+    //}
 
     protected override void UpdateAnimationStates()
     {
         base.UpdateAnimationStates();
         animationStates.isJumping = animator.GetBool("IsJumping");
+        animationStates.isDashAttacking = animator.GetBool("IsDashAttacking");
+
+        //Special case for WallSliding
+        animator.SetBool("IsWallSliding", controller.collisions.wallSliding);
+        animationStates.isWallSliding = animator.GetBool("IsWallSliding");
+        
     }
 
     protected void JumpAnimation()
     {
         if (jumpController)
         {
-            if (controller.collisions.below)
+            if (controller.collisions.below || controller.collisions.wallSliding)
             {
                 if (controller.collisions.slidingDownMaxSlope)
                 {
@@ -43,6 +49,28 @@ public class PlayerAnimator : AnimatorController
                     animator.SetBool("IsJumping", true);
                 }
             }
+        }
+    }
+
+    protected override void CheckFallingAndLanding()
+    {
+        if (!controller.collisions.wallSliding)
+        {
+            if (movementController.velocity.y < 0 && !controller.collisions.below)
+            {
+                animator.SetBool("IsFalling", true);
+                animator.SetBool("IsJumping", false);
+            }
+        }
+
+        if (animator.GetBool("IsFalling") && controller.collisions.below)
+        {
+            animator.SetBool("IsFalling", false);
+            animator.SetBool("IsLanding", true);
+        }
+        else if (animator.GetBool("IsFalling") && controller.collisions.wallSliding)
+        {
+            animator.SetBool("IsFalling", false);
         }
     }
 

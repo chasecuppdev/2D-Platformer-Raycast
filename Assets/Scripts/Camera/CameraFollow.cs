@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    public Camera mainCamera;
+    CameraShake cameraShake;
     public Controller2D target;
     public Vector2 focusAreaSize;
+    public Vector2 boundingAreaSize;
+    public Vector2 boundingAreaCenter;
     public float verticalOffset;
     public float lookAheadDistanceX;
     public float lookSmoothTimeX;
     public float verticalSmoothTime;
 
+    BoundingArea boundingArea;
     FocusArea focusArea;
 
     float currentLookAheadX;
@@ -19,7 +24,31 @@ public class CameraFollow : MonoBehaviour
     float smoothLookVelocityX;
     float smoothVelocityY;
 
+    float minCameraPositionX;
+    float maxCameraPositionX;
+    float minCameraPositionY;
+    float maxCameraPositionY;
+
+    Vector2 checkPosition;
+
     bool lookAheadStopped = true;
+
+    struct BoundingArea
+    {
+        public float left;
+        public float right;
+        public float bottom;
+        public float top;
+
+        public BoundingArea(Vector2 boundingAreaCenter, Vector2 focusSize)
+        {
+            //Create the camera bounds based on the target collider size
+            left = boundingAreaCenter.x - focusSize.x / 2;
+            right = boundingAreaCenter.x + focusSize.x / 2;
+            bottom = boundingAreaCenter.y - focusSize.y / 2;
+            top = boundingAreaCenter.y + focusSize.y / 2;
+        }
+    }
 
     //Define the area that the player can move in before the camera moves to follow
     struct FocusArea
@@ -31,13 +60,13 @@ public class CameraFollow : MonoBehaviour
         float bottom;
         float top;
 
-        public FocusArea(Bounds targetBounds, Vector2 size)
+        public FocusArea(Bounds targetBounds, Vector2 focusSize)
         {
             //Create the camera bounds based on the target collider size
-            left = targetBounds.center.x - size.x / 2;
-            right = targetBounds.center.x + size.x / 2;
+            left = targetBounds.center.x - focusSize.x / 2;
+            right = targetBounds.center.x + focusSize.x / 2;
             bottom = targetBounds.min.y;
-            top = targetBounds.min.y + size.y;
+            top = targetBounds.min.y + focusSize.y;
 
             center = new Vector2((left + right) / 2, (top + bottom) / 2);
             velocity = Vector2.zero;
@@ -48,6 +77,7 @@ public class CameraFollow : MonoBehaviour
             float shiftX = 0;
 
             //If the target has moved beyond the horizontal bounds, update the horizontal bounds in the direction of target movement
+
             if (targetBounds.min.x < left)
             {
                 shiftX = targetBounds.min.x - left; //The result of this will be negative in the x direction since the target bounds will be less than left
@@ -78,9 +108,24 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
+    private void CalculateMaxCameraPositions()
+    {
+        float camExtentY = mainCamera.orthographicSize;
+        float camExtentX = camExtentY * mainCamera.aspect;
+
+        minCameraPositionX = boundingArea.left + camExtentX;
+        maxCameraPositionX = boundingArea.right - camExtentX;
+        minCameraPositionY = boundingArea.bottom + camExtentY;
+        maxCameraPositionY = boundingArea.top - camExtentY;
+    }
+
     private void Start()
     {
+        mainCamera = GetComponent<Camera>();
+        cameraShake = GetComponent<CameraShake>();
+        boundingArea = new BoundingArea(boundingAreaCenter, boundingAreaSize);
         focusArea = new FocusArea(target.collider.bounds, focusAreaSize);
+        CalculateMaxCameraPositions();
     }
 
     private void LateUpdate()
@@ -117,6 +162,28 @@ public class CameraFollow : MonoBehaviour
         //Add the smoothed horizontal camera movement
         focusPosition += Vector2.right * currentLookAheadX;
 
+        checkPosition = (Vector3)focusPosition + Vector3.forward * -10;
+
+
+        //Make sure we don't let the camera view past the bounds of the level
+        if (checkPosition.x <= minCameraPositionX)
+        {
+            focusPosition.x = minCameraPositionX;
+        }
+        else if (checkPosition.x >= maxCameraPositionX)
+        {
+            focusPosition.x = maxCameraPositionX;
+        }
+
+        if (checkPosition.y <= minCameraPositionY)
+        {
+            focusPosition.y = minCameraPositionY;
+        }
+        else if (checkPosition.y >= maxCameraPositionY)
+        {
+            focusPosition.y = maxCameraPositionY;
+        }
+
         //Apply the movement to the camera. Vector3.forward * -10 is to keep the camera in front of the scene on the z-axis
         transform.position = (Vector3)focusPosition + Vector3.forward * -10;
     }
@@ -125,5 +192,7 @@ public class CameraFollow : MonoBehaviour
     {
         Gizmos.color = new Color(0, 0.4f, 0.5f, 0.25f);
         Gizmos.DrawCube(focusArea.center, focusAreaSize);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(boundingAreaCenter, boundingAreaSize);
     }
 }

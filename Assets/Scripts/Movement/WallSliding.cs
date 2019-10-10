@@ -42,12 +42,14 @@ public class WallSliding : MonoBehaviour
     /// </summary>
     void HandleWallSliding()
     {
-        controller.collisions.wallSliding = false;
-
         //We only want the WallSliding Component to ever be the one to update wallSliding to true, since it is optional
         if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && movementController.velocity.y < 0)
         {
             controller.collisions.wallSliding = true;
+        }
+        else
+        {
+            controller.collisions.wallSliding = false;
         }
 
         //If we have a collision on the right or left and we are falling with no collisions below

@@ -1,31 +1,28 @@
 fileFormatVersion: 2
-guid: d440df6cb67d53e488c311a96caba363
+guid: af0848857d62fc24c9a1d348685553b9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5916488815099401762
-    second: Player.Jump3_0
+      213: 2115686509336090790
+    second: Player.Jump_0
   - first:
-      213: 9073525568180194914
-    second: Player.Jump3_1
+      213: -3631511264646357729
+    second: Player.Jump_1
   - first:
-      213: -8504113904856514780
-    second: Player.Jump3_2
+      213: -8250574063425162181
+    second: Player.Jump_2
   - first:
-      213: 4769958226114508529
-    second: Player.Jump3_3
+      213: 3030625867011149674
+    second: Player.Jump_3
   - first:
-      213: -8212072824872011329
-    second: Player.Jump3_4
+      213: 1576816115420379169
+    second: Player.Jump_4
   - first:
-      213: -8821326880414735261
-    second: Player.Jump3_5
+      213: -8972991291423538183
+    second: Player.Jump_5
   - first:
-      213: 6016109992502245563
-    second: Player.Jump3_6
-  - first:
-      213: -4033187020238358527
-    second: Player.Jump3_7
+      213: -4838425231484038373
+    second: Player.Jump_6
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -104,184 +101,152 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player.Jump3_0
+      name: Player.Jump_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 50
         height: 50
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad3b93e275f73a84da0ec1c6dd43d70c
-      internalID: -5916488815099401762
+      spriteID: 46cb2c38816276949821fe99c9c17f41
+      internalID: 2115686509336090790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump3_1
+      name: Player.Jump_1
       rect:
         serializedVersion: 2
         x: 50
         y: 0
         width: 50
         height: 50
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da549778f4074db42aac4cb31943197a
-      internalID: 9073525568180194914
+      spriteID: f85507e4ff7414a4d97b7fb89c4f1c64
+      internalID: -3631511264646357729
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump3_2
+      name: Player.Jump_2
       rect:
         serializedVersion: 2
         x: 100
         y: 0
         width: 50
         height: 50
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fa21ee1fdbad204e9292dd81e151836
-      internalID: -8504113904856514780
+      spriteID: 9e331ea832047ed47ac21365ca307099
+      internalID: -8250574063425162181
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump3_3
+      name: Player.Jump_3
       rect:
         serializedVersion: 2
         x: 150
         y: 0
         width: 50
         height: 50
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96f5b945ee8fc4649af52401f9fb9af6
-      internalID: 4769958226114508529
+      spriteID: 3d4b9e7fbb4c7f44390ed8e790b11503
+      internalID: 3030625867011149674
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump3_4
+      name: Player.Jump_4
       rect:
         serializedVersion: 2
         x: 200
         y: 0
         width: 50
         height: 50
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfe23ea11006e8d45a9e9d40221366da
-      internalID: -8212072824872011329
+      spriteID: f800adb573b39d941a0f6851871d098b
+      internalID: 1576816115420379169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump3_5
+      name: Player.Jump_5
       rect:
         serializedVersion: 2
         x: 250
         y: 0
         width: 50
         height: 50
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3de7ccbfcd3e0b408eda7860e4d1171
-      internalID: -8821326880414735261
+      spriteID: cc50b4b1cdfdf81459eb4dc7290617f3
+      internalID: -8972991291423538183
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player.Jump3_6
+      name: Player.Jump_6
       rect:
         serializedVersion: 2
         x: 300
         y: 0
         width: 50
         height: 50
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4eee60f5f28c3374b8e1f23aa42a0917
-      internalID: 6016109992502245563
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player.Jump3_7
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 0
-        width: 50
-        height: 50
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 95f8b3eefd4a21346bc81e87e80086c0
-      internalID: -4033187020238358527
+      spriteID: 488595cc316feba4b95d552ba6039887
+      internalID: -4838425231484038373
       vertices: []
       indices: 
       edges: []
@@ -289,7 +254,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d811edb6b15d50145a6f53b4888d27c9
+    spriteID: 48e0efd5d1b897340bf7813c9a936cb1
     internalID: 0
     vertices: []
     indices: 

@@ -14,7 +14,7 @@ public class JumpController : MonoBehaviour
 
     private void Start()
     {
-        MessageKit.addObserver(EventTypes.JUMP_INPUT_DOWN, OnJumpInputDown);
+        //MessageKit.addObserver(EventTypes.JUMP_INPUT_DOWN, OnJumpInputDown);
         MessageKit.addObserver(EventTypes.JUMP_INPUT_UP, OnJumpInputUp);
         controller = GetComponent<Controller2D>();
         gravityController = GetComponent<GravityController>();

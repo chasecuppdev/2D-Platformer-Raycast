@@ -27,12 +27,15 @@ public class AnimatorController : MonoBehaviour
     {
         public float speed;
         public float directionalInput;
-        public bool isJumping;
         public bool isFalling;
         public bool isLanding;
         public bool isAttacking;
-        public bool isTakingDamage;
+        public bool isHurt;
+
+        //Player specific state
+        public bool isWallSliding;
         public bool isDashAttacking;
+        public bool isJumping;
     }
 
     protected virtual void Start()
@@ -43,7 +46,7 @@ public class AnimatorController : MonoBehaviour
         movementController = GetComponent<MovementController>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        animationClips = AnimationUtility.GetAnimationClips(animator.gameObject);
+        animationClips = animator.runtimeAnimatorController.animationClips;
         UpdateAnimationStates();
 
         if (GetComponent<JumpController>() != null)
@@ -75,17 +78,15 @@ public class AnimatorController : MonoBehaviour
     {
         animationStates.speed = animator.GetFloat("Speed");
         animationStates.directionalInput = animator.GetFloat("DirectionalInput");
-        animationStates.isJumping = animator.GetBool("IsJumping");
         animationStates.isFalling = animator.GetBool("IsFalling");
         animationStates.isLanding = animator.GetBool("IsLanding");
         animationStates.isAttacking = animator.GetBool("IsAttacking");
-        animationStates.isTakingDamage = animator.GetBool("TakeDamage");
-        animationStates.isDashAttacking = animator.GetBool("IsDashAttacking");
+        animationStates.isHurt = animator.GetBool("IsHurt");
     }
 
     public bool HasControl()
     {
-        if (animationStates.isAttacking || animationStates.isTakingDamage)
+        if (animationStates.isAttacking || animationStates.isHurt)
         {
             return false;
         }
@@ -231,8 +232,9 @@ public class AnimatorController : MonoBehaviour
     /// <summary>
     /// Simple check to see if the character is falling or landing in order to play the correct animations
     /// </summary>
-    protected void CheckFallingAndLanding()
+    protected virtual void CheckFallingAndLanding()
     {
+
         if (movementController.velocity.y < 0 && !controller.collisions.below)
         {
             animator.SetBool("IsFalling", true);
