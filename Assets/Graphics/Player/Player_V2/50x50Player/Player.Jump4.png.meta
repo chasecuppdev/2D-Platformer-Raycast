@@ -1,25 +1,31 @@
 fileFormatVersion: 2
-guid: 3af32b29ca9509b42846eb428ce2fa50
+guid: 988dec8bb0c9d2a4590b753f5c8e1f2c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -320035475117824151
-    second: 50x50Player.TeleportIn_0
+      213: 3448983803052856085
+    second: Player.Jump4_0
   - first:
-      213: 3197161154118631065
-    second: 50x50Player.TeleportIn_1
+      213: 1591188888407712396
+    second: Player.Jump4_1
   - first:
-      213: 9075944084276247862
-    second: 50x50Player.TeleportIn_2
+      213: 504591839357728089
+    second: Player.Jump4_2
   - first:
-      213: 77503968712311069
-    second: 50x50Player.TeleportIn_3
+      213: 1313413222433180691
+    second: Player.Jump4_3
   - first:
-      213: 774773843538226319
-    second: 50x50Player.TeleportIn_4
+      213: -4624950774452723575
+    second: Player.Jump4_4
   - first:
-      213: -6833416873980271966
-    second: 50x50Player.TeleportIn_5
+      213: 6869139167443365732
+    second: Player.Jump4_5
+  - first:
+      213: 3194758321912089302
+    second: Player.Jump4_6
+  - first:
+      213: -5568574784763190765
+    second: Player.Jump4_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -98,22 +104,11 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 50x50Player.TeleportIn_0
+      name: Player.Jump4_0
       rect:
         serializedVersion: 2
         x: 0
@@ -127,14 +122,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a860e8c90a8be954195672e7e2261f73
-      internalID: -320035475117824151
+      spriteID: 04ab92bd2743cd84ab456babcbca412d
+      internalID: 3448983803052856085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 50x50Player.TeleportIn_1
+      name: Player.Jump4_1
       rect:
         serializedVersion: 2
         x: 50
@@ -148,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bf39a13de8b51149bdeebbe93dec9e3
-      internalID: 3197161154118631065
+      spriteID: 46050d300bd31d14e8353685e2a099dc
+      internalID: 1591188888407712396
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 50x50Player.TeleportIn_2
+      name: Player.Jump4_2
       rect:
         serializedVersion: 2
         x: 100
@@ -169,14 +164,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07c2e5782a7075348832802cc0a50f6c
-      internalID: 9075944084276247862
+      spriteID: 4239ab6796621864ba6f8e695b2226fc
+      internalID: 504591839357728089
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 50x50Player.TeleportIn_3
+      name: Player.Jump4_3
       rect:
         serializedVersion: 2
         x: 150
@@ -190,14 +185,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd62f7e5b6f038a4c985de86ac1b773a
-      internalID: 77503968712311069
+      spriteID: 9b58d7db7e9f1304dbd131613020617a
+      internalID: 1313413222433180691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 50x50Player.TeleportIn_4
+      name: Player.Jump4_4
       rect:
         serializedVersion: 2
         x: 200
@@ -211,14 +206,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b860066303211940951746ec31d87ff
-      internalID: 774773843538226319
+      spriteID: 01e55128052fd6242b49d244a7d541ef
+      internalID: -4624950774452723575
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 50x50Player.TeleportIn_5
+      name: Player.Jump4_5
       rect:
         serializedVersion: 2
         x: 250
@@ -232,8 +227,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80a99f7d5f4d9d14a9f427945b723a7d
-      internalID: -6833416873980271966
+      spriteID: 73f42f956c7d5f04b8f38997ee876c92
+      internalID: 6869139167443365732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player.Jump4_6
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 50
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a824a47f3afb45408033f498af5a77b
+      internalID: 3194758321912089302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player.Jump4_7
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 0
+        width: 50
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d56eee63e200c042b65610c93a0a4f9
+      internalID: -5568574784763190765
       vertices: []
       indices: 
       edges: []
@@ -241,7 +278,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ecfdce2048364574a8564e683120bc2c
+    spriteID: bfebf634a5310064eac70707287731d1
     internalID: 0
     vertices: []
     indices: 
