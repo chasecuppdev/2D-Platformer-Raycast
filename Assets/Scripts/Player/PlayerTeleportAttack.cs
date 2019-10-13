@@ -34,7 +34,7 @@ public class PlayerTeleportAttack : MonoBehaviour, IHitboxResponder
         animationClips = parentAnimator.runtimeAnimatorController.animationClips;
         for (int i = 0; i < animationClips.Length; i++)
         {
-            if (animationClips[i].name == "Player_Teleport_In")
+            if (animationClips[i].name == "Player_Teleport_Out")
             {
                 teleportInClipLength = animationClips[i].length;
             }
@@ -67,12 +67,12 @@ public class PlayerTeleportAttack : MonoBehaviour, IHitboxResponder
 
         projectile.velocity = Vector2.zero;
         projectileAnimator.Play("Baton_Destroy");
-        parentAnimator.Play("Player_Teleport_In");
+        parentAnimator.Play("Player_Teleport_Out");
 
         yield return new WaitForSeconds(teleportInClipLength);
-        Destroy(projectile);
 
         player.transform.position = new Vector3(projectile.transform.position.x, player.transform.position.y, player.transform.position.z);
-        parentAnimator.Play("Player_Teleport_Out");
+        Destroy(projectile.gameObject);
+        parentAnimator.Play("Player_Teleport_In");
     }
 }

@@ -478,8 +478,8 @@ MonoBehaviour:
   damage: 20
   batonProjectile: {fileID: 5562977605420316317, guid: 2d97dccba7d6fbe4e8d68aafe2feac18,
     type: 3}
-  projectileSpeed: 6
-  projectileTime: 0.5
+  projectileSpeed: 20
+  projectileTime: 0.25
 --- !u!114 &479538909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,12 +611,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   target: {fileID: 1487858183}
-  focusAreaSize: {x: 3, y: 6}
+  focusAreaSize: {x: 10, y: 6}
   boundingAreaSize: {x: 60.5, y: 11.31}
   boundingAreaCenter: {x: 19.4, y: 0.3}
   verticalOffset: 2.15
   lookAheadDistanceX: 4
-  lookSmoothTimeX: 0.5
+  lookSmoothTimeX: 50
   verticalSmoothTime: 0.05
 --- !u!20 &519420031
 Camera:
