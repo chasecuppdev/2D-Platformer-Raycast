@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Hitbox))]
-public class PlayerTeleportAttack : MonoBehaviour, IHitboxResponder
+public class PlayerTeleportAttack : MonoBehaviour
 {
-    public int damage;
     public Rigidbody2D batonProjectile;
     public float projectileSpeed;
     public float projectileTime;
+
+    public float teleportOffsetX;
 
     Animator prefabAnimator;
     Animator parentAnimator;
     AnimatorController parentAnimatorController;
     SpriteRenderer batonSprite;
-    Hitbox hitbox;
     Controller2D player;
     MovementController movementController;
     AnimationClip[] animationClips;
+
+    public bool collided = false;
 
     private float teleportInClipLength;
     
@@ -39,15 +40,6 @@ public class PlayerTeleportAttack : MonoBehaviour, IHitboxResponder
                 teleportInClipLength = animationClips[i].length;
             }
         }
-
-        hitbox = GetComponent<Hitbox>();
-        hitbox.addResponder(this);
-    }
-
-    public void collidedWith(Collider2D collider)
-    {
-        Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
-        hurtbox.ApplyAttack(damage);
     }
 
     public void OnAttackStart()
@@ -62,8 +54,28 @@ public class PlayerTeleportAttack : MonoBehaviour, IHitboxResponder
 
     public IEnumerator TeleportSequence(Rigidbody2D projectile)
     {
+        float elapsed = 0;
         Animator projectileAnimator = projectile.GetComponent<Animator>();
-        yield return new WaitForSeconds(projectileTime);
+
+        while (elapsed < projectileTime)
+        {
+            if (collided)
+            {
+                projectile.velocity = Vector2.zero;
+                projectileAnimator.Play("Baton_Destroy");
+                parentAnimator.Play("Player_Teleport_Out");
+
+                yield return new WaitForSeconds(teleportInClipLength);
+
+                player.transform.position = parentAnimatorController.facingRight ? new Vector3(projectile.transform.position.x - teleportOffsetX, player.transform.position.y, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, player.transform.position.y, player.transform.position.z);
+                Destroy(projectile.gameObject);
+                parentAnimator.Play("Player_Teleport_In");
+                collided = false;
+                yield break;
+            }
+            elapsed += Time.deltaTime;
+            yield return 0;
+        }
 
         projectile.velocity = Vector2.zero;
         projectileAnimator.Play("Baton_Destroy");
