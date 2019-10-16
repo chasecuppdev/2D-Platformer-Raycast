@@ -12,5 +12,6 @@ public class PlayerAnimationParameters : ScriptableObject
     static public string JumpingParameter = "IsJumping";
     static public string LandingParameter = "IsLanding";
     static public string SpeedParameter = "Speed";
-    static public string DashAttackParameter = "IsDashAttacking";
+    static public string TeleportAttackParameter = "IsTeleportAttacking";
+    static public string TeleportParameter = "IsTeleporting";
 }

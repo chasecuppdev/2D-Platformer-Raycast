@@ -34,7 +34,8 @@ public class AnimatorController : MonoBehaviour
 
         //Player specific state
         public bool isWallSliding;
-        public bool isDashAttacking;
+        public bool isTeleportAttacking;
+        public bool isTeleporting;
         public bool isJumping;
     }
 
@@ -188,14 +189,14 @@ public class AnimatorController : MonoBehaviour
     /// <param name="animationClipInfo"></param>
     public void TriggerAttackAnimation(string clipName, string clipParameter)
     {
-        if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
-        {
+        //if (controller.collisions.below && !controller.collisions.slidingDownMaxSlope)
+        //{
             if (!animationStates.isAttacking)
             {
                 AttackCoroutine = AttackAnimation(clipName, clipParameter);
                 StartCoroutine(AttackCoroutine);
             }
-        }
+        //}
     }
 
     /// <summary>
@@ -257,7 +258,6 @@ public class AnimatorController : MonoBehaviour
             //float directionX = Mathf.Sign(movementController.velocity.x); //Get the horizontal direction of movement
             float directionX = movementController.directionalInput.x; //Get the horizontal direction of movement
 
-            Debug.Log("DirictionalInput is : " + movementController.directionalInput.x);
             if (directionX == 1)
             {
                 if (!facingRight)

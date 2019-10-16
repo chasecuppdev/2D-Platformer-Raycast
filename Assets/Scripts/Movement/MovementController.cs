@@ -62,12 +62,11 @@ public class MovementController : MonoBehaviour
             velocity.x = 0;
             velocity.y += gravityController.Gravity * Time.deltaTime;
         }
-        //else if (animatorController?.animationStates.isDashAttacking == true)
-        //{
-        //    float targetVelocityX = controller2D.collisions.faceDir * moveSpeed;
-        //    velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX * 3, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
-        //    velocity.y = 0;
-        //}
+        else if (animatorController?.animationStates.isTeleporting == true)
+        {
+            velocity.x = 0;
+            velocity.y += gravityController.Gravity * Time.deltaTime;
+        }
         else
         {
             float targetVelocityX = directionalInput.x * moveSpeed;

@@ -45,7 +45,14 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedDashAttackAnimation, PlayerAnimationParameters.DashAttackParameter);
+            if (controller.collisions.below)
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+            }
+            else
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+            }
         }
 
         //if (Input.GetKeyDown(KeyCode.R))

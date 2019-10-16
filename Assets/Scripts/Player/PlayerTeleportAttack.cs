@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class PlayerTeleportAttack : MonoBehaviour
 {
+    public LayerMask obstacleMask;
     public Rigidbody2D batonProjectile;
     public float projectileSpeed;
     public float projectileTime;
 
     public float teleportOffsetX;
+    public float teleportOffsetY;
 
     Animator prefabAnimator;
     Animator parentAnimator;
     AnimatorController parentAnimatorController;
-    SpriteRenderer batonSprite;
     Controller2D player;
     MovementController movementController;
     AnimationClip[] animationClips;
 
     public bool collided = false;
+    private bool facingRight;
 
+    private float teleportOutClipLength;
     private float teleportInClipLength;
     
 
@@ -27,7 +30,6 @@ public class PlayerTeleportAttack : MonoBehaviour
     {
         
         movementController = GetComponentInParent<MovementController>();
-        batonSprite = GetComponentInChildren<SpriteRenderer>();
         parentAnimator = GetComponentInParent<Animator>();
         parentAnimatorController = GetComponentInParent<AnimatorController>();
         player = GetComponentInParent<Controller2D>();
@@ -37,6 +39,10 @@ public class PlayerTeleportAttack : MonoBehaviour
         {
             if (animationClips[i].name == "Player_Teleport_Out")
             {
+                teleportOutClipLength = animationClips[i].length;
+            }
+            if (animationClips[i].name == "Player_Teleport_In")
+            {
                 teleportInClipLength = animationClips[i].length;
             }
         }
@@ -44,11 +50,13 @@ public class PlayerTeleportAttack : MonoBehaviour
 
     public void OnAttackStart()
     {
+        facingRight = parentAnimatorController.facingRight;
         Rigidbody2D batonInstance = Instantiate(batonProjectile, transform.position, Quaternion.Euler(new Vector2(0, 0)));
-        float speed = parentAnimatorController.facingRight ? projectileSpeed : -projectileSpeed;
+        float speed = facingRight ? projectileSpeed : -projectileSpeed;
 
         batonInstance.velocity = new Vector2(speed, 0);
 
+        parentAnimator.SetBool("IsTeleporting", true);
         StartCoroutine(TeleportSequence(batonInstance));
     }
 
@@ -63,14 +71,27 @@ public class PlayerTeleportAttack : MonoBehaviour
             {
                 projectile.velocity = Vector2.zero;
                 projectileAnimator.Play("Baton_Destroy");
+                //parentAnimator.SetBool("IsTeleporting", true);
                 parentAnimator.Play("Player_Teleport_Out");
 
-                yield return new WaitForSeconds(teleportInClipLength);
+                yield return new WaitForSeconds(teleportOutClipLength);
 
-                player.transform.position = parentAnimatorController.facingRight ? new Vector3(projectile.transform.position.x - teleportOffsetX, player.transform.position.y, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, player.transform.position.y, player.transform.position.z);
+                //If we get a collision as soon as we throw the projectile, don't update the player position but still perform the animation
+                if (elapsed > 0.03)
+                {
+                    Debug.Log("Player position: " + player.transform.position);
+                    Debug.Log("Projectile position: " + projectile.transform.position);
+                    player.transform.position = facingRight ? new Vector3(projectile.transform.position.x - teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+                }
+                else
+                {
+                    player.transform.position = facingRight ? new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+                }
                 Destroy(projectile.gameObject);
                 parentAnimator.Play("Player_Teleport_In");
                 collided = false;
+                yield return new WaitForSeconds(teleportOutClipLength);
+                parentAnimator.SetBool("IsTeleporting", false);
                 yield break;
             }
             elapsed += Time.deltaTime;
@@ -79,12 +100,17 @@ public class PlayerTeleportAttack : MonoBehaviour
 
         projectile.velocity = Vector2.zero;
         projectileAnimator.Play("Baton_Destroy");
+        //parentAnimator.SetBool("IsTeleporting", true);
         parentAnimator.Play("Player_Teleport_Out");
 
-        yield return new WaitForSeconds(teleportInClipLength);
+        yield return new WaitForSeconds(teleportOutClipLength);
 
-        player.transform.position = new Vector3(projectile.transform.position.x, player.transform.position.y, player.transform.position.z);
+        Debug.Log("Player position: " + player.transform.position);
+        Debug.Log("Projectile position: " + projectile.transform.position);
+        player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY , player.transform.position.z);
         Destroy(projectile.gameObject);
         parentAnimator.Play("Player_Teleport_In");
+        yield return new WaitForSeconds(teleportOutClipLength);
+        parentAnimator.SetBool("IsTeleporting", false);
     }
 }

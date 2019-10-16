@@ -23,7 +23,8 @@ public class PlayerAnimator : AnimatorController
     {
         base.UpdateAnimationStates();
         animationStates.isJumping = animator.GetBool("IsJumping");
-        animationStates.isDashAttacking = animator.GetBool("IsDashAttacking");
+        animationStates.isTeleportAttacking = animator.GetBool("IsTeleportAttacking");
+        animationStates.isTeleporting = animator.GetBool("IsTeleporting");
 
         //Special case for WallSliding
         animator.SetBool("IsWallSliding", controller.collisions.wallSliding);
@@ -54,7 +55,7 @@ public class PlayerAnimator : AnimatorController
 
     protected override void CheckFallingAndLanding()
     {
-        if (!controller.collisions.wallSliding)
+        if (!controller.collisions.wallSliding && !animator.GetBool("IsTeleportAttacking"))
         {
             if (movementController.velocity.y < 0 && !controller.collisions.below)
             {
@@ -80,7 +81,7 @@ public class PlayerAnimator : AnimatorController
     /// <param name="animationClipInfo"></param>
     protected void TriggerDashAttackAnimation(string clipName, string clipParameter)
     {
-        if (!animationStates.isDashAttacking)
+        if (!animationStates.isTeleportAttacking)
         {
             AttackCoroutine = AttackAnimation(clipName, clipParameter);
             StartCoroutine(AttackCoroutine);

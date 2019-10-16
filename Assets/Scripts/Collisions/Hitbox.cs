@@ -16,6 +16,7 @@ public class Hitbox : MonoBehaviour
 
     public bool useSphere = false;
 
+    public Vector2 transformOffset = Vector2.zero;
     public Vector2 hitboxSize = Vector3.one;
 
     public float radius = 0.5f;
@@ -77,7 +78,7 @@ public class Hitbox : MonoBehaviour
             Debug.DrawRay(transform.position, transform.up * hitboxSize.y);
             Debug.DrawRay(transform.position, transform.right * -hitboxSize.x);
             Debug.DrawRay(transform.position, transform.up * -hitboxSize.y);
-            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, hitboxSize * 2f, transform.rotation.z, hitboxMask);
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position + (Vector3)transformOffset, hitboxSize * 2f, transform.rotation.z, hitboxMask);
 
             if (colliders.Length > 0)
             {
@@ -109,7 +110,7 @@ public class Hitbox : MonoBehaviour
 
         if (!useSphere)
         {
-            Gizmos.DrawCube(Vector3.zero, hitboxSize * 2f);
+            Gizmos.DrawCube(Vector3.zero + (Vector3)transformOffset, hitboxSize * 2f);
         }
         else
         {
