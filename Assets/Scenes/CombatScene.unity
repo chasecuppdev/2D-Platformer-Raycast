@@ -479,9 +479,9 @@ MonoBehaviour:
     m_Bits: 512
   batonProjectile: {fileID: 5562977605420316317, guid: 2d97dccba7d6fbe4e8d68aafe2feac18,
     type: 3}
-  projectileSpeed: 20
+  projectileSpeed: 10
   projectileTime: 0.25
-  teleportOffsetX: 1
+  teleportOffsetX: 0.49
   teleportOffsetY: 1.1
   collided: 0
 --- !u!1 &503005348
@@ -15358,7 +15358,12 @@ PrefabInstance:
     - target: {fileID: 2544677587411086009, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: minJumpHeight
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2544677587411086009, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: fallingGravityMultiplier
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086014, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}

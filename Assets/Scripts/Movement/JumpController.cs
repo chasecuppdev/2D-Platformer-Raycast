@@ -11,14 +11,20 @@ public class JumpController : MonoBehaviour
     Controller2D controller;
     GravityController gravityController;
     MovementController movementController;
+    bool preJump = false;
 
     private void Start()
     {
-        //MessageKit.addObserver(EventTypes.JUMP_INPUT_DOWN, OnJumpInputDown);
+        MessageKit.addObserver(EventTypes.JUMP_INPUT_DOWN, SetPreJump);
         MessageKit.addObserver(EventTypes.JUMP_INPUT_UP, OnJumpInputUp);
         controller = GetComponent<Controller2D>();
         gravityController = GetComponent<GravityController>();
         movementController = GetComponent<MovementController>();
+    }
+
+    private void SetPreJump()
+    {
+        preJump = true;
     }
 
     public void OnJumpInputDown()
@@ -27,6 +33,7 @@ public class JumpController : MonoBehaviour
         {
             if (controller.collisions.below)
             {
+                preJump = false;
                 if (controller.collisions.slidingDownMaxSlope)
                 {
                     //Check to make sure the player isn't trying to jump up the slope
@@ -51,7 +58,7 @@ public class JumpController : MonoBehaviour
     /// </summary>
     public void OnJumpInputUp()
     {
-        if (movementController.velocity.y > gravityController.MinJumpVelocity)
+        if (movementController.velocity.y > gravityController.MinJumpVelocity || preJump)
         {
             movementController.velocity.y = gravityController.MinJumpVelocity;
         }

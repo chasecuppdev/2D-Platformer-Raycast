@@ -10,7 +10,7 @@ public class MovementController : MonoBehaviour
     [HideInInspector] public Vector2 velocity;
     [SerializeField] float moveSpeed = 5;
     float velocityXSmoothing;
-    float accelerationTimeGrounded = 0f;
+    float accelerationTimeGrounded = .15f;
     private bool movementStopped = false;
 
     public Controller2D controller2D;
@@ -45,7 +45,6 @@ public class MovementController : MonoBehaviour
 
     private void Awake()
     {
-        //EventManager.Instance.AddListener(EVENT_TYPE.MOVE, this);
         controller2D = GetComponent<Controller2D>();
         gravityController = GetComponent<GravityController>();
 
@@ -57,21 +56,27 @@ public class MovementController : MonoBehaviour
     /// </summary>
     void CalculateVelocity()
     {
+       //if (velocity.y < 0 && !controller2D.collisions.below)
+       //{
+       //    velocity.y += (gravityController.Gravity * Time.deltaTime) * 1.5f;
+       //}
+       //else
+       //{
+            velocity.y += gravityController.Gravity * Time.deltaTime;
+        //}
+
         if (animatorController?.animationStates.isAttacking == true || animatorController?.animationStates.isHurt == true)
         {
             velocity.x = 0;
-            velocity.y += gravityController.Gravity * Time.deltaTime;
         }
         else if (animatorController?.animationStates.isTeleporting == true)
         {
             velocity.x = 0;
-            velocity.y += gravityController.Gravity * Time.deltaTime;
         }
         else
         {
             float targetVelocityX = directionalInput.x * moveSpeed;
             velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller2D.collisions.below) ? accelerationTimeGrounded : gravityController.AccelerationTimeAirborne);
-            velocity.y += gravityController.Gravity * Time.deltaTime;
         }
     }
 

@@ -8,14 +8,16 @@ using Prime31.MessageKit;
 public class PlayerInput : MonoBehaviour
 {
     Vector2 directionalInput;
-    MovementController movement;
+    MovementController movementController;
     Controller2D controller;
+    JumpController jumpController;
     string[] attackParameters = new string[2];
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
-        movement = GetComponent<MovementController>();
+        movementController = GetComponent<MovementController>();
+        jumpController = GetComponent<JumpController>();
     }
 
     void Update()
@@ -26,16 +28,18 @@ public class PlayerInput : MonoBehaviour
         //{
         //    EventManager.Instance.PostNotification(EVENT_TYPE.MOVE, this, directionalInput);
         //}
-        movement.SetDirectionalInput(directionalInput);
+        movementController.SetDirectionalInput(directionalInput);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             MessageKit.post(EventTypes.JUMP_INPUT_DOWN);
+            //jumpController.OnJumpInputDown();
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
             MessageKit.post(EventTypes.JUMP_INPUT_UP);
+            //jumpController.OnJumpInputUp();
         }
         
         if (Input.GetKeyDown(KeyCode.E))
