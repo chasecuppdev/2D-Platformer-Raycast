@@ -18,6 +18,8 @@ public class PlayerTeleportAttack : MonoBehaviour
     Controller2D player;
     MovementController movementController;
     AnimationClip[] animationClips;
+    [HideInInspector]
+    public Cooldown cooldown;
 
     public bool collided = false;
     private bool facingRight;
@@ -33,6 +35,7 @@ public class PlayerTeleportAttack : MonoBehaviour
         parentAnimator = GetComponentInParent<Animator>();
         parentAnimatorController = GetComponentInParent<AnimatorController>();
         player = GetComponentInParent<Controller2D>();
+        cooldown = GetComponent<Cooldown>();
 
         animationClips = parentAnimator.runtimeAnimatorController.animationClips;
         for (int i = 0; i < animationClips.Length; i++)
@@ -56,7 +59,6 @@ public class PlayerTeleportAttack : MonoBehaviour
 
         batonInstance.velocity = new Vector2(speed, 0);
 
-        parentAnimator.SetBool("IsTeleporting", true);
         StartCoroutine(TeleportSequence(batonInstance));
     }
 
@@ -71,6 +73,7 @@ public class PlayerTeleportAttack : MonoBehaviour
             {
                 projectile.velocity = Vector2.zero;
                 projectileAnimator.Play("Baton_Destroy");
+                parentAnimator.SetBool("IsTeleporting", true);
                 //parentAnimator.SetBool("IsTeleporting", true);
                 parentAnimator.Play("Player_Teleport_Out");
 
@@ -100,6 +103,7 @@ public class PlayerTeleportAttack : MonoBehaviour
 
         projectile.velocity = Vector2.zero;
         projectileAnimator.Play("Baton_Destroy");
+        parentAnimator.SetBool("IsTeleporting", true);
         //parentAnimator.SetBool("IsTeleporting", true);
         parentAnimator.Play("Player_Teleport_Out");
 
@@ -107,7 +111,7 @@ public class PlayerTeleportAttack : MonoBehaviour
 
         Debug.Log("Player position: " + player.transform.position);
         Debug.Log("Projectile position: " + projectile.transform.position);
-        player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY , player.transform.position.z);
+        player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
         Destroy(projectile.gameObject);
         parentAnimator.Play("Player_Teleport_In");
         yield return new WaitForSeconds(teleportOutClipLength);

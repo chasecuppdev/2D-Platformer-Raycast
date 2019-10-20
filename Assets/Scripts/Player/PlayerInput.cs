@@ -11,13 +11,14 @@ public class PlayerInput : MonoBehaviour
     MovementController movementController;
     Controller2D controller;
     JumpController jumpController;
-    string[] attackParameters = new string[2];
+    PlayerTeleportAttack teleportAttack;
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
         movementController = GetComponent<MovementController>();
         jumpController = GetComponent<JumpController>();
+        teleportAttack = GetComponentInChildren<PlayerTeleportAttack>();
     }
 
     void Update()
@@ -49,13 +50,22 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (controller.collisions.below)
+            if (!teleportAttack.cooldown.active)
             {
-                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+                if (controller.collisions.below)
+                {
+                    teleportAttack.cooldown.StartCooldown();
+                    MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+                }
+                else
+                {
+                    teleportAttack.cooldown.StartCooldown();
+                    MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+                }
             }
             else
             {
-                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+                MessageKit<string>.post(EventTypes.UI_ELEMENT_SHAKE_1P, "Teleport_Icon");
             }
         }
 
