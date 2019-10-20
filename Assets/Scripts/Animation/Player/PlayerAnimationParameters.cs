@@ -14,4 +14,5 @@ public class PlayerAnimationParameters : ScriptableObject
     static public string SpeedParameter = "Speed";
     static public string TeleportAttackParameter = "IsTeleportAttacking";
     static public string TeleportParameter = "IsTeleporting";
+    static public string Grounded = "IsGrounded";
 }

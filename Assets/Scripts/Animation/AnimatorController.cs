@@ -31,6 +31,7 @@ public class AnimatorController : MonoBehaviour
         public bool isLanding;
         public bool isAttacking;
         public bool isHurt;
+        public bool isGrounded;
 
         //Player specific state
         public bool isWallSliding;
@@ -83,6 +84,9 @@ public class AnimatorController : MonoBehaviour
         animationStates.isLanding = animator.GetBool("IsLanding");
         animationStates.isAttacking = animator.GetBool("IsAttacking");
         animationStates.isHurt = animator.GetBool("IsHurt");
+
+        animator.SetBool("IsGrounded", controller.collisions.below);
+        animationStates.isGrounded = animator.GetBool("IsGrounded");
     }
 
     public bool HasControl()

@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class PlayerTeleportAttack : MonoBehaviour
 {
-    public LayerMask obstacleMask;
+    public LayerMask collisionMask;
     public Rigidbody2D batonProjectile;
     public float projectileSpeed;
     public float projectileTime;
 
     public float teleportOffsetX;
     public float teleportOffsetY;
+
+    public float minimumTeleportDistance;
 
     Animator prefabAnimator;
     Animator parentAnimator;
@@ -51,6 +53,14 @@ public class PlayerTeleportAttack : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        int directionX = facingRight ? 1 : -1;
+        float raySpacing = (player.collider.bounds.max.y - player.collider.bounds.min.y) / 2;
+        Vector2 rayOrigin = facingRight ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
+        Debug.DrawRay(rayOrigin, (Vector3.right * directionX) * minimumTeleportDistance, Color.red);
+    }
+
     public void OnAttackStart()
     {
         facingRight = parentAnimatorController.facingRight;
@@ -79,17 +89,22 @@ public class PlayerTeleportAttack : MonoBehaviour
 
                 yield return new WaitForSeconds(teleportOutClipLength);
 
-                //If we get a collision as soon as we throw the projectile, don't update the player position but still perform the animation
-                if (elapsed > 0.03)
+                //Distance between pivot points of player and projectile
+                int directionX = facingRight ? 1 : -1;
+                float raySpacing = (player.collider.bounds.max.y - player.collider.bounds.min.y) / 2;
+
+                Vector2 rayOrigin = facingRight ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
+                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, minimumTeleportDistance, collisionMask); //Draw a vertical ray and check for collision
+
+                if (hit)
                 {
-                    Debug.Log("Player position: " + player.transform.position);
-                    Debug.Log("Projectile position: " + projectile.transform.position);
-                    player.transform.position = facingRight ? new Vector3(projectile.transform.position.x - teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+                    player.transform.position = facingRight ? new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
                 }
                 else
                 {
-                    player.transform.position = facingRight ? new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+                    player.transform.position = facingRight ? new Vector3(projectile.transform.position.x - teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
                 }
+
                 Destroy(projectile.gameObject);
                 parentAnimator.Play("Player_Teleport_In");
                 collided = false;
