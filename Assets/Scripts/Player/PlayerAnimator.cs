@@ -32,7 +32,7 @@ public class PlayerAnimator : AnimatorController
         
     }
 
-    protected void JumpAnimation()
+    public void JumpAnimation()
     {
         if (jumpController)
         {

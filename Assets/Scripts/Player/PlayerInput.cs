@@ -33,14 +33,16 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            MessageKit.post(EventTypes.JUMP_INPUT_DOWN);
-            //jumpController.OnJumpInputDown();
+            //Checking for these collision parameters here because we don't want to keep send the jump command in the air, as it resets preJump 
+            if (controller.collisions.below || controller.collisions.wallSliding)
+            {
+                MessageKit.post(EventTypes.JUMP_INPUT_DOWN);
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
             MessageKit.post(EventTypes.JUMP_INPUT_UP);
-            //jumpController.OnJumpInputUp();
         }
         
         if (Input.GetKeyDown(KeyCode.E))
@@ -52,6 +54,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (!teleportAttack.cooldown.active)
             {
+                teleportAttack.faceDirectionSnapshot = controller.collisions.faceDir;
                 if (controller.collisions.below)
                 {
                     teleportAttack.cooldown.StartCooldown();

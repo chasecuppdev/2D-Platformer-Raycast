@@ -10,6 +10,7 @@ public class GravityController : MonoBehaviour
     [SerializeField] float minJumpHeight = 2;
     [SerializeField] float timeToJumpApex = 0.4f;
     [SerializeField] float accelerationTimeAirborne = 0.3f;
+    [SerializeField] bool useGravity = true;
     float baseGravity;
     float gravity;
     float maxJumpVelocity;
@@ -46,7 +47,14 @@ public class GravityController : MonoBehaviour
 
     void CalculateGravity()
     {
-        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        if (useGravity)
+        {
+            gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        }
+        else
+        {
+            gravity = 0;
+        }
     }
 
     /// <summary>

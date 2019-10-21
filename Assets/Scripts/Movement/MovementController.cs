@@ -56,14 +56,14 @@ public class MovementController : MonoBehaviour
     /// </summary>
     void CalculateVelocity()
     {
-       //if (velocity.y < 0 && !controller2D.collisions.below)
-       //{
-       //    velocity.y += (gravityController.Gravity * Time.deltaTime) * 1.5f;
-       //}
-       //else
-       //{
+         if (velocity.y < 0 && !controller2D.collisions.below)
+         {
+             velocity.y += (gravityController.Gravity * Time.deltaTime) * 1.5f;
+         }
+         else
+         {
             velocity.y += gravityController.Gravity * Time.deltaTime;
-        //}
+         }
 
         if (animatorController?.animationStates.isAttacking == true || animatorController?.animationStates.isHurt == true)
         {

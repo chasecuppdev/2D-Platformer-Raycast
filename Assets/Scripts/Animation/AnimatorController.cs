@@ -21,6 +21,7 @@ public class AnimatorController : MonoBehaviour
 
     protected IEnumerator AttackCoroutine;
 
+    [HideInInspector]
     public bool facingRight = true;
 
     public struct AnimationStates

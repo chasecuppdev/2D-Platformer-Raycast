@@ -24,7 +24,7 @@ public class PlayerTeleportAttack : MonoBehaviour
     public Cooldown cooldown;
 
     public bool collided = false;
-    private bool facingRight;
+    public int faceDirectionSnapshot; //Will only ever be -1 or 1
 
     private float teleportOutClipLength;
     private float teleportInClipLength;
@@ -55,17 +55,15 @@ public class PlayerTeleportAttack : MonoBehaviour
 
     private void Update()
     {
-        int directionX = facingRight ? 1 : -1;
         float raySpacing = (player.collider.bounds.max.y - player.collider.bounds.min.y) / 2;
-        Vector2 rayOrigin = facingRight ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
-        Debug.DrawRay(rayOrigin, (Vector3.right * directionX) * minimumTeleportDistance, Color.red);
+        Vector2 rayOrigin = (faceDirectionSnapshot == 1) ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
+        Debug.DrawRay(rayOrigin, (Vector3.right * faceDirectionSnapshot) * minimumTeleportDistance, Color.red);
     }
 
     public void OnAttackStart()
     {
-        facingRight = parentAnimatorController.facingRight;
         Rigidbody2D batonInstance = Instantiate(batonProjectile, transform.position, Quaternion.Euler(new Vector2(0, 0)));
-        float speed = facingRight ? projectileSpeed : -projectileSpeed;
+        float speed = (faceDirectionSnapshot == 1) ? projectileSpeed : -projectileSpeed;
 
         batonInstance.velocity = new Vector2(speed, 0);
 
@@ -90,19 +88,18 @@ public class PlayerTeleportAttack : MonoBehaviour
                 yield return new WaitForSeconds(teleportOutClipLength);
 
                 //Distance between pivot points of player and projectile
-                int directionX = facingRight ? 1 : -1;
                 float raySpacing = (player.collider.bounds.max.y - player.collider.bounds.min.y) / 2;
 
-                Vector2 rayOrigin = facingRight ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
-                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, minimumTeleportDistance, collisionMask); //Draw a vertical ray and check for collision
+                Vector2 rayOrigin = (faceDirectionSnapshot == 1) ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
+                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * faceDirectionSnapshot, minimumTeleportDistance, collisionMask); //Draw a vertical ray and check for collision
 
                 if (hit)
                 {
-                    player.transform.position = facingRight ? new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+                    player.transform.position = (faceDirectionSnapshot == 1) ? new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(player.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
                 }
                 else
                 {
-                    player.transform.position = facingRight ? new Vector3(projectile.transform.position.x - teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+                    player.transform.position = (faceDirectionSnapshot == 1) ? new Vector3(projectile.transform.position.x - teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
                 }
 
                 Destroy(projectile.gameObject);
@@ -126,9 +123,9 @@ public class PlayerTeleportAttack : MonoBehaviour
 
         Debug.Log("Player position: " + player.transform.position);
         Debug.Log("Projectile position: " + projectile.transform.position);
-        player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
         Destroy(projectile.gameObject);
         parentAnimator.Play("Player_Teleport_In");
+        player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
         yield return new WaitForSeconds(teleportOutClipLength);
         parentAnimator.SetBool("IsTeleporting", false);
     }
