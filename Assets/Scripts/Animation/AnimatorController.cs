@@ -256,7 +256,7 @@ public class AnimatorController : MonoBehaviour
     /// <summary>
     /// Checks the horizontal velocity direction and ensures the sprite is facing in that direction
     /// </summary>
-    protected void DirectionController()
+    protected virtual void DirectionController()
     {
         if (HasControl())
         { 

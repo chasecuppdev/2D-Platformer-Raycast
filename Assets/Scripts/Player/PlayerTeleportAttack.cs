@@ -24,7 +24,7 @@ public class PlayerTeleportAttack : MonoBehaviour
     public Cooldown cooldown;
 
     public bool collided = false;
-    public int faceDirectionSnapshot; //Will only ever be -1 or 1
+    public int faceDirectionSnapshot; //Gets set in PlayerInput.cs when the player activates the attack
 
     private float teleportOutClipLength;
     private float teleportInClipLength;

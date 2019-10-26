@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
     Controller2D controller;
     JumpController jumpController;
     PlayerTeleportAttack teleportAttack;
+    AnimatorController animatorController;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerInput : MonoBehaviour
         movementController = GetComponent<MovementController>();
         jumpController = GetComponent<JumpController>();
         teleportAttack = GetComponentInChildren<PlayerTeleportAttack>();
+        animatorController = GetComponent<AnimatorController>();
     }
 
     void Update()
@@ -54,7 +56,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (!teleportAttack.cooldown.active)
             {
-                teleportAttack.faceDirectionSnapshot = controller.collisions.faceDir;
+                teleportAttack.faceDirectionSnapshot = (animatorController.facingRight) ? 1 : -1;
                 if (controller.collisions.below)
                 {
                     teleportAttack.cooldown.StartCooldown();
