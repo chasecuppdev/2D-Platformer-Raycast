@@ -9,6 +9,9 @@ public class EnemyAI : MonoBehaviour
     protected AnimatorController animController;
     [SerializeField] protected BoxCollider2D collider;
 
+    public float attackCooldown;
+    protected float lastAttackTimestamp;
+
     //LayerMasks
     public LayerMask detectionMask;
 
@@ -162,7 +165,11 @@ public class EnemyAI : MonoBehaviour
         {
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("PlayerHurtbox") && animController.HasControl())
             {
-                Attack();
+                if (Time.time >= lastAttackTimestamp + attackCooldown)
+                {
+                    lastAttackTimestamp = Time.time;
+                    Attack();
+                }
             }
         }
     }

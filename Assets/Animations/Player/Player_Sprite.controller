@@ -799,6 +799,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: IsTeleporting
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsHurt
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3769772728771349316}
   m_Solo: 0
@@ -1191,6 +1194,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: IsAttacking
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsHurt
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4388686250352095952}

@@ -74,10 +74,10 @@ public class Hitbox : MonoBehaviour
 
         if (!useSphere)
         {
-            Debug.DrawRay(transform.position, transform.right * hitboxSize.x);
-            Debug.DrawRay(transform.position, transform.up * hitboxSize.y);
-            Debug.DrawRay(transform.position, transform.right * -hitboxSize.x);
-            Debug.DrawRay(transform.position, transform.up * -hitboxSize.y);
+            Debug.DrawRay(transform.position + (Vector3)transformOffset, transform.right * hitboxSize.x);
+            Debug.DrawRay(transform.localPosition + (Vector3)transformOffset, transform.up * hitboxSize.y);
+            Debug.DrawRay(transform.position + (Vector3)transformOffset, transform.right * -hitboxSize.x);
+            Debug.DrawRay(transform.position + (Vector3)transformOffset, transform.up * -hitboxSize.y);
             Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position + (Vector3)transformOffset, hitboxSize * 2f, transform.rotation.z, hitboxMask);
 
             if (colliders.Length > 0)

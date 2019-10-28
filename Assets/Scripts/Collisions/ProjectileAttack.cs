@@ -19,9 +19,15 @@ public class ProjectileAttack : MonoBehaviour
 
     public void OnAttackStart()
     {
-        Rigidbody2D projectileInstance = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector3(0, 0, Vector3.Angle(transform.position, target.transform.position))));
+        Vector3 vectorToTarget = transform.position - target.transform.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        Rigidbody2D projectileInstance = Instantiate(projectile, transform.position, q);
+        //Rigidbody2D projectileInstance = Instantiate(projectile, transform.position, Quaternion.Euler(new Vector2(0,0)));
         float speed = (faceDirectionSnapshot == 1) ? projectileSpeed : -projectileSpeed;
 
-        projectileInstance.velocity = (target.transform.position - transform.position).normalized * speed;
+        projectileInstance.velocity = (transform.position - target.transform.position).normalized * speed;
+        //projectileInstance.velocity = new Vector2(speed, 0);
     }
 }

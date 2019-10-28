@@ -141,8 +141,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 66048
   useSphere: 0
-  transformOffset: {x: -0.15, y: -0.06}
-  hitboxSize: {x: 0.58, y: 0.28}
+  transformOffset: {x: 0, y: 0}
+  hitboxSize: {x: 0.34, y: 0.19}
   radius: 0.5
   collisionClosedColor: {r: 0.7490196, g: 0.06666667, b: 0.05490196, a: 1}
   collisionOpenColor: {r: 0.3529412, g: 0.7490196, b: 0.20392157, a: 1}
