@@ -14,4 +14,5 @@ public class PlayerAnimationClips : ScriptableObject
     static public string DeathAnimation = "Player_Death";
     static public string GroundedTeleportAttackAnimation = "Player_Grounded_Teleport_Attack";
     static public string AirTeleportAttackAnimation = "Player_Air_Teleport_Attack";
+    static public string GroundedAttack1Animation = "Player_Grounded_Attack_1";
 }

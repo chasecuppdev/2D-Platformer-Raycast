@@ -49,7 +49,7 @@ public class PlayerInput : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E))
         {
-            MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.Attack1Animation, PlayerAnimationParameters.Attack1Parameter);
+            MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedAttack1Animation, PlayerAnimationParameters.GroundedAttack1Parameter);
         }
 
         if (Input.GetKeyDown(KeyCode.F))

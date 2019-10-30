@@ -79,6 +79,8 @@ public class PlayerTeleportAttack : MonoBehaviour
         {
             if (collided)
             {
+                
+                collided = false;
                 projectile.velocity = Vector2.zero;
                 projectileAnimator.Play("Baton_Destroy");
                 parentAnimator.SetBool("IsTeleporting", true);
@@ -104,7 +106,6 @@ public class PlayerTeleportAttack : MonoBehaviour
 
                 Destroy(projectile.gameObject);
                 parentAnimator.Play("Player_Teleport_In");
-                collided = false;
                 yield return new WaitForSeconds(teleportOutClipLength);
                 parentAnimator.SetBool("IsTeleporting", false);
                 yield break;
@@ -123,9 +124,10 @@ public class PlayerTeleportAttack : MonoBehaviour
 
         Debug.Log("Player position: " + player.transform.position);
         Debug.Log("Projectile position: " + projectile.transform.position);
-        Destroy(projectile.gameObject);
+        
         parentAnimator.Play("Player_Teleport_In");
         player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+        Destroy(projectile.gameObject);
         yield return new WaitForSeconds(teleportOutClipLength);
         parentAnimator.SetBool("IsTeleporting", false);
     }

@@ -65,7 +65,7 @@ public class MovementController : MonoBehaviour
             velocity.y += gravityController.Gravity * Time.deltaTime;
          }
 
-        if (animatorController?.animationStates.isAttacking == true || animatorController?.animationStates.isHurt == true)
+        if ((animatorController?.animationStates.isAttacking == true || animatorController?.animationStates.isHurt == true) && controller2D.collisions.below)
         {
             velocity.x = 0;
         }

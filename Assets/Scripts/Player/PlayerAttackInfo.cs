@@ -4,7 +4,7 @@ using UnityEngine;
 using Prime31.MessageKit;
 
 [RequireComponent(typeof(Hitbox))]
-public class PlayerStandardAttack : MonoBehaviour, IHitboxResponder
+public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
 {
     public int damage;
 

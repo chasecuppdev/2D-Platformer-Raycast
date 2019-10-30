@@ -107,14 +107,16 @@ public class PlayerAnimator : AnimatorController
         {
             //Calling DirectionController here is a special case for continuously attacking enemy AIs
             DirectionController(); //The way this coroutine is called, this needs to be updated just before the attack begins, as the parameters will be set before DirectionController is run again in FixedUpdate
-            //animationStates.isAttacking = true;
+            animationStates.isAttacking = true;
+            animator.SetBool("IsAttacking", true);
             animator.SetBool("IsFalling", false);
             animator.SetBool(clipParameter, true);
 
             yield return new WaitForSeconds(currentAnimationClip.length);
 
             animator.SetBool(clipParameter, false);
-            //animationStates.isAttacking = false;
+            animator.SetBool("IsAttacking", false);
+            animationStates.isAttacking = false;
             currentAnimationClip = null;
         }
     }

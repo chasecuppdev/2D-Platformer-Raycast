@@ -223,13 +223,15 @@ public class AnimatorController : MonoBehaviour
         {
             //Calling DirectionController here is a special case for continuously attacking enemy AIs
             DirectionController(); //The way this coroutine is called, this needs to be updated just before the attack begins, as the parameters will be set before DirectionController is run again in FixedUpdate
-            animationStates.isAttacking = true;
+            animationStates.isAttacking = true; //setting this state directly so that we don't have to wait for the next update 
+            animator.SetBool("IsAttacking", true); //Setting this parameter for any attack so other animations know we are attacking
             animator.SetBool("IsFalling", false);
-            animator.SetBool(clipParameter, true);
+            animator.SetBool(clipParameter, true); //This is the parameter for the specific attack
 
             yield return new WaitForSeconds(currentAnimationClip.length);
     
             animator.SetBool(clipParameter, false);
+            animator.SetBool("IsAttacking", false);
             animationStates.isAttacking = false;
             currentAnimationClip = null;
         }

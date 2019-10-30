@@ -29,6 +29,7 @@ public class Projectile : MonoBehaviour, IHitboxResponder
         }
 
         thisProjectile.velocity = Vector2.zero;
+        hitbox.EndCheckCollisions(); //We don't want to continue collision detecting for hits once the particle has hit an obstacle and is playing the destroy animation
         animator.Play(destroyAnimationClipName);
     }
 
