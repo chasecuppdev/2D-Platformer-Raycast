@@ -324,7 +324,7 @@ MonoBehaviour:
     type: 3}
   projectileSpeed: 25
   projectileTime: 0.25
-  teleportOffsetX: 0.75
+  teleportOffsetX: 0.9
   teleportOffsetY: 1.1
   minimumTeleportDistance: 0.5
   cooldown: {fileID: 0}

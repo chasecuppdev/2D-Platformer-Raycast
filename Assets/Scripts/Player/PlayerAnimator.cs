@@ -10,7 +10,7 @@ public class PlayerAnimator : AnimatorController
         base.Start();
         MessageKit.addObserver(EventTypes.JUMP_INPUT_DOWN, JumpAnimation);
         MessageKit<string, string>.addObserver(EventTypes.ATTACK_INPUT_DOWN_2P, TriggerAttackAnimation);
-        MessageKit<string, string>.addObserver(EventTypes.DASH_ATTACK_INPUT_DOWN_2P, TriggerDashAttackAnimation);
+        //MessageKit<string, string>.addObserver(EventTypes.DASH_ATTACK_INPUT_DOWN_2P, TriggerDashAttackAnimation);
     }
 
     //protected override void LateUpdate()

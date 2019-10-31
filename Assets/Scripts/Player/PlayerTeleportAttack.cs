@@ -79,7 +79,6 @@ public class PlayerTeleportAttack : MonoBehaviour
         {
             if (collided)
             {
-                
                 collided = false;
                 projectile.velocity = Vector2.zero;
                 projectileAnimator.Play("Baton_Destroy");
