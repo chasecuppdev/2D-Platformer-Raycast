@@ -60,17 +60,20 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     protected virtual void FixedUpdate()
     {
-        TryToMoveTowardsTarget();
-        AttackWhenInRange();
+        if (!animController.animationStates.isDead)
+        {
+            TryToMoveTowardsTarget();
+            AttackWhenInRange();
 
-        //Don't keep walking forward if walking into an obstacle
-        if ((movementController.controller2D.collisions.right && horizontalDirection.x > 0) || (movementController.controller2D.collisions.left && horizontalDirection.x < 0))
-        {
-            movementController.SetDirectionalInput(Vector2.zero);
-        }
-        else
-        {
-            movementController.SetDirectionalInput(horizontalDirection);
+            //Don't keep walking forward if walking into an obstacle
+            if ((movementController.controller2D.collisions.right && horizontalDirection.x > 0) || (movementController.controller2D.collisions.left && horizontalDirection.x < 0))
+            {
+                movementController.SetDirectionalInput(Vector2.zero);
+            }
+            else
+            {
+                movementController.SetDirectionalInput(horizontalDirection);
+            }
         }
     }
 

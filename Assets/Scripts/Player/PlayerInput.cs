@@ -26,6 +26,19 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Debug.Log(directionalInput);
+        if (directionalInput.x > 0.05f)
+        {
+            directionalInput.x = 1;
+        }
+        else if (directionalInput.x < -0.05f)
+        {
+            directionalInput.x = -1;
+        }
+        else
+        {
+            directionalInput.x = 0;
+        }
 
         //if (directionalInput.x != 0 || directionalInput.y != 0)
         //{
@@ -49,28 +62,62 @@ public class PlayerInput : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E))
         {
-            MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedAttack1Animation, PlayerAnimationParameters.GroundedAttack1Parameter);
+            if (controller.collisions.below)
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedAttack1Animation, PlayerAnimationParameters.GroundedAttack1Parameter);
+            }
+            else
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirAttack1Animation, PlayerAnimationParameters.AirAttack1Parameter);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (controller.collisions.below)
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedAttack2Animation, PlayerAnimationParameters.GroundedAttack2Parameter);
+            }
+            else
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirAttack2Animation, PlayerAnimationParameters.AirAttack2Parameter);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (controller.collisions.below)
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedAttack3Animation, PlayerAnimationParameters.GroundedAttack3Parameter);
+            }
+            else
+            {
+                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirAttack3Animation, PlayerAnimationParameters.AirAttack3Parameter);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (!teleportAttack.cooldown.active)
+            if (teleportAttack != null)
             {
-                teleportAttack.faceDirectionSnapshot = (animatorController.facingRight) ? 1 : -1;
-                if (controller.collisions.below)
+                if (!teleportAttack.cooldown.active)
                 {
-                    teleportAttack.cooldown.StartCooldown();
-                    MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+                    teleportAttack.faceDirectionSnapshot = (animatorController.facingRight) ? 1 : -1;
+                    if (controller.collisions.below)
+                    {
+                        teleportAttack.cooldown.StartCooldown();
+                        MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedTeleportAttackAnimation, PlayerAnimationParameters.GroundedTeleportAttackParameter);
+                    }
+                    else
+                    {
+                        teleportAttack.cooldown.StartCooldown();
+                        MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirTeleportAttackAnimation, PlayerAnimationParameters.AirTeleportAttackParameter);
+                    }
                 }
                 else
                 {
-                    teleportAttack.cooldown.StartCooldown();
-                    MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirTeleportAttackAnimation, PlayerAnimationParameters.TeleportAttackParameter);
+                    MessageKit<string>.post(EventTypes.UI_ELEMENT_SHAKE_1P, "Teleport_Icon");
                 }
-            }
-            else
-            {
-                MessageKit<string>.post(EventTypes.UI_ELEMENT_SHAKE_1P, "Teleport_Icon");
             }
         }
 

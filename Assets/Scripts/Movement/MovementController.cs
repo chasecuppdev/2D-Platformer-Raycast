@@ -58,7 +58,7 @@ public class MovementController : MonoBehaviour
     {
          if (velocity.y < 0 && !controller2D.collisions.below)
          {
-             velocity.y += (gravityController.Gravity * Time.deltaTime) * 1.5f;
+             velocity.y += (gravityController.Gravity * Time.deltaTime) * 1.2f;
          }
          else
          {

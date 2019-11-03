@@ -33,6 +33,7 @@ public class AnimatorController : MonoBehaviour
         public bool isAttacking;
         public bool isHurt;
         public bool isGrounded;
+        public bool isDead;
 
         //Player specific state
         public bool isWallSliding;
@@ -85,6 +86,7 @@ public class AnimatorController : MonoBehaviour
         animationStates.isLanding = animator.GetBool("IsLanding");
         animationStates.isAttacking = animator.GetBool("IsAttacking");
         animationStates.isHurt = animator.GetBool("IsHurt");
+        animationStates.isDead = animator.GetBool("IsDead");
 
         animator.SetBool("IsGrounded", controller.collisions.below);
         animationStates.isGrounded = animator.GetBool("IsGrounded");
@@ -161,7 +163,7 @@ public class AnimatorController : MonoBehaviour
         StartCoroutine(TakeDamageAnimation(clipName, clipParameter));
     }
 
-    private IEnumerator TakeDamageAnimation(string clipName, string clipParameter)
+    protected virtual IEnumerator TakeDamageAnimation(string clipName, string clipParameter)
     {
         for (int i = 0; i < animationClips.Length; i++)
         {

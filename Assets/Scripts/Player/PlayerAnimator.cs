@@ -75,6 +75,38 @@ public class PlayerAnimator : AnimatorController
         }
     }
 
+    protected override IEnumerator TakeDamageAnimation(string clipName, string clipParameter)
+    {
+        for (int i = 0; i < animationClips.Length; i++)
+        {
+            if (animationClips[i].name == clipName)
+            {
+                currentAnimationClip = animationClips[i];
+            }
+        }
+
+        if (currentAnimationClip)
+        {
+            if (AttackCoroutine != null)
+            {
+                StopCoroutine(AttackCoroutine);
+
+                for (int i = 0; i < PlayerAnimationParameters.AllAttackParameters.Length; i++)
+                {
+                    animator.SetBool(PlayerAnimationParameters.AllAttackParameters[i], false);
+                }
+            }
+            animator.SetBool("IsLanding", false);
+            animator.SetBool("IsAttacking", false);
+            animator.SetBool(clipParameter, true);
+
+            yield return new WaitForSeconds(currentAnimationClip.length);
+
+            animator.SetBool(clipParameter, false);
+            currentAnimationClip = null;
+        }
+    }
+
     /// <summary>
     /// Triggers the AttackAnimation coroutine. animationClipInfo[0] = Animation_Clip_Name, animationClipInfo[1] = Animator_Parameter_Name
     /// </summary>

@@ -9,6 +9,7 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
     public int damage;
 
     Hitbox hitbox;
+    public GameObject WhipEffectPrefab;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
     public void collidedWith(Collider2D collider)
     {
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
+        Instantiate(WhipEffectPrefab, collider.transform);
         hurtbox.ApplyAttack(damage);
     }
 }

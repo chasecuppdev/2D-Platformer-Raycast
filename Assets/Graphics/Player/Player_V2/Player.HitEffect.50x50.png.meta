@@ -1,25 +1,28 @@
 fileFormatVersion: 2
-guid: c86539075501949458f8ffea7e97837f
+guid: 3f85da6eb4223524d80b2b6bd9fc561e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1892486895079034815
-    second: Attack3.Ground_0
+      213: -3730206389976102543
+    second: Player.HitEffect.50x50_0
   - first:
-      213: -4514067148544187963
-    second: Attack3.Ground_1
+      213: -6501251771413725478
+    second: Player.HitEffect.50x50_1
   - first:
-      213: 4665548413968698833
-    second: Attack3.Ground_2
+      213: 6225461813266213847
+    second: Player.HitEffect.50x50_2
   - first:
-      213: -4727574785072582617
-    second: Attack3.Ground_3
+      213: 7730629883267859010
+    second: Player.HitEffect.50x50_3
   - first:
-      213: -5294160946364823884
-    second: Attack3.Ground_4
+      213: 4332060390764501862
+    second: Player.HitEffect.50x50_4
   - first:
-      213: 3125686897306577650
-    second: Attack3.Ground_5
+      213: -9089153583096075649
+    second: Player.HitEffect.50x50_5
+  - first:
+      213: 8434978960187385008
+    second: Player.HitEffect.50x50_6
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -98,142 +101,152 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Attack3.Ground_0
+      name: Player.HitEffect.50x50_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 120
-        height: 60
-      alignment: 9
-      pivot: {x: 0.2098592, y: 0}
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a742f8eb9a83cb649abf22f16ebcd2e1
-      internalID: -1892486895079034815
+      spriteID: 044c09e1f756d2e40933739b90aae1e2
+      internalID: -3730206389976102543
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack3.Ground_1
+      name: Player.HitEffect.50x50_1
       rect:
         serializedVersion: 2
-        x: 120
+        x: 50
         y: 0
-        width: 120
-        height: 60
-      alignment: 9
-      pivot: {x: 0.2098592, y: 0}
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3ef6499d0f4455478c7dff4f728467a
-      internalID: -4514067148544187963
+      spriteID: eb9adfbf70667ed40b5e1c183973643d
+      internalID: -6501251771413725478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack3.Ground_2
+      name: Player.HitEffect.50x50_2
       rect:
         serializedVersion: 2
-        x: 240
+        x: 100
         y: 0
-        width: 120
-        height: 60
-      alignment: 9
-      pivot: {x: 0.2098592, y: 0}
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d88b900e0ac7a2049af2079e86a0abcb
-      internalID: 4665548413968698833
+      spriteID: 5724f04a5ae0d2c4997ffa3aab7f335a
+      internalID: 6225461813266213847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack3.Ground_3
+      name: Player.HitEffect.50x50_3
       rect:
         serializedVersion: 2
-        x: 360
+        x: 150
         y: 0
-        width: 120
-        height: 60
-      alignment: 9
-      pivot: {x: 0.2098592, y: 0}
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b37857bce19e1543a027cf02ffa3bce
-      internalID: -4727574785072582617
+      spriteID: 3162fb5aae70e1841bc1f768321e6a98
+      internalID: 7730629883267859010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack3.Ground_4
+      name: Player.HitEffect.50x50_4
       rect:
         serializedVersion: 2
-        x: 480
+        x: 200
         y: 0
-        width: 120
-        height: 60
-      alignment: 9
-      pivot: {x: 0.2098592, y: 0}
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 209e168598abd08408f74dc94892c7c3
-      internalID: -5294160946364823884
+      spriteID: 73d94bb7142f6964fbe157a7ceb1ce3a
+      internalID: 4332060390764501862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Attack3.Ground_5
+      name: Player.HitEffect.50x50_5
       rect:
         serializedVersion: 2
-        x: 600
+        x: 250
         y: 0
-        width: 120
-        height: 60
-      alignment: 9
-      pivot: {x: 0.2098592, y: 0}
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd0303e94d4d9bd41a2807b08705454a
-      internalID: 3125686897306577650
+      spriteID: cace85e0f9e957647a99b1ce8b8082ae
+      internalID: -9089153583096075649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player.HitEffect.50x50_6
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c042471826c50934f9ecf02be0d09b41
+      internalID: 8434978960187385008
       vertices: []
       indices: 
       edges: []
@@ -241,7 +254,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d63afae17abe1a24aa412f2abe880549
+    spriteID: c6b59f75776c052438386eca6051c27d
     internalID: 0
     vertices: []
     indices: 
