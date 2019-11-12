@@ -236,7 +236,7 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
-                moveDistance.y = (hit.distance + skinWidth);
+                moveDistance.y = (hit.collider.bounds.size.y + skinWidth);
             }
         }
 

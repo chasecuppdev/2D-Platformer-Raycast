@@ -37,8 +37,6 @@ public class GravityController : MonoBehaviour
         get { return accelerationTimeAirborne; }
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         CalculateGravity();
@@ -64,5 +62,12 @@ public class GravityController : MonoBehaviour
     {
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+    }
+
+    public void ToggleGravity()
+    {
+        useGravity = useGravity ? false : true;
+        CalculateGravity();
+        CalculateJumpVelocity();
     }
 }

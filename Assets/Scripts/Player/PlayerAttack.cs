@@ -40,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
         }
         for (int i = 0; i < enemiesToDamage.Length; i++)
         {
-            enemiesToDamage[i].GetComponent<Enemy>().TakeDamage(damage);
+            enemiesToDamage[i].GetComponent<IDamageable>().TakeDamage(damage);
 
         }
     }

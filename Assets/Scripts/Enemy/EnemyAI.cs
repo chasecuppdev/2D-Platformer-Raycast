@@ -33,6 +33,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] protected float aggroRange;
 
     [SerializeField] protected bool patrollingEnabled;
+    [SerializeField] protected Vector2 InitialDirection = Vector2.right;
+    private int patrolDirection; //Keeping up with the face direction here because it doesn't always get updated fast enough in the game loop
 
     protected Vector3 PlayerPosition
     {
@@ -52,6 +54,7 @@ public class EnemyAI : MonoBehaviour
         if (patrollingEnabled)
         {
             horizontalDirection = Vector2.right;
+            patrolDirection = (int)horizontalDirection.x;
         }
     }
 
@@ -75,6 +78,10 @@ public class EnemyAI : MonoBehaviour
                 movementController.SetDirectionalInput(horizontalDirection);
             }
         }
+        else
+        {
+            movementController.SetDirectionalInput(Vector2.zero);
+        }
     }
 
     protected virtual void Attack()
@@ -92,15 +99,16 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
+                patrolDirection = -patrolDirection;
                 horizontalDirection = -horizontalDirection;
                 currentDistance = 0;
             }
 
 
             //Use raycast to check if we are about to walk off a ledge
-            int directionX = movementController.controller2D.collisions.faceDir;
+            //int directionX = movementController.controller2D.collisions.faceDir;
             //Adding 0.5f to min.y due to floating point precision sometimes spawning the raycast inside the obstacle collider
-            Vector2 rayOrigin = (directionX == -1) ? new Vector2(collider.bounds.min.x, collider.bounds.min.y + 0.5f) : new Vector2(collider.bounds.max.x, collider.bounds.min.y + 0.5f);
+            Vector2 rayOrigin = (patrolDirection == -1) ? new Vector2(collider.bounds.min.x, collider.bounds.min.y + 0.5f) : new Vector2(collider.bounds.max.x, collider.bounds.min.y + 0.5f);
             Debug.DrawRay(rayOrigin, Vector3.down);
 
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector3.down, 1f, ObstacleMask | PlatformMask);
@@ -108,6 +116,7 @@ public class EnemyAI : MonoBehaviour
             if (!hit || movementController.controller2D.collisions.right || movementController.controller2D.collisions.left)
             {
                 currentDistance = 0;
+                patrolDirection = -patrolDirection;
                 horizontalDirection = -horizontalDirection;
             }
         }
