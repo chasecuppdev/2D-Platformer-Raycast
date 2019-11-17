@@ -224,22 +224,24 @@ public class Controller2D : RaycastController
     //With teleport functionality, it is possible to sometimes end up inside colliders. This function is to check and adjust that
     void CheckTeleportCollisions(ref Vector2 moveDistance)
     {
-        //Distance between pivot points of player and projectile
-        float rayLength = 1.1f;
-        float raySpacing = collider.bounds.max.x - collider.bounds.min.x - (skinWidth * 4);
-
-        for (int i = 0; i < 2; i++)
+        if (!collisions.fallingThroughPlatform)
         {
-            Vector2 rayOrigin = new Vector2(collider.bounds.min.x + (skinWidth* 2) + (raySpacing * i), collider.bounds.min.y + (skinWidth * 2));
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, collisionMask); //Draw a vertical ray and check for collision
-            Debug.DrawRay(rayOrigin, Vector3.up, Color.red);
+            //Distance between pivot points of player and projectile
+            float rayLength = 1.1f;
+            float raySpacing = collider.bounds.max.x - collider.bounds.min.x - (skinWidth * 4);
 
-            if (hit)
+            for (int i = 0; i < 2; i++)
             {
-                moveDistance.y = (hit.collider.bounds.size.y + skinWidth);
+                Vector2 rayOrigin = new Vector2(collider.bounds.min.x + (skinWidth * 2) + (raySpacing * i), collider.bounds.min.y + (skinWidth * 2));
+                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, collisionMask); //Draw a vertical ray and check for collision
+                Debug.DrawRay(rayOrigin, Vector3.up, Color.red);
+
+                if (hit)
+                {
+                    moveDistance.y = (hit.collider.bounds.size.y + skinWidth);
+                }
             }
         }
-
     }
 
     void ClimbSlope(ref Vector2 moveDistance, float slopeAngle, Vector2 slopeNormal)

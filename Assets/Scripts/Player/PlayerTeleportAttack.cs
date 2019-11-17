@@ -72,6 +72,9 @@ public class PlayerTeleportAttack : MonoBehaviour
 
     public IEnumerator TeleportSequence(Rigidbody2D projectile)
     {
+        float raySpacing;
+        Vector2 rayOrigin;
+        RaycastHit2D hit;
         float elapsed = 0;
         Animator projectileAnimator = projectile.GetComponent<Animator>();
 
@@ -89,10 +92,10 @@ public class PlayerTeleportAttack : MonoBehaviour
                 yield return new WaitForSeconds(teleportOutClipLength);
 
                 //Distance between pivot points of player and projectile
-                float raySpacing = (player.collider.bounds.max.y - player.collider.bounds.min.y) / 2;
+                raySpacing = (player.collider.bounds.max.y - player.collider.bounds.min.y) / 2;
 
-                Vector2 rayOrigin = (faceDirectionSnapshot == 1) ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
-                RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * faceDirectionSnapshot, minimumTeleportDistance, collisionMask); //Draw a vertical ray and check for collision
+                rayOrigin = (faceDirectionSnapshot == 1) ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
+                hit = Physics2D.Raycast(rayOrigin, Vector2.right * faceDirectionSnapshot, minimumTeleportDistance, collisionMask); //Draw a vertical ray and check for collision
 
                 if (hit)
                 {
@@ -103,9 +106,23 @@ public class PlayerTeleportAttack : MonoBehaviour
                     player.transform.position = (faceDirectionSnapshot == 1) ? new Vector3(projectile.transform.position.x - teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(projectile.transform.position.x + teleportOffsetX, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
                 }
 
+
                 Destroy(projectile.gameObject);
+
+                //If the player is in the air and is very close to the wall, we will update their position to be touching the wall so they begin wallsliding
+                //Distance between pivot points of player and projectile
+                raySpacing = (player.collider.bounds.max.y - player.collider.bounds.min.y) / 2;
+
+                rayOrigin = (faceDirectionSnapshot == 1) ? new Vector2(player.collider.bounds.max.x, player.collider.bounds.min.y + raySpacing) : new Vector2(player.collider.bounds.min.x, player.collider.bounds.min.y + raySpacing);
+                hit = Physics2D.Raycast(rayOrigin, Vector2.right * faceDirectionSnapshot, minimumTeleportDistance, collisionMask); //Draw a vertical ray and check for collision
+
+                if (hit)
+                {
+                    player.transform.position = (faceDirectionSnapshot == 1) ? new Vector3(player.transform.position.x + hit.distance, projectile.transform.position.y - teleportOffsetY, player.transform.position.z) : new Vector3(player.transform.position.x - hit.distance, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
+                }
+
                 parentAnimator.Play("Player_Teleport_In");
-                yield return new WaitForSeconds(teleportOutClipLength);
+                yield return new WaitForSeconds(teleportInClipLength);
                 parentAnimator.SetBool("IsTeleporting", false);
                 yield break;
             }
@@ -126,8 +143,8 @@ public class PlayerTeleportAttack : MonoBehaviour
         
         parentAnimator.Play("Player_Teleport_In");
         player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
-        Destroy(projectile.gameObject);
-        yield return new WaitForSeconds(teleportOutClipLength);
         parentAnimator.SetBool("IsTeleporting", false);
+        Destroy(projectile.gameObject);
+        yield return new WaitForSeconds(teleportInClipLength);
     }
 }

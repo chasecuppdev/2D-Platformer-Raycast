@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Prime31.MessageKit;
+using Rewired;
 
 [RequireComponent(typeof(Controller2D))]
 [RequireComponent(typeof(MovementController))]
@@ -14,6 +15,14 @@ public class PlayerInput : MonoBehaviour
     PlayerTeleportAttack teleportAttack;
     AnimatorController animatorController;
 
+    public int rewiredPlayerId = 0;
+    private Rewired.Player rewiredPlayer;
+
+    private void Awake()
+    {
+        rewiredPlayer = ReInput.players.GetPlayer(rewiredPlayerId);
+    }
+
     void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -25,7 +34,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        directionalInput = new Vector2(rewiredPlayer.GetAxisRaw("Move Horizontal"), rewiredPlayer.GetAxisRaw("Move Vertical"));
         Debug.Log(directionalInput);
         if (directionalInput.x > 0.05f)
         {
@@ -46,7 +55,7 @@ public class PlayerInput : MonoBehaviour
         //}
         movementController.SetDirectionalInput(directionalInput);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (rewiredPlayer.GetButtonDown("Jump"))
         {
             //Checking for these collision parameters here because we don't want to keep send the jump command in the air, as it resets preJump 
             if (controller.collisions.below || controller.collisions.wallSliding)
@@ -55,12 +64,12 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (rewiredPlayer.GetButtonUp("Jump"))
         {
             MessageKit.post(EventTypes.JUMP_INPUT_UP);
         }
         
-        if (Input.GetKeyDown(KeyCode.E))
+        if (rewiredPlayer.GetButtonDown("Attack"))
         {
             if (controller.collisions.below)
             {
@@ -96,7 +105,7 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (rewiredPlayer.GetButtonDown("Teleport Attack"))
         {
             if (teleportAttack != null)
             {
