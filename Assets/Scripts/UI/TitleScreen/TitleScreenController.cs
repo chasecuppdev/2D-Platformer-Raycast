@@ -3,11 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Rewired.UI.ControlMapper;
 
 public class TitleScreenController : MonoBehaviour
 {
-    public void LoadOnClick(int sceneIndex)
+    public ControlMapper controlMapper;
+
+    public void StartGame(int sceneIndex)
     {
         SceneController.LoadScene(sceneIndex);
+    }
+
+    public void OpenControlMapper()
+    {
+        controlMapper.Open();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

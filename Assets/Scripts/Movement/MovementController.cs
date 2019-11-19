@@ -72,6 +72,7 @@ public class MovementController : MonoBehaviour
         else if (animatorController?.animationStates.isTeleporting == true)
         {
             velocity.x = 0;
+            velocity.y = 0;
         }
         else
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Prime31.MessageKit;
 using Rewired;
 
@@ -14,6 +15,8 @@ public class PlayerInput : MonoBehaviour
     JumpController jumpController;
     PlayerTeleportAttack teleportAttack;
     AnimatorController animatorController;
+    [SerializeField]
+    Canvas pauseMenu;
 
     public int rewiredPlayerId = 0;
     private Rewired.Player rewiredPlayer;
@@ -21,10 +24,6 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         rewiredPlayer = ReInput.players.GetPlayer(rewiredPlayerId);
-    }
-
-    void Start()
-    {
         controller = GetComponent<Controller2D>();
         movementController = GetComponent<MovementController>();
         jumpController = GetComponent<JumpController>();
@@ -128,6 +127,11 @@ public class PlayerInput : MonoBehaviour
                     MessageKit<string>.post(EventTypes.UI_ELEMENT_SHAKE_1P, "Teleport_Icon");
                 }
             }
+        }
+
+        if (rewiredPlayer.GetButtonUp("Pause"))
+        {
+            MessageKit.post(EventTypes.JUMP_INPUT_UP);
         }
 
         //if (Input.GetKeyDown(KeyCode.R))

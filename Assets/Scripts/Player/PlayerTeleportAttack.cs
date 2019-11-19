@@ -143,8 +143,8 @@ public class PlayerTeleportAttack : MonoBehaviour
         
         parentAnimator.Play("Player_Teleport_In");
         player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
-        parentAnimator.SetBool("IsTeleporting", false);
         Destroy(projectile.gameObject);
         yield return new WaitForSeconds(teleportInClipLength);
+        parentAnimator.SetBool("IsTeleporting", false);
     }
 }
