@@ -8,6 +8,7 @@ using Rewired.UI.ControlMapper;
 public class TitleScreenController : MonoBehaviour
 {
     public ControlMapper controlMapper;
+    public Button defaultSelection;
 
     public void StartGame(int sceneIndex)
     {
@@ -22,5 +23,10 @@ public class TitleScreenController : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void SetDefaultSelection()
+    {
+        defaultSelection.Select();
     }
 }

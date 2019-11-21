@@ -10,7 +10,7 @@ public class MovementController : MonoBehaviour
     [HideInInspector] public Vector2 velocity;
     [SerializeField] float moveSpeed = 5;
     float velocityXSmoothing;
-    float accelerationTimeGrounded = .075f;
+    float accelerationTimeGrounded = 0.075f;
     private bool movementStopped = false;
 
     public Controller2D controller2D;

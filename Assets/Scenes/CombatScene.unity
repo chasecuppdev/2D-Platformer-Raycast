@@ -1397,7 +1397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &764886405
 Animator:
   serializedVersion: 3
@@ -1864,7 +1864,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7099b0087b4d6ed4687efb73e2b1d69f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.695
   m_Pitch: 1
   Loop: 1
@@ -2247,7 +2247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1390979010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19144,6 +19144,11 @@ PrefabInstance:
       propertyPath: fallingGravityMultiplier
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2544677587411086009, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: accelerationTimeAirborne
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086014, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: moveSpeed
@@ -19152,7 +19157,7 @@ PrefabInstance:
     - target: {fileID: 2544677587411086012, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086012, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}

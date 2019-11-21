@@ -6,10 +6,10 @@ public class GravityController : MonoBehaviour
 {
     //Jumping Parameters
     [Header("Jump Height")]
-    [SerializeField] float maxJumpHeight = 4;
-    [SerializeField] float minJumpHeight = 2;
-    [SerializeField] float timeToJumpApex = 0.4f;
-    [SerializeField] float accelerationTimeAirborne = 0.3f;
+    [SerializeField] float maxJumpHeight;
+    [SerializeField] float minJumpHeight;
+    [SerializeField] float timeToJumpApex;
+    [SerializeField] float accelerationTimeAirborne;
     [SerializeField] bool useGravity = true;
     float baseGravity;
     float gravity;

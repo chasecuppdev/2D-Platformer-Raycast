@@ -54,11 +54,12 @@ public class Controller2D : RaycastController
         //}
 
         HorizontalCollisions(ref moveDistance);
+        //HorizontalCollisionBothSides(ref moveDistance);
 
         if (moveDistance.y != 0) //No need to check for collisions if we aren't moving vertically
         {
             VerticalCollisions(ref moveDistance);
-            CheckTeleportCollisions(ref moveDistance);
+            //CheckTeleportCollisions(ref moveDistance);
         }
 
         transform.Translate(moveDistance);
@@ -66,6 +67,141 @@ public class Controller2D : RaycastController
         if (standingOnPlatform)
         {
             collisions.below = true;
+        }
+    }
+
+    void HorizontalCollisionBothSides(ref Vector2 moveDistance)
+    {
+        //float directionX = Mathf.Sign(moveDistance.x); //Get the horizontal direction of movement
+        float directionX = collisions.faceDir;
+        float rayLength = Mathf.Abs(moveDistance.x) + skinWidth; //Get the length of the movement and remember to add back in skin width
+
+        if (Mathf.Abs(moveDistance.x) < skinWidth)
+        {
+            rayLength = 2 * skinWidth;
+        }
+
+        for (int i = 0; i < horizontalRayCount; i++)
+        {
+            Vector2 rayOriginLeft = raycastOrigins.bottomLeft;
+            rayOriginLeft += Vector2.up * (horizontalRaySpacing * i);
+            RaycastHit2D hitLeft = Physics2D.Raycast(rayOriginLeft, Vector2.left, rayLength, collisionMask);
+
+            Vector2 rayOriginRight = raycastOrigins.bottomRight;
+            rayOriginRight += Vector2.up * (horizontalRaySpacing * i);
+            RaycastHit2D hitRight = Physics2D.Raycast(rayOriginRight, Vector2.right, rayLength, collisionMask);
+
+            Debug.DrawRay(rayOriginLeft, Vector2.left, Color.red);
+            Debug.DrawRay(rayOriginRight, Vector2.right, Color.red);
+
+            if (hitLeft) //returns null if nothing was hit
+            {
+                //If the hit.distance is 0, we are "in front" of a moving platform
+                if (hitLeft.distance == 0)
+                {
+                    collisions.insidePlatform = true; //TODO: Come back to this and try to fix the case where platform goes in front of the player while they are on the ground. I think turning removing the Platform collision mask when casting rays will do most of the job, but it will stick to the platform while the platform is in the skinwidth
+                    return; //We are assuming the platform is not taller than the object, so continue and let another raycast determine horizontal movement
+                }
+                float slopeAngle = Vector2.Angle(hitLeft.normal, Vector2.up); //Find the angle between our raycast and the normal of whatever we hit
+
+                if (i == 0 && slopeAngle <= maxSlopeAngle) //We will only want to calculate how to climb with the bottom raycast
+                {
+                    if (collisions.descendingSlope) //If we were descending and then hit another slope that causes us to start ascending
+                    {
+                        collisions.descendingSlope = false;
+                        moveDistance = collisions.velocityOld;
+                    }
+                    float distanceToSlopeStart = 0;
+                    if (slopeAngle != collisions.slopeAngleOld) //Only redo this calculation if we are hitting a new slope
+                    {
+                        //When we hit a slope, the raycast will be a little farther out from our bounds but ClimbSlope will starting calculating from this position.
+                        //ClimbSlope sets the x and y position based on the position of our object when it gets called, so it's not "sitting" on the slope exactly
+                        //and if we didn't keep track of the distance to the slope, that would be lost to use after calling ClimbSlope. By removing the distanceToSlopeStart
+                        //from our x moveDistance, we allow the ClimbSlope calculations to happen correctly based on where the object is when the raycast detects the slope,
+                        //and then add back in the distance such that our object will be sitting on the slope and not hovering over it. 
+                        distanceToSlopeStart = hitLeft.distance - skinWidth; //Since the raycast is a little in front of our object, we need to keep track of that distance so we don't float on the slope after climbing
+                        moveDistance.x -= distanceToSlopeStart * directionX; //Our moveDistance (or position) is where it will be after this frame, not where it is now that we have hit the slope. We want to calculate the climbing vector with our current position
+                    }
+                    ClimbSlope(ref moveDistance, slopeAngle, hitLeft.normal);
+                    moveDistance.x += (distanceToSlopeStart) * directionX; //Add back in the horizontal distance we removed earlier so we aren't misaligned horizontally and thus floating on the slope
+                }
+
+                //If we aren't on a slope or if we hit a wall (even if we are on a slope)
+                if (!collisions.climbingSlope || slopeAngle > maxSlopeAngle)
+                {
+                    //moveDistance.x = (hit.distance - skinWidth) * directionX; //We set the distance we want to move horizontally equal to the distance of the raycast that intersected with an obstacle, keeping in mind the skin width
+                    moveDistance.x = Mathf.Min(Mathf.Abs(moveDistance.x), (hitLeft.distance - skinWidth)) * directionX;
+                    //Setting the rayLength here is very important. Suppose the collider is moving right into a step such that the collider is twice as tall as the step.
+                    //If we did not set the raylength once we hit something, then the last ray (the uppermost ray in this case) would always have priority in setting the moveDistance,
+                    //and in this example we would go through the step and collide with the next step. But since we have set the rayLength to be the distance in which we collided with
+                    //closest step, none of the raycasts that are taller than the step will be long enough to collide with the second step and we will collide with the first step.
+                    //Basically, the closest object a raycast hits in this example will be how much we should move down in the horizontal direction.
+                    //rayLength = hit.distance; //Set the rayLength each time a collision is detected so we ensure we collide with the closest obstacle
+                    rayLength = Mathf.Min(Mathf.Abs(moveDistance.x) + skinWidth, hitLeft.distance);
+
+                    //If we hit an obstacle horizontally that is not climbable while climbing, we need to adjust our y moveDistance as our x moveDistance is reducing (since we hit something and are no longer moving)
+                    if (collisions.climbingSlope)
+                    {
+                        moveDistance.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(moveDistance.x);
+                    }
+                    collisions.left = (directionX == -1);
+                    collisions.right = (directionX == 1);
+                }
+            }
+            else if (hitRight) //returns null if nothing was hit
+            {
+                //If the hit.distance is 0, we are "in front" of a moving platform
+                if (hitRight.distance == 0)
+                {
+                    collisions.insidePlatform = true; //TODO: Come back to this and try to fix the case where platform goes in front of the player while they are on the ground. I think turning removing the Platform collision mask when casting rays will do most of the job, but it will stick to the platform while the platform is in the skinwidth
+                    return; //We are assuming the platform is not taller than the object, so continue and let another raycast determine horizontal movement
+                }
+                float slopeAngle = Vector2.Angle(hitRight.normal, Vector2.up); //Find the angle between our raycast and the normal of whatever we hit
+
+                if (i == 0 && slopeAngle <= maxSlopeAngle) //We will only want to calculate how to climb with the bottom raycast
+                {
+                    if (collisions.descendingSlope) //If we were descending and then hit another slope that causes us to start ascending
+                    {
+                        collisions.descendingSlope = false;
+                        moveDistance = collisions.velocityOld;
+                    }
+                    float distanceToSlopeStart = 0;
+                    if (slopeAngle != collisions.slopeAngleOld) //Only redo this calculation if we are hitting a new slope
+                    {
+                        //When we hit a slope, the raycast will be a little farther out from our bounds but ClimbSlope will starting calculating from this position.
+                        //ClimbSlope sets the x and y position based on the position of our object when it gets called, so it's not "sitting" on the slope exactly
+                        //and if we didn't keep track of the distance to the slope, that would be lost to use after calling ClimbSlope. By removing the distanceToSlopeStart
+                        //from our x moveDistance, we allow the ClimbSlope calculations to happen correctly based on where the object is when the raycast detects the slope,
+                        //and then add back in the distance such that our object will be sitting on the slope and not hovering over it. 
+                        distanceToSlopeStart = hitRight.distance - skinWidth; //Since the raycast is a little in front of our object, we need to keep track of that distance so we don't float on the slope after climbing
+                        moveDistance.x -= distanceToSlopeStart * directionX; //Our moveDistance (or position) is where it will be after this frame, not where it is now that we have hit the slope. We want to calculate the climbing vector with our current position
+                    }
+                    ClimbSlope(ref moveDistance, slopeAngle, hitRight.normal);
+                    moveDistance.x += (distanceToSlopeStart) * directionX; //Add back in the horizontal distance we removed earlier so we aren't misaligned horizontally and thus floating on the slope
+                }
+
+                //If we aren't on a slope or if we hit a wall (even if we are on a slope)
+                if (!collisions.climbingSlope || slopeAngle > maxSlopeAngle)
+                {
+                    //moveDistance.x = (hit.distance - skinWidth) * directionX; //We set the distance we want to move horizontally equal to the distance of the raycast that intersected with an obstacle, keeping in mind the skin width
+                    moveDistance.x = Mathf.Min(Mathf.Abs(moveDistance.x), (hitRight.distance - skinWidth)) * directionX;
+                    //Setting the rayLength here is very important. Suppose the collider is moving right into a step such that the collider is twice as tall as the step.
+                    //If we did not set the raylength once we hit something, then the last ray (the uppermost ray in this case) would always have priority in setting the moveDistance,
+                    //and in this example we would go through the step and collide with the next step. But since we have set the rayLength to be the distance in which we collided with
+                    //closest step, none of the raycasts that are taller than the step will be long enough to collide with the second step and we will collide with the first step.
+                    //Basically, the closest object a raycast hits in this example will be how much we should move down in the horizontal direction.
+                    //rayLength = hit.distance; //Set the rayLength each time a collision is detected so we ensure we collide with the closest obstacle
+                    rayLength = Mathf.Min(Mathf.Abs(moveDistance.x) + skinWidth, hitRight.distance);
+
+                    //If we hit an obstacle horizontally that is not climbable while climbing, we need to adjust our y moveDistance as our x moveDistance is reducing (since we hit something and are no longer moving)
+                    if (collisions.climbingSlope)
+                    {
+                        moveDistance.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(moveDistance.x);
+                    }
+                    collisions.left = (directionX == -1);
+                    collisions.right = (directionX == 1);
+                }
+            }
         }
     }
 
@@ -86,11 +222,11 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i); //Updating the starting position for each horizontal raycast for each loop iteration
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask); //Draw a horizontal ray and check for collision
 
-            //Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
 
             if (hit) //returns null if nothing was hit
             {
-                //If the hit.distance is 0, we are "in front" of a moving platform
+                //If the hit.distance is 0, we are "inside" of a moving platform
                 if (hit.distance == 0)
                 {
                     collisions.insidePlatform = true; //TODO: Come back to this and try to fix the case where platform goes in front of the player while they are on the ground. I think turning removing the Platform collision mask when casting rays will do most of the job, but it will stick to the platform while the platform is in the skinwidth
@@ -228,11 +364,11 @@ public class Controller2D : RaycastController
         {
             //Distance between pivot points of player and projectile
             float rayLength = 1.1f;
-            float raySpacing = collider.bounds.max.x - collider.bounds.min.x - (skinWidth * 4);
+            float raySpacing = collider.bounds.max.x - (collider.bounds.min.x + (skinWidth * 20));
 
             for (int i = 0; i < 2; i++)
             {
-                Vector2 rayOrigin = new Vector2(collider.bounds.min.x + (skinWidth * 2) + (raySpacing * i), collider.bounds.min.y + (skinWidth * 2));
+                Vector2 rayOrigin = new Vector2(collider.bounds.min.x + (skinWidth * 20) + (raySpacing * i), collider.bounds.min.y + (skinWidth * 2));
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up, rayLength, collisionMask); //Draw a vertical ray and check for collision
                 Debug.DrawRay(rayOrigin, Vector3.up, Color.red);
 
