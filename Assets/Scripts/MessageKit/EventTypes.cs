@@ -12,5 +12,5 @@ public class EventTypes
     public const int PLAYER_DIED = 5;
     public const int DASH_ATTACK_INPUT_DOWN_2P = 6;
     public const int UI_ELEMENT_SHAKE_1P = 7;
-
+    public const int UI_PAUSE_MENU = 8;
 }

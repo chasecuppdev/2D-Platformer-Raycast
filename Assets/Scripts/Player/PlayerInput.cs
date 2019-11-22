@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
     Canvas pauseMenu;
 
     public int rewiredPlayerId = 0;
-    private Rewired.Player rewiredPlayer;
+    public Rewired.Player rewiredPlayer;
 
     private void Awake()
     {
@@ -129,9 +129,9 @@ public class PlayerInput : MonoBehaviour
             }
         }
 
-        if (rewiredPlayer.GetButtonUp("Pause"))
+        if (rewiredPlayer.GetButtonDown("Pause"))
         {
-            MessageKit.post(EventTypes.JUMP_INPUT_UP);
+            MessageKit.post(EventTypes.UI_PAUSE_MENU);
         }
 
         //if (Input.GetKeyDown(KeyCode.R))

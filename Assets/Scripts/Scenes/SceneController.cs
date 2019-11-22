@@ -11,7 +11,7 @@ public class SceneController : MonoBehaviour
         MessageKit.addObserver(EventTypes.PLAYER_DIED, LoadTitleScene);
     }
 
-    public void LoadTitleScene()
+    static public void LoadTitleScene()
     {
         MessageKitManager.clearAllMessageTables();
         SceneManager.LoadScene(0);
