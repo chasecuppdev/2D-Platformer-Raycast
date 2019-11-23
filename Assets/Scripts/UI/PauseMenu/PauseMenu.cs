@@ -13,6 +13,8 @@ public class PauseMenu : MonoBehaviour
     Canvas dimCanvas; //Hooked up in editor
     [SerializeField]
     PlayerInput playerInput; //Getting reference to player input so we can enable/disable controller maps as necessary. Hooked up in editor
+    [SerializeField]
+    AudioSource music; //Hooked up in editor
     public Button defaultSelection; //Hooked up in editor
     public ControlMapper controlMapper; //Hooked up in editor
 
@@ -35,6 +37,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (!pauseMenu.enabled)
             {
+                music.Pause();
                 SetDefaultSelection();
                 EnableUIControls();
                 DisableGameplayControls();
@@ -44,6 +47,7 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
+                music.UnPause();
                 EnableGameplayControls();
                 DisableUIControls();
                 Time.timeScale = 1;
