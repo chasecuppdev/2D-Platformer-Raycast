@@ -1879,7 +1879,7 @@ PrefabInstance:
     - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
         type: 3}
       propertyPath: m_deselectIfBackgroundClicked
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 630d421bc2b0b2845829eb821dbcee53, type: 3}
