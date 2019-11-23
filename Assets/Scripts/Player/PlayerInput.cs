@@ -106,7 +106,7 @@ public class PlayerInput : MonoBehaviour
 
         if (rewiredPlayer.GetButtonDown("Teleport Attack"))
         {
-            if (teleportAttack != null)
+            if (teleportAttack != null && !animatorController.animationStates.isAttacking)
             {
                 if (!teleportAttack.cooldown.active)
                 {

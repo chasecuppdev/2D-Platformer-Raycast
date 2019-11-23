@@ -59,7 +59,7 @@ public class Controller2D : RaycastController
         if (moveDistance.y != 0) //No need to check for collisions if we aren't moving vertically
         {
             VerticalCollisions(ref moveDistance);
-            //CheckTeleportCollisions(ref moveDistance);
+            CheckTeleportCollisions(ref moveDistance);
         }
 
         transform.Translate(moveDistance);
@@ -364,7 +364,7 @@ public class Controller2D : RaycastController
         {
             //Distance between pivot points of player and projectile
             float rayLength = 1.1f;
-            float raySpacing = collider.bounds.max.x - (collider.bounds.min.x + (skinWidth * 20));
+            float raySpacing = collider.bounds.max.x - (collider.bounds.min.x + (skinWidth * 40));
 
             for (int i = 0; i < 2; i++)
             {

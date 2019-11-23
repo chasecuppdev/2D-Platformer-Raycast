@@ -4,20 +4,24 @@ using UnityEngine;
 using Prime31.MessageKit;
 using UnityEngine.UI;
 using Rewired;
+using Rewired.UI.ControlMapper;
 
 public class PauseMenu : MonoBehaviour
 {
     Canvas pauseMenu;
     [SerializeField]
+    Canvas dimCanvas; //Hooked up in editor
+    [SerializeField]
     PlayerInput playerInput; //Getting reference to player input so we can enable/disable controller maps as necessary. Hooked up in editor
     public Button defaultSelection; //Hooked up in editor
+    public ControlMapper controlMapper; //Hooked up in editor
 
     private void Start()
     {
         pauseMenu = GetComponent<Canvas>();
         MessageKit.addObserver(EventTypes.UI_PAUSE_MENU, TogglePauseMenu);
-        //EnableGameplayControls();
-        //DisableUIControls();
+        EnableGameplayControls();
+        DisableUIControls();
     }
 
     public void SetDefaultSelection()
@@ -27,20 +31,25 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        if (!pauseMenu.enabled)
+        if (!controlMapper.isOpen)
         {
-            SetDefaultSelection();
-            EnableUIControls();
-            DisableGameplayControls();
-            Time.timeScale = 0;
-            pauseMenu.enabled = true;
-        }
-        else
-        {
-            EnableGameplayControls();
-            DisableUIControls();
-            Time.timeScale = 1;
-            pauseMenu.enabled = false;
+            if (!pauseMenu.enabled)
+            {
+                SetDefaultSelection();
+                EnableUIControls();
+                DisableGameplayControls();
+                Time.timeScale = 0;
+                dimCanvas.enabled = true;
+                pauseMenu.enabled = true;
+            }
+            else
+            {
+                EnableGameplayControls();
+                DisableUIControls();
+                Time.timeScale = 1;
+                dimCanvas.enabled = false;
+                pauseMenu.enabled = false;
+            }
         }
     }
 
@@ -50,6 +59,11 @@ public class PauseMenu : MonoBehaviour
         DisableGameplayControls();
         Time.timeScale = 1;
         SceneController.LoadTitleScene();
+    }
+
+    public void OpenControlMapper()
+    {
+        controlMapper.Open();
     }
 
     private void EnableUIControls()

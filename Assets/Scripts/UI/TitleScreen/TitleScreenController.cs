@@ -7,8 +7,8 @@ using Rewired.UI.ControlMapper;
 
 public class TitleScreenController : MonoBehaviour
 {
-    public ControlMapper controlMapper;
-    public Button defaultSelection;
+    public ControlMapper controlMapper; //Hooked up in editor
+    public Button defaultSelection; //Hooked up in editor
 
     public void StartGame(int sceneIndex)
     {
