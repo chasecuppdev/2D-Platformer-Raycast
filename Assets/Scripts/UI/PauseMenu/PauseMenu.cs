@@ -57,12 +57,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    IEnumerator ArtificialLoadTime(float duration)
+    {
+        Time.timeScale = 1;
+        yield return new WaitForSeconds(duration);
+        SceneController.LoadTitleScene();
+    }
+
     public void QuitToMainMenu()
     {
-        EnableUIControls();
-        DisableGameplayControls();
-        Time.timeScale = 1;
-        SceneController.LoadTitleScene();
+        //We have to do this because the scene loads so fast most of the time the user is still pressing the submit button and this input carries over to the title scene,
+        //causing the game to restart instantly since it is the first selected button
+        StartCoroutine(ArtificialLoadTime(0.5f)); 
     }
 
     public void OpenControlMapper()

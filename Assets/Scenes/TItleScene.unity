@@ -1717,6 +1717,11 @@ PrefabInstance:
       propertyPath: _dontDestroyOnLoad
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 420852064893457682, guid: 2de7f5de57f2a5a4488faa67eafab41f,
+        type: 3}
+      propertyPath: _userData.configVars.runInEditMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1042360475839803668, guid: 2de7f5de57f2a5a4488faa67eafab41f,
         type: 3}
       propertyPath: loadJoystickAssignments
@@ -1871,6 +1876,11 @@ PrefabInstance:
       propertyPath: m_FirstSelected
       value: 
       objectReference: {fileID: 472343282}
+    - target: {fileID: 3060946204629836675, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: m_sendNavigationEvents
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
         type: 3}
       propertyPath: rewiredInputManager
@@ -1879,6 +1889,36 @@ PrefabInstance:
     - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
         type: 3}
       propertyPath: m_deselectIfBackgroundClicked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: useRewiredSystemPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: usePlayingPlayersOnly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: m_RepeatDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: m_allowMouseInput
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: m_ForceModuleActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

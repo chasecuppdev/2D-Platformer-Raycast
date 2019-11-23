@@ -368,6 +368,31 @@ PrefabInstance:
       propertyPath: rewiredInputManager
       value: 
       objectReference: {fileID: 76181161}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: horizontalActionId
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: verticalActionId
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: submitActionId
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: cancelActionId
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3060946204629836672, guid: 630d421bc2b0b2845829eb821dbcee53,
+        type: 3}
+      propertyPath: m_deselectBeforeSelecting
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 630d421bc2b0b2845829eb821dbcee53, type: 3}
 --- !u!4 &247033744 stripped
@@ -643,7 +668,7 @@ PrefabInstance:
     - target: {fileID: 420852064893457682, guid: 2de7f5de57f2a5a4488faa67eafab41f,
         type: 3}
       propertyPath: _userData.configVars.runInEditMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2de7f5de57f2a5a4488faa67eafab41f, type: 3}
