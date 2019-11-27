@@ -14,6 +14,6 @@ public class PlayerAudio : MonoBehaviour
     //Hooked up via Animation Events
     public void PlayWhipAttackClip()
     {
-        SoundManager.Instance.Play(whipAttackClip);
+        SoundManager.Instance.PlayWithRandomizedPitch(whipAttackClip);
     }
 }

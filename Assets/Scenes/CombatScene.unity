@@ -2366,8 +2366,8 @@ MonoBehaviour:
   DroneDeath: {fileID: 0}
   DroneFireProjectile: {fileID: 0}
   DroneProjectileOnHit: {fileID: 0}
-  lowPitchRange: 0.95
-  highPitchRange: 1.05
+  lowPitchRange: 0.9
+  highPitchRange: 1.1
 --- !u!1 &1020520717
 GameObject:
   m_ObjectHideFlags: 0

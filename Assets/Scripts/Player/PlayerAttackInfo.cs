@@ -23,7 +23,7 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
     public void collidedWith(Collider2D collider)
     {
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
-        SoundManager.Instance.Play(whipHitSound);
+        SoundManager.Instance.PlayWithRandomizedPitch(whipHitSound);
         Instantiate(whipEffectPrefab, collider.transform);
         hurtbox.ApplyAttack(damage);
     }
