@@ -9,7 +9,8 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
     public int damage;
 
     Hitbox hitbox;
-    public GameObject WhipEffectPrefab;
+    public GameObject WhipEffectPrefab; //Hooked up in editor
+    public AudioClip WhipHitSound; //Hooked up in editor
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
     public void collidedWith(Collider2D collider)
     {
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
+        SoundManager.Instance.Play(WhipHitSound);
         Instantiate(WhipEffectPrefab, collider.transform);
         hurtbox.ApplyAttack(damage);
     }
