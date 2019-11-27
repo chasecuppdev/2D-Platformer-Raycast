@@ -11,18 +11,18 @@ public class SoundManager : MonoBehaviour
 
     //Adding a central place where audio effects can be stored and accessed. Forgoing using an array so that they can be more descriptive in the editor and call easily via scripts
     [Header("Player Audio Clips")]
-    public AudioClip PlayerFootsteps;
-    public AudioClip PlayerJump;
-    public AudioClip PlayerLand;
-    public AudioClip PlayerHurt;
-    public AudioClip PlayerDeath;
+    public AudioClip PlayerFootsteps; //Referenced in PlayerAudio and used as an animation event
+    public AudioClip PlayerJump; //Referenced in PlayerAudio and used as an animation event
+    public AudioClip PlayerLand; //Referenced in PlayerAudio and used as an animation event
+    public AudioClip PlayerHurt; //Referenced in PlayerAudio and used as an animation event
+    public AudioClip PlayerDeath; //Referenced in PlayerAudio and used as an animation event
     public AudioClip PlayerWallSlide;
-    public AudioClip PlayerWhipBase;
+    public AudioClip PlayerWhipBase; //Referenced in PlayerAudio and used as an animation event
     public AudioClip PlayerWhipOnHit;
-    public AudioClip PlayerThrowBaton;
+    public AudioClip PlayerThrowBaton; //Referenced in PlayerAudio and used as an animation event
     public AudioClip PlayerBatonOnHit;
-    public AudioClip PlayerTeleportOut;
-    public AudioClip PlayerTeleportIn;
+    public AudioClip PlayerTeleportOut; //Referenced in PlayerAudio and used as an animation event
+    public AudioClip PlayerTeleportIn; //Referenced in PlayerAudio and used as an animation event
 
     [Header("Splicer Audio Clips")]
     public AudioClip SplicerFootsteps;
@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip SplicerDeath;
     public AudioClip SplicerAttack;
 
-    [Header("Splicer Audio Clips")]
+    [Header("Drone Audio Clips")]
     public AudioClip DroneMovement;
     public AudioClip DroneHurt;
     public AudioClip DroneDeath;
@@ -103,6 +103,6 @@ public class SoundManager : MonoBehaviour
 
         effectsSource.pitch = randomPitch;
         effectsSource.clip = clips[randomIndex];
-        effectsSource.Play();
+        effectsSource.PlayOneShot(effectsSource.clip);
     }
 }
