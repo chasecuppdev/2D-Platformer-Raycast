@@ -5,10 +5,40 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     //Audio Components
+    [Header("Audio Source Components")]
     public AudioSource effectsSource; //Hooked up in editor
     public AudioSource musicSource; //Hooked up in editor
 
+    //Adding a central place where audio effects can be stored and accessed. Forgoing using an array so that they can be more descriptive in the editor and call easily via scripts
+    [Header("Player Audio Clips")]
+    public AudioClip PlayerFootsteps;
+    public AudioClip PlayerJump;
+    public AudioClip PlayerLand;
+    public AudioClip PlayerHurt;
+    public AudioClip PlayerDeath;
+    public AudioClip PlayerWallSlide;
+    public AudioClip PlayerWhipBase;
+    public AudioClip PlayerWhipOnHit;
+    public AudioClip PlayerThrowBaton;
+    public AudioClip PlayerBatonOnHit;
+    public AudioClip PlayerTeleportOut;
+    public AudioClip PlayerTeleportIn;
+
+    [Header("Splicer Audio Clips")]
+    public AudioClip SplicerFootsteps;
+    public AudioClip SplicerHurt;
+    public AudioClip SplicerDeath;
+    public AudioClip SplicerAttack;
+
+    [Header("Splicer Audio Clips")]
+    public AudioClip DroneMovement;
+    public AudioClip DroneHurt;
+    public AudioClip DroneDeath;
+    public AudioClip DroneFireProjectile;
+    public AudioClip DroneProjectileOnHit;
+
     //Random pitch range
+    [Header("Pitch Variance")]
     public float lowPitchRange = 0.95f;
     public float highPitchRange = 1.05f;
 

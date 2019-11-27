@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class PlayerAudio : MonoBehaviour
 {
-    public AudioClip whipAttackClip;
+    private AudioClip whipAttackClip;
 
+    private void Awake()
+    {
+        whipAttackClip = SoundManager.Instance.PlayerWhipBase;
+    }
+
+    //Hooked up via Animation Events
     public void PlayWhipAttackClip()
     {
         SoundManager.Instance.Play(whipAttackClip);
