@@ -2269,8 +2269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5cccd417e4f184d91cf20277038b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectsSource: {fileID: 1674961457}
-  musicSource: {fileID: 837042047}
   PlayerFootsteps: {fileID: 0}
   PlayerJump: {fileID: 0}
   PlayerLand: {fileID: 0}
@@ -20660,6 +20658,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3051673606828884001, guid: 71c69c067451e504f87c862398764e4c,
         type: 3}
+    - target: {fileID: 2544677588888852430, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: playerAudioSource
+      value: 
+      objectReference: {fileID: 911288419}
     - target: {fileID: 2544677587411086008, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: pauseMenu
