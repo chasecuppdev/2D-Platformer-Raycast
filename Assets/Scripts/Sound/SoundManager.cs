@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    //Audio Components
-    [Header("Audio Source Components")]
-    public AudioSource effectsSource; //Hooked up in editor
-    public AudioSource musicSource; //Hooked up in editor
-
     //Adding a central place where audio effects can be stored and accessed. Forgoing using an array so that they can be more descriptive in the editor and call easily via scripts
     [Header("Player Audio Clips")]
     public AudioClip PlayerFootsteps; //Referenced in PlayerAudio and used as an animation event
@@ -16,26 +11,24 @@ public class SoundManager : MonoBehaviour
     public AudioClip PlayerLand; //Referenced in PlayerAudio and used as an animation event
     public AudioClip PlayerHurt; //Referenced in PlayerAudio and used as an animation event
     public AudioClip PlayerDeath; //Referenced in PlayerAudio and used as an animation event
-    public AudioClip PlayerWallSlide;
+    public AudioClip PlayerWallSlide; //Referenced in PlayerAudio and used as an animation event 
     public AudioClip PlayerWhipBase; //Referenced in PlayerAudio and used as an animation event
-    public AudioClip PlayerWhipOnHit;
+    public AudioClip PlayerWhipOnHit; //Referenced in PlayerAttackInfo.cs when a successful hit is registered
     public AudioClip PlayerThrowBaton; //Referenced in PlayerAudio and used as an animation event
-    public AudioClip PlayerBatonOnHit;
+    public AudioClip PlayerBatonOnHit; //Referenced in Baton_Projectile.cs when a successful hit is registered
     public AudioClip PlayerTeleportOut; //Referenced in PlayerAudio and used as an animation event
     public AudioClip PlayerTeleportIn; //Referenced in PlayerAudio and used as an animation event
 
     [Header("Splicer Audio Clips")]
-    public AudioClip SplicerFootsteps;
-    public AudioClip SplicerHurt;
-    public AudioClip SplicerDeath;
-    public AudioClip SplicerAttack;
+    public AudioClip SplicerHurt; //Referenced in SplicerAudio and used as an animation event
+    public AudioClip SplicerDeath; //Referenced in SplicerAudio and used as an animation event
+    public AudioClip SplicerAttack; //Referenced in SplicerAudio and used as an animation event
 
     [Header("Drone Audio Clips")]
-    public AudioClip DroneMovement;
-    public AudioClip DroneHurt;
-    public AudioClip DroneDeath;
-    public AudioClip DroneFireProjectile;
-    public AudioClip DroneProjectileOnHit;
+    public AudioClip DroneHurt; //Referenced in DroneAudio and used as an animation event
+    public AudioClip DroneDeath;//Referenced in DroneAudio and used as an animation event
+    public AudioClip DroneFireProjectile; //Referenced in DroneAudio and used as an animation event
+    public AudioClip DroneProjectileOnHit; //Referenced in Projectile.cs when a successful hit is registered
 
     //Random pitch range
     [Header("Pitch Variance")]
@@ -67,42 +60,42 @@ public class SoundManager : MonoBehaviour
     /// Play a singe clip through the sound effects source
     /// </summary>
     /// <param name="clip"></param>
-    public void Play(AudioClip clip)
+    public void Play(AudioSource source, AudioClip clip)
     {
-        effectsSource.clip = clip;
-        effectsSource.Play();
+        source.clip = clip;
+        source.Play();
     }
 
-    public void PlayWithRandomizedPitch(AudioClip clip)
+    public void PlayWithRandomizedPitch(AudioSource source, AudioClip clip)
     {
         float randomPitch = Random.Range(lowPitchRange, highPitchRange);
 
-        effectsSource.pitch = randomPitch;
-        effectsSource.clip = clip;
-        effectsSource.Play();
+        source.pitch = randomPitch;
+        source.clip = clip;
+        source.Play();
     }
 
     /// <summary>
     /// Play a single clip through the music source
     /// </summary>
     /// <param name="clip"></param>
-    public void PlayMusic(AudioClip clip)
+    public void PlayMusic(AudioSource source, AudioClip clip)
     {
-        musicSource.clip = clip;
-        musicSource.Play();
+        source.clip = clip;
+        source.Play();
     }
 
     /// <summary>
     /// Play a random clip from an array and randomize the pitch slightly
     /// </summary>
     /// <param name="clips"></param>
-    public void RandomizeSoundEffect(params AudioClip[] clips)
+    public void RandomizeSoundEffect(AudioSource source, params AudioClip[] clips)
     {
         int randomIndex = Random.Range(0, clips.Length);
         float randomPitch = Random.Range(lowPitchRange, highPitchRange);
 
-        effectsSource.pitch = randomPitch;
-        effectsSource.clip = clips[randomIndex];
-        effectsSource.PlayOneShot(effectsSource.clip);
+        source.pitch = randomPitch;
+        source.clip = clips[randomIndex];
+        source.PlayOneShot(source.clip);
     }
 }

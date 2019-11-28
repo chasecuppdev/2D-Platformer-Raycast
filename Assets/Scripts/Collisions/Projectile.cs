@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour, IHitboxResponder
     Hitbox hitbox;
     Animator animator;
     Rigidbody2D thisProjectile;
+    private AudioSource droneAudioSource; //Hooked up in editor
+    private AudioClip projectileOnHitClip;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,9 @@ public class Projectile : MonoBehaviour, IHitboxResponder
 
         animator = GetComponent<Animator>();
         thisProjectile = GetComponent<Rigidbody2D>();
+
+        droneAudioSource = GameObject.Find("DroneAudioSource").GetComponent<AudioSource>();
+        projectileOnHitClip = SoundManager.Instance.DroneProjectileOnHit;
     }
 
     public void collidedWith(Collider2D collider)
@@ -26,6 +31,11 @@ public class Projectile : MonoBehaviour, IHitboxResponder
         {
             Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
             hurtbox.ApplyAttack(damage);
+        }
+
+        if (projectileOnHitClip != null)
+        {
+            SoundManager.Instance.PlayWithRandomizedPitch(droneAudioSource, projectileOnHitClip);
         }
 
         thisProjectile.velocity = Vector2.zero;

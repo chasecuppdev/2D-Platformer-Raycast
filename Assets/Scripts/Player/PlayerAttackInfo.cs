@@ -10,20 +10,27 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
 
     Hitbox hitbox;
     public GameObject whipEffectPrefab; //Hooked up in editor
-    private AudioClip whipHitSound; //Hooked up in editor
+    private AudioSource playerAudioSource; //Hooked up in editor
+    private AudioClip whipHitSound;
 
     private void Awake()
     {
         hitbox = GetComponent<Hitbox>();
         hitbox.addResponder(this);
 
+        playerAudioSource = GameObject.Find("PlayerAudioSource").GetComponent<AudioSource>();
         whipHitSound = SoundManager.Instance.PlayerWhipOnHit;
     }
 
     public void collidedWith(Collider2D collider)
     {
         Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
-        SoundManager.Instance.PlayWithRandomizedPitch(whipHitSound);
+        
+        if (whipHitSound != null)
+        {
+            SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, whipHitSound);
+        }
+
         Instantiate(whipEffectPrefab, collider.transform);
         hurtbox.ApplyAttack(damage);
     }
