@@ -13,22 +13,37 @@ public class BossIntro : MonoBehaviour
     [SerializeField]
     private GameObject music; //Hooked up in editor
     [SerializeField]
-    private float triggerDistance;
+    private float triggerDistance = 16;
+    [SerializeField]
+    private float cameraSpeed = 2f;
+
+    private Vector3 targetPosition;
+    private bool cameraMoveEnabled = false;
     
-    private void FixedUpdate()
+    private void Update()
     {
         if (TriggerBossIntro())
         {
-            player.GetComponent<PlayerInput>().enabled = false;
-            player.GetComponent<MovementController>().SetDirectionalInput(Vector2.zero);
-            camera.GetComponent<CameraFollow>().enabled = false;
-            music.GetComponent<AudioSource>().Stop();
+            SetUpCameraMovement();
+            if (cameraMoveEnabled)
+            {
+                camera.transform.position = Vector3.Lerp(camera.transform.position, targetPosition, cameraSpeed* Time.deltaTime);
+                if (camera.transform.position.x == boss.transform.position.x)
+                {
+                    cameraMoveEnabled = false;
+                }
+            }
         }
     }
 
-    private IEnumerator PanCameraToBoss()
+    private void SetUpCameraMovement()
     {
-        yield return 0;
+        player.GetComponent<PlayerInput>().enabled = false;
+        player.GetComponent<MovementController>().SetDirectionalInput(Vector2.zero);
+        camera.GetComponent<CameraFollow>().enabled = false;
+        music.GetComponent<AudioSource>().Stop();
+        targetPosition = new Vector3(boss.transform.position.x, camera.transform.position.y, camera.transform.position.z);
+        cameraMoveEnabled = true;
     }
 
     private bool TriggerBossIntro()
