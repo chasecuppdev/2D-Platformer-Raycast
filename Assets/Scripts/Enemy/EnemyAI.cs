@@ -7,7 +7,8 @@ public class EnemyAI : MonoBehaviour
     protected GameObject player;
     protected MovementController movementController;
     protected AnimatorController animController;
-    [SerializeField] protected BoxCollider2D collider;
+    [SerializeField]
+    protected BoxCollider2D collider;
 
     public float attackCooldown;
     protected float lastAttackTimestamp;
@@ -25,16 +26,21 @@ public class EnemyAI : MonoBehaviour
 
     protected Vector2 horizontalDirection;
 
-    [SerializeField] private float patrolDistance;
+    [SerializeField]
+    protected float patrolDistance = 5;
     protected float currentDistance;
     protected bool currentlyFollowingTarget = false;
 
-    [SerializeField] protected float attackdDetectionLength;
-    [SerializeField] protected float aggroRange;
+    [SerializeField]
+    protected float attackdDetectionLength;
+    [SerializeField]
+    protected float aggroRange;
 
-    [SerializeField] protected bool patrollingEnabled;
-    [SerializeField] protected Vector2 InitialDirection = Vector2.right;
-    private int patrolDirection; //Keeping up with the face direction here because it doesn't always get updated fast enough in the game loop
+    [SerializeField]
+    protected bool patrollingEnabled;
+    [SerializeField]
+    protected Vector2 InitialDirection = Vector2.right;
+    protected int patrolDirection; //Keeping up with the face direction here because it doesn't always get updated fast enough in the game loop
 
     protected Vector3 PlayerPosition
     {
