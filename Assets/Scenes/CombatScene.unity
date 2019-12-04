@@ -2390,16 +2390,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerFootsteps: {fileID: 0}
   PlayerJump: {fileID: 0}
-  PlayerLand: {fileID: 0}
+  PlayerLand: {fileID: 8300000, guid: 8040f7053cfc357408e03be6b8df9956, type: 3}
   PlayerHurt: {fileID: 0}
   PlayerDeath: {fileID: 0}
-  PlayerWallSlide: {fileID: 8300000, guid: b75ac40591d978a44b2ad13f97c517a1, type: 3}
+  PlayerWallSlide: {fileID: 8300000, guid: 168f772d8e80e8144bdbe314c221929d, type: 3}
   PlayerWhipBase: {fileID: 8300000, guid: 52beee3ab0e40b94b9b30cf4f6fd35c5, type: 3}
   PlayerWhipOnHit: {fileID: 8300000, guid: dcfd1dd954e72ae40a0c713880061330, type: 3}
-  PlayerThrowBaton: {fileID: 0}
-  PlayerBatonOnHit: {fileID: 0}
-  PlayerTeleportOut: {fileID: 0}
-  PlayerTeleportIn: {fileID: 0}
+  PlayerThrowBaton: {fileID: 8300000, guid: 276c048368013cc48be673e6c77e8bc0, type: 3}
+  PlayerBatonOnHit: {fileID: 8300000, guid: d056ab24a73cf4544ae4dcda8443ef52, type: 3}
+  PlayerTeleportOut: {fileID: 8300000, guid: 97c58fa715bc8264a8225cd8ffb64daa, type: 3}
+  PlayerTeleportIn: {fileID: 8300000, guid: 1ed69f1663b876648b88c1f85731e234, type: 3}
   SplicerHurt: {fileID: 0}
   SplicerDeath: {fileID: 0}
   SplicerAttack: {fileID: 0}

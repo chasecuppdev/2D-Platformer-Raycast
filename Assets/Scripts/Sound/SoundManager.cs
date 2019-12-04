@@ -57,13 +57,23 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Play a singe clip through the sound effects source
+    /// Play a single clip through the sound effects source
     /// </summary>
     /// <param name="clip"></param>
     public void Play(AudioSource source, AudioClip clip)
     {
         source.clip = clip;
         source.Play();
+    }
+
+    /// <summary>
+    /// Stop playback a single clip through the sound effects source
+    /// </summary>
+    /// <param name="clip"></param>
+    public void Stop(AudioSource source, AudioClip clip)
+    {
+        source.clip = clip;
+        source.Stop();
     }
 
     public void PlayWithRandomizedPitch(AudioSource source, AudioClip clip)

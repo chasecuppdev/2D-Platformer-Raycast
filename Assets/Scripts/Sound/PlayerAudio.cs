@@ -109,6 +109,11 @@ public class PlayerAudio : MonoBehaviour
         }
     }
 
+    public void StopWallSlideSFX()
+    {
+        SoundManager.Instance.Stop(playerAudioSource, wallSlideClip);
+    }
+
     /// <summary>
     /// Plays PlayerThrowBaton clip and is hooked up as an animation event
     /// </summary>
