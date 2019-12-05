@@ -18,8 +18,10 @@ public class Boss : MonoBehaviour
     {
         var states = new Dictionary<Type, BaseState>()
         {
-            { typeof(StunnedState), new StunnedState(this)}
+            { typeof(ChaseState), new ChaseState(this)}
         };
+
+        StateMachine.SetStates(states);
     }
 
     public void SetTarget(Transform target)
