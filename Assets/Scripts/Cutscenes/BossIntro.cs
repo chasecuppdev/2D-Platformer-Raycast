@@ -86,6 +86,8 @@ public class BossIntro : MonoBehaviour
         camera.GetComponent<CameraFollow>().enabled = true;
         gameObject.GetComponentInChildren<Canvas>().enabled = false;
         player.GetComponent<PlayerInput>().enabled = true;
+        boss.GetComponent<SpriteRenderer>().flipX = true;
+        BossSettings.FightStarted = true;
         Destroy(gameObject); //We are done with the intro so go ahead and destroy the gameobject
     }
 

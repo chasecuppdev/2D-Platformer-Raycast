@@ -18,7 +18,9 @@ public class Boss : MonoBehaviour
     {
         var states = new Dictionary<Type, BaseState>()
         {
-            { typeof(ChaseState), new ChaseState(this)}
+            { typeof(IdleState), new IdleState(this) },
+            { typeof(ChaseState), new ChaseState(this) },
+            { typeof(AttackState), new AttackState(this) }
         };
 
         StateMachine.SetStates(states);

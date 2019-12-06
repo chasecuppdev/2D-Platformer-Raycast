@@ -11,6 +11,13 @@ public class BossSettings : MonoBehaviour
     [SerializeField] private LayerMask detectionMask;
     public static LayerMask DetectionMask => Instance.detectionMask;
 
+    public static bool fightStarted = false;
+    public static bool FightStarted
+    {
+        get => fightStarted;
+        set => fightStarted = value;
+    }
+
     public static BossSettings Instance { get; private set; }
 
     private void Awake()

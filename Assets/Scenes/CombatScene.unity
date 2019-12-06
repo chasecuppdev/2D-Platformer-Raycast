@@ -1782,7 +1782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &764886405
 Animator:
   serializedVersion: 3
@@ -5735,13 +5735,14 @@ GameObject:
   - component: {fileID: 2066859167}
   - component: {fileID: 2066859169}
   - component: {fileID: 2066859168}
+  - component: {fileID: 2066859170}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &2066859160
 Animator:
   serializedVersion: 3
@@ -5947,6 +5948,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2687ea6e4f0bfe04897fa0d074f7928a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2066859170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066859159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fa37dc74d5f954798790f79e82bd2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facingRight: 1
 --- !u!1 &2108999399
 GameObject:
   m_ObjectHideFlags: 0
