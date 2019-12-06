@@ -27,6 +27,7 @@ public class SplicerAudio : MonoBehaviour
     {
         if (hurtClip != null)
         {
+            splicerAudioSource.volume = SoundManager.Instance.SplicerHurtVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(splicerAudioSource, hurtClip);
         }
     }
@@ -38,6 +39,7 @@ public class SplicerAudio : MonoBehaviour
     {
         if (deathClip != null)
         {
+            splicerAudioSource.volume = SoundManager.Instance.SplicerDeathVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(splicerAudioSource, deathClip);
         }
     }
@@ -49,6 +51,7 @@ public class SplicerAudio : MonoBehaviour
     {
         if (attackClip != null)
         {
+            splicerAudioSource.volume = SoundManager.Instance.SplicerAttackVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(splicerAudioSource, attackClip);
         }
     }

@@ -1782,7 +1782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &764886405
 Animator:
   serializedVersion: 3
@@ -2388,25 +2388,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5cccd417e4f184d91cf20277038b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerFootsteps: {fileID: 0}
-  PlayerJump: {fileID: 0}
+  PlayerFootsteps: {fileID: 8300000, guid: 8387a66de02cf9442b329b44c88b6775, type: 3}
+  PlayerFootstepsVolume: 1
+  PlayerJump: {fileID: 8300000, guid: 0dd2f74d63edfed45a5696e3a0809137, type: 3}
+  PlayerJumpVolume: 1
   PlayerLand: {fileID: 8300000, guid: 8040f7053cfc357408e03be6b8df9956, type: 3}
-  PlayerHurt: {fileID: 0}
-  PlayerDeath: {fileID: 0}
-  PlayerWallSlide: {fileID: 8300000, guid: 168f772d8e80e8144bdbe314c221929d, type: 3}
+  PlayerLandVolume: 1
+  PlayerHurt: {fileID: 8300000, guid: 292f06667ab57834f95913f14ce4f140, type: 3}
+  PlayerHurtVolume: 1
+  PlayerDeath: {fileID: 8300000, guid: ec69301bb5c1d334b9e74424b033148f, type: 3}
+  PlayerDeathVolume: 1
+  PlayerWallSlide: {fileID: 8300000, guid: ae498f7418bdf30489ab98e90fc328bc, type: 3}
+  PlayerWallSlideVolume: 1
   PlayerWhipBase: {fileID: 8300000, guid: 52beee3ab0e40b94b9b30cf4f6fd35c5, type: 3}
+  PlayerWhipBaseVolume: 1
   PlayerWhipOnHit: {fileID: 8300000, guid: dcfd1dd954e72ae40a0c713880061330, type: 3}
+  PlayerWhipOnHitVolume: 1
   PlayerThrowBaton: {fileID: 8300000, guid: 276c048368013cc48be673e6c77e8bc0, type: 3}
+  PlayerThrowBatonVolume: 1
   PlayerBatonOnHit: {fileID: 8300000, guid: d056ab24a73cf4544ae4dcda8443ef52, type: 3}
+  PlayerBatonOnHitVolume: 1
   PlayerTeleportOut: {fileID: 8300000, guid: 97c58fa715bc8264a8225cd8ffb64daa, type: 3}
+  PlayerTeleportOutVolume: 1
   PlayerTeleportIn: {fileID: 8300000, guid: 1ed69f1663b876648b88c1f85731e234, type: 3}
+  PlayerTeleportInVolume: 1
   SplicerHurt: {fileID: 0}
+  SplicerHurtVolume: 1
   SplicerDeath: {fileID: 0}
+  SplicerDeathVolume: 1
   SplicerAttack: {fileID: 0}
+  SplicerAttackVolume: 1
   DroneHurt: {fileID: 0}
+  DroneHurtVolume: 1
   DroneDeath: {fileID: 0}
+  DroneDeathVolume: 1
   DroneFireProjectile: {fileID: 0}
+  DroneFireProjectileVolume: 1
   DroneProjectileOnHit: {fileID: 0}
+  DroneProjectileOnHitVolume: 1
   lowPitchRange: 0.9
   highPitchRange: 1.1
 --- !u!1 &1020520717
@@ -5722,7 +5741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &2066859160
 Animator:
   serializedVersion: 3

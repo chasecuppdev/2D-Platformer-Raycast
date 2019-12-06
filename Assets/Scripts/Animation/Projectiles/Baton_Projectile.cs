@@ -28,6 +28,7 @@ public class Baton_Projectile : MonoBehaviour, IHitboxResponder
 
         if (batonOnHitClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerBatonOnHitVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, batonOnHitClip);
         }
 

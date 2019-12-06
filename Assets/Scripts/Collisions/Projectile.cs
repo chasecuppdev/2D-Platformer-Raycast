@@ -35,6 +35,7 @@ public class Projectile : MonoBehaviour, IHitboxResponder
 
         if (projectileOnHitClip != null)
         {
+            droneAudioSource.volume = SoundManager.Instance.DroneProjectileOnHitVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(droneAudioSource, projectileOnHitClip);
         }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAudio : MonoBehaviour
 {
     private AudioSource playerAudioSource;
+
     private AudioClip footStepClip;
     private AudioClip jumpClip;
     private AudioClip landClip;
@@ -30,7 +31,7 @@ public class PlayerAudio : MonoBehaviour
         throwBatonClip = SoundManager.Instance.PlayerThrowBaton;
         teleportOutClip = SoundManager.Instance.PlayerTeleportOut;
         teleportInClip = SoundManager.Instance.PlayerTeleportIn;
-    }
+}
 
     /// <summary>
     /// Plays PlayerWhipBase clip and is hooked up as an animation event
@@ -39,6 +40,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (whipAttackClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerWhipBaseVolume; ;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, whipAttackClip);
         }
     }
@@ -50,6 +52,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (footStepClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerFootstepsVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, footStepClip);
         }
     }
@@ -61,6 +64,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (jumpClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerJumpVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, jumpClip);
         }
     }
@@ -72,6 +76,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (landClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerLandVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, landClip);
         }
     }
@@ -83,6 +88,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (hurtClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerHurtVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, hurtClip);
         }
     }
@@ -94,6 +100,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (deathClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerDeathVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, deathClip);
         }
     }
@@ -105,6 +112,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (wallSlideClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerWallSlideVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, wallSlideClip);
         }
     }
@@ -121,6 +129,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (throwBatonClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerThrowBatonVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, throwBatonClip);
         }
     }
@@ -132,6 +141,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (teleportOutClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerTeleportOutVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, teleportOutClip);
         }
     }
@@ -143,6 +153,7 @@ public class PlayerAudio : MonoBehaviour
     {
         if (teleportInClip != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerTeleportInVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, teleportInClip);
         }
     }

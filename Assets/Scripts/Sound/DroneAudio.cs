@@ -25,6 +25,7 @@ public class DroneAudio : MonoBehaviour
     {
         if (hurtClip != null)
         {
+            droneAudioSource.volume = SoundManager.Instance.DroneHurtVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(droneAudioSource, hurtClip);
         }
     }
@@ -36,6 +37,7 @@ public class DroneAudio : MonoBehaviour
     {
         if (deathClip != null)
         {
+            droneAudioSource.volume = SoundManager.Instance.DroneDeathVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(droneAudioSource, deathClip);
         }
     }
@@ -47,6 +49,7 @@ public class DroneAudio : MonoBehaviour
     {
         if (fireProjectileClip != null)
         {
+            droneAudioSource.volume = SoundManager.Instance.DroneFireProjectileVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(droneAudioSource, fireProjectileClip);
         }
     }

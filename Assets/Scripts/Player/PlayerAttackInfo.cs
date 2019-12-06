@@ -28,6 +28,7 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
         
         if (whipHitSound != null)
         {
+            playerAudioSource.volume = SoundManager.Instance.PlayerWhipOnHitVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, whipHitSound);
         }
 
