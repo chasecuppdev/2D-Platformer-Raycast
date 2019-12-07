@@ -65,7 +65,7 @@ public class PlayerAudio : MonoBehaviour
         if (jumpClip != null)
         {
             playerAudioSource.volume = SoundManager.Instance.PlayerJumpVolume;
-            SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, jumpClip);
+            SoundManager.Instance.Play(playerAudioSource, jumpClip);
         }
     }
 

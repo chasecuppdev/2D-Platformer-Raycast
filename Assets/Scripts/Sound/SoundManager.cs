@@ -81,6 +81,7 @@ public class SoundManager : MonoBehaviour
     /// <param name="clip"></param>
     public void Play(AudioSource source, AudioClip clip)
     {
+        source.pitch = 1.0f;
         source.clip = clip;
         source.Play();
     }

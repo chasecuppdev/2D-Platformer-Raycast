@@ -2389,29 +2389,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerFootsteps: {fileID: 8300000, guid: 8387a66de02cf9442b329b44c88b6775, type: 3}
-  PlayerFootstepsVolume: 1
-  PlayerJump: {fileID: 8300000, guid: 0dd2f74d63edfed45a5696e3a0809137, type: 3}
-  PlayerJumpVolume: 1
+  PlayerFootstepsVolume: 0.752
+  PlayerJump: {fileID: 8300000, guid: 0c313d26bba68d24fb620938175535ab, type: 3}
+  PlayerJumpVolume: 0.761
   PlayerLand: {fileID: 8300000, guid: 8040f7053cfc357408e03be6b8df9956, type: 3}
-  PlayerLandVolume: 1
+  PlayerLandVolume: 0.62
   PlayerHurt: {fileID: 8300000, guid: 292f06667ab57834f95913f14ce4f140, type: 3}
-  PlayerHurtVolume: 1
+  PlayerHurtVolume: 0.888
   PlayerDeath: {fileID: 8300000, guid: ec69301bb5c1d334b9e74424b033148f, type: 3}
-  PlayerDeathVolume: 1
-  PlayerWallSlide: {fileID: 8300000, guid: ae498f7418bdf30489ab98e90fc328bc, type: 3}
-  PlayerWallSlideVolume: 1
+  PlayerDeathVolume: 0.883
+  PlayerWallSlide: {fileID: 8300000, guid: 6e82ae1b38aad4d4faf9dadc2a0483be, type: 3}
+  PlayerWallSlideVolume: 0.309
   PlayerWhipBase: {fileID: 8300000, guid: 52beee3ab0e40b94b9b30cf4f6fd35c5, type: 3}
-  PlayerWhipBaseVolume: 1
+  PlayerWhipBaseVolume: 0.844
   PlayerWhipOnHit: {fileID: 8300000, guid: dcfd1dd954e72ae40a0c713880061330, type: 3}
-  PlayerWhipOnHitVolume: 1
+  PlayerWhipOnHitVolume: 0.878
   PlayerThrowBaton: {fileID: 8300000, guid: 276c048368013cc48be673e6c77e8bc0, type: 3}
-  PlayerThrowBatonVolume: 1
+  PlayerThrowBatonVolume: 0.903
   PlayerBatonOnHit: {fileID: 8300000, guid: d056ab24a73cf4544ae4dcda8443ef52, type: 3}
-  PlayerBatonOnHitVolume: 1
+  PlayerBatonOnHitVolume: 0.873
   PlayerTeleportOut: {fileID: 8300000, guid: 97c58fa715bc8264a8225cd8ffb64daa, type: 3}
-  PlayerTeleportOutVolume: 1
+  PlayerTeleportOutVolume: 0.869
   PlayerTeleportIn: {fileID: 8300000, guid: 1ed69f1663b876648b88c1f85731e234, type: 3}
-  PlayerTeleportInVolume: 1
+  PlayerTeleportInVolume: 0.883
   SplicerHurt: {fileID: 0}
   SplicerHurtVolume: 1
   SplicerDeath: {fileID: 0}
