@@ -43,10 +43,10 @@ public class Controller2D : RaycastController
         //if (moveDistance.x > 0.01f)
         //Debug.Log("X Velocity is : " + moveDistance.x);
 
-        if (moveDistance.x != 0)
-        {
+        //if (moveDistance.x != 0)
+        //{
             collisions.faceDir = (int)Mathf.Sign(moveDistance.x);
-        }
+        //}
 
         //if (moveDistance.x != 0) //No need to check for collisions if we aren't moving horizontally
         //{
@@ -222,7 +222,7 @@ public class Controller2D : RaycastController
             rayOrigin += Vector2.up * (horizontalRaySpacing * i); //Updating the starting position for each horizontal raycast for each loop iteration
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask); //Draw a horizontal ray and check for collision
 
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLength * 10, Color.red);
 
             if (hit) //returns null if nothing was hit
             {

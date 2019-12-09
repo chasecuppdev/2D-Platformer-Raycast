@@ -2389,11 +2389,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerFootsteps: {fileID: 8300000, guid: 8387a66de02cf9442b329b44c88b6775, type: 3}
-  PlayerFootstepsVolume: 0.752
+  PlayerFootstepsVolume: 0.776
   PlayerJump: {fileID: 8300000, guid: 0c313d26bba68d24fb620938175535ab, type: 3}
-  PlayerJumpVolume: 0.761
+  PlayerJumpVolume: 0.751
   PlayerLand: {fileID: 8300000, guid: 8040f7053cfc357408e03be6b8df9956, type: 3}
-  PlayerLandVolume: 0.62
+  PlayerLandVolume: 0.639
   PlayerHurt: {fileID: 8300000, guid: 292f06667ab57834f95913f14ce4f140, type: 3}
   PlayerHurtVolume: 0.888
   PlayerDeath: {fileID: 8300000, guid: ec69301bb5c1d334b9e74424b033148f, type: 3}
@@ -2412,11 +2412,11 @@ MonoBehaviour:
   PlayerTeleportOutVolume: 0.869
   PlayerTeleportIn: {fileID: 8300000, guid: 1ed69f1663b876648b88c1f85731e234, type: 3}
   PlayerTeleportInVolume: 0.883
-  SplicerHurt: {fileID: 0}
+  SplicerHurt: {fileID: 8300000, guid: 5eb850f67667ac74ab0595a360cba33b, type: 3}
   SplicerHurtVolume: 1
-  SplicerDeath: {fileID: 0}
+  SplicerDeath: {fileID: 8300000, guid: 2f643ab686e2d4a4789cc406e9192ab9, type: 3}
   SplicerDeathVolume: 1
-  SplicerAttack: {fileID: 0}
+  SplicerAttack: {fileID: 8300000, guid: fe945ee69ee936045a7884ddb0982ed3, type: 3}
   SplicerAttackVolume: 1
   DroneHurt: {fileID: 0}
   DroneHurtVolume: 1
@@ -2701,7 +2701,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 59bdea0f2a37d674baf1190b389a3be6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.4
+  m_Volume: 0.651
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3165,7 +3165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1390979010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5742,7 +5742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &2066859160
 Animator:
   serializedVersion: 3
@@ -21130,7 +21130,7 @@ PrefabInstance:
     - target: {fileID: 2544677587411086011, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.1643739
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086011, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
@@ -21155,7 +21155,7 @@ PrefabInstance:
     - target: {fileID: 2544677587411086009, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: accelerationTimeAirborne
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086014, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
