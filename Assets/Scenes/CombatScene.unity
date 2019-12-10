@@ -2418,13 +2418,14 @@ MonoBehaviour:
   SplicerDeathVolume: 1
   SplicerAttack: {fileID: 8300000, guid: fe945ee69ee936045a7884ddb0982ed3, type: 3}
   SplicerAttackVolume: 1
-  DroneHurt: {fileID: 0}
+  DroneHurt: {fileID: 8300000, guid: eebc29f0a64b5114d8b298537b144797, type: 3}
   DroneHurtVolume: 1
-  DroneDeath: {fileID: 0}
+  DroneDeath: {fileID: 8300000, guid: 159d7e6e46148d940a1774b04422e24b, type: 3}
   DroneDeathVolume: 1
-  DroneFireProjectile: {fileID: 0}
+  DroneFireProjectile: {fileID: 8300000, guid: 91dd81532c2ecfb438f5fc73d8175424, type: 3}
   DroneFireProjectileVolume: 1
-  DroneProjectileOnHit: {fileID: 0}
+  DroneProjectileOnHit: {fileID: 8300000, guid: c9e6ba87d7c651148bdabe5bccd97ecc,
+    type: 3}
   DroneProjectileOnHitVolume: 1
   lowPitchRange: 0.9
   highPitchRange: 1.1
@@ -3165,7 +3166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1390979010
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21125,12 +21126,12 @@ PrefabInstance:
     - target: {fileID: 2544677587411086011, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_Offset.x
-      value: 0.042499304
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086011, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.2
+      value: 1.32
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086011, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
@@ -21155,7 +21156,7 @@ PrefabInstance:
     - target: {fileID: 2544677587411086009, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: accelerationTimeAirborne
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086014, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}

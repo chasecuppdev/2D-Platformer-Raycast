@@ -80,7 +80,7 @@ public class PlayerTeleportAttack : MonoBehaviour
 
         while (elapsed < projectileTime)
         {
-            if (collided)
+            if (collided) //collided is set direction from the baton projectile prefab
             {
                 collided = false;
                 projectile.velocity = Vector2.zero;
