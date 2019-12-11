@@ -21156,7 +21156,7 @@ PrefabInstance:
     - target: {fileID: 2544677587411086009, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: accelerationTimeAirborne
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411086014, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
