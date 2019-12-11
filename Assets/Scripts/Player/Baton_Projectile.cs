@@ -24,6 +24,17 @@ public class Baton_Projectile : MonoBehaviour, IHitboxResponder
 
     public void collidedWith(Collider2D collider)
     {
+        //if (gameObject.GetComponent<Rigidbody>().velocity.x > 0) //if we are throwing to the right
+        //{
+        //    //The x-extents of our player's collider is 0.62, so we subtract one more than that to ensure the collider will not overlap with the obstacle
+        //    transform.position = new Vector3(collider.bounds.min.x - 0.63f, transform.position.y, transform.position.z); 
+        //}
+        //else
+        //{
+        //    //The x-extents of our player's collider is 0.62, so we subtract one more than that to ensure the collider will not overlap with the obstacle
+        //    transform.position = new Vector3(collider.bounds.max.x + 0.63f, transform.position.y, transform.position.z);
+        //}
+        spawningAttack.SetCollider(collider);
         spawningAttack.collided = true;
 
         if (batonOnHitClip != null)

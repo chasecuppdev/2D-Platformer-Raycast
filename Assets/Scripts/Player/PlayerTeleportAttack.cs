@@ -28,6 +28,8 @@ public class PlayerTeleportAttack : MonoBehaviour
 
     private float teleportOutClipLength;
     private float teleportInClipLength;
+
+    private Collider2D collidedObject;
     
 
     private void Start()
@@ -51,6 +53,11 @@ public class PlayerTeleportAttack : MonoBehaviour
                 teleportInClipLength = animationClips[i].length;
             }
         }
+    }
+
+    public void SetCollider(Collider2D collider)
+    {
+        collidedObject = collider;
     }
 
     private void Update()
