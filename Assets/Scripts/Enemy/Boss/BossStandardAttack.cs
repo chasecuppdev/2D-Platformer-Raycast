@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Prime31.MessageKit;
 
-public class SplicerStandardAttack : MonoBehaviour, IHitboxResponder
+public class BossStandardAttack : MonoBehaviour, IHitboxResponder
 {
     public int damage;
 

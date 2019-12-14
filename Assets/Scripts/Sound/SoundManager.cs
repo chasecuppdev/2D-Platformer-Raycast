@@ -49,6 +49,14 @@ public class SoundManager : MonoBehaviour
     public AudioClip DroneProjectileOnHit; //Referenced in Projectile.cs when a successful hit is registered
     [Range(0.0f, 1.0f)] public float DroneProjectileOnHitVolume = 1.0f;
 
+    [Header("Boss Audio Clips")]
+    public AudioClip BossHurt; //Referenced in SplicerAudio and used as an animation event
+    [Range(0.0f, 1.0f)] public float BossHurtVolume = 1.0f;
+    public AudioClip BossDeath; //Referenced in SplicerAudio and used as an animation event
+    [Range(0.0f, 1.0f)] public float BossDeathVolume = 1.0f;
+    public AudioClip BossHammerAttack; //Referenced in SplicerAudio and used as an animation event
+    [Range(0.0f, 1.0f)] public float BossHammerAttackVolume = 1.0f;
+
     //Random pitch range
     [Header("Pitch Variance")]
     public float lowPitchRange = 0.95f;
