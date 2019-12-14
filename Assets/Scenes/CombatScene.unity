@@ -2569,11 +2569,11 @@ MonoBehaviour:
   DroneProjectileOnHit: {fileID: 8300000, guid: c9e6ba87d7c651148bdabe5bccd97ecc,
     type: 3}
   DroneProjectileOnHitVolume: 1
-  BossHurt: {fileID: 8300000, guid: be28615fdb6a30e4d921bb04fc7d1f73, type: 3}
+  BossHurt: {fileID: 8300000, guid: b681b9a378ca9654fbb3eca2f2d1b9e7, type: 3}
   BossHurtVolume: 1
   BossDeath: {fileID: 8300000, guid: 2884475e164f4924e9a563e262476421, type: 3}
   BossDeathVolume: 1
-  BossHammerAttack: {fileID: 8300000, guid: b681b9a378ca9654fbb3eca2f2d1b9e7, type: 3}
+  BossHammerAttack: {fileID: 8300000, guid: be28615fdb6a30e4d921bb04fc7d1f73, type: 3}
   BossHammerAttackVolume: 1
   lowPitchRange: 0.9
   highPitchRange: 1.1
