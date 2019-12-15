@@ -56,6 +56,8 @@ public class SoundManager : MonoBehaviour
     [Range(0.0f, 1.0f)] public float BossDeathVolume = 1.0f;
     public AudioClip BossHammerAttack; //Referenced in SplicerAudio and used as an animation event
     [Range(0.0f, 1.0f)] public float BossHammerAttackVolume = 1.0f;
+    public AudioClip BossFootsteps; //Referenced in SplicerAudio and used as an animation event
+    [Range(0.0f, 1.0f)] public float BossFootstepskVolume = 1.0f;
 
     //Random pitch range
     [Header("Pitch Variance")]

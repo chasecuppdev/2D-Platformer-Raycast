@@ -6,7 +6,7 @@ public class PlayerAudio : MonoBehaviour
 {
     private AudioSource playerAudioSource;
 
-    private AudioClip footStepClip;
+    private AudioClip footstepClip;
     private AudioClip jumpClip;
     private AudioClip landClip;
     private AudioClip hurtClip;
@@ -21,7 +21,7 @@ public class PlayerAudio : MonoBehaviour
     private void Awake()
     {
         playerAudioSource = GetComponentInChildren<AudioSource>();
-        footStepClip = SoundManager.Instance.PlayerFootsteps;
+        footstepClip = SoundManager.Instance.PlayerFootsteps;
         jumpClip = SoundManager.Instance.PlayerJump;
         landClip = SoundManager.Instance.PlayerLand;
         hurtClip = SoundManager.Instance.PlayerHurt;
@@ -50,10 +50,10 @@ public class PlayerAudio : MonoBehaviour
     /// </summary>
     public void PlayFootstepSFX()
     {
-        if (footStepClip != null)
+        if (footstepClip != null)
         {
             playerAudioSource.volume = SoundManager.Instance.PlayerFootstepsVolume;
-            SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, footStepClip);
+            SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, footstepClip);
         }
     }
 

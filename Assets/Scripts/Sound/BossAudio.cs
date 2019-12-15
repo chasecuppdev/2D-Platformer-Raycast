@@ -8,6 +8,7 @@ public class BossAudio : MonoBehaviour
     private AudioClip hurtClip;
     private AudioClip deathClip;
     private AudioClip attackClip;
+    private AudioClip footstepClip;
 
 
     private void Awake()
@@ -16,6 +17,7 @@ public class BossAudio : MonoBehaviour
         hurtClip = SoundManager.Instance.BossHurt;
         deathClip = SoundManager.Instance.BossDeath;
         attackClip = SoundManager.Instance.BossHammerAttack;
+        footstepClip = SoundManager.Instance.BossFootsteps;
     }
 
     /// <summary>
@@ -51,6 +53,18 @@ public class BossAudio : MonoBehaviour
         {
             bossAudioSource.volume = SoundManager.Instance.BossHammerAttackVolume;
             SoundManager.Instance.PlayWithRandomizedPitch(bossAudioSource, attackClip);
+        }
+    }
+
+    /// <summary>
+    /// Plays SplicerAttack clip and is hooked up as an animation event
+    /// </summary>
+    public void PlayFootstepsSFX()
+    {
+        if (footstepClip != null)
+        {
+            bossAudioSource.volume = SoundManager.Instance.BossFootstepskVolume;
+            SoundManager.Instance.PlayWithRandomizedPitch(bossAudioSource, footstepClip);
         }
     }
 }
