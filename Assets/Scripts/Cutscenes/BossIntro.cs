@@ -30,7 +30,14 @@ public class BossIntro : MonoBehaviour
 
     private bool firstPass = true;
     private bool introFinished = false;
-    
+
+    private void Awake()
+    {
+        gameObject.GetComponentInChildren<Canvas>().enabled = true;
+        boss.GetComponent<SpriteRenderer>().flipX = false;
+        BossSettings.FightStarted = false;
+    }
+
     private void Update()
     {
         if (TriggerBossIntro())
