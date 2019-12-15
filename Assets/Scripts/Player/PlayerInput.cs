@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour
     MovementController movementController;
     Controller2D controller;
     JumpController jumpController;
+    PlayerAttackInfo standardAttack;
     PlayerTeleportAttack teleportAttack;
     AnimatorController animatorController;
     [SerializeField]
@@ -27,6 +28,7 @@ public class PlayerInput : MonoBehaviour
         controller = GetComponent<Controller2D>();
         movementController = GetComponent<MovementController>();
         jumpController = GetComponent<JumpController>();
+        standardAttack = GetComponentInChildren<PlayerAttackInfo>();
         teleportAttack = GetComponentInChildren<PlayerTeleportAttack>();
         animatorController = GetComponent<AnimatorController>();
     }
@@ -70,13 +72,28 @@ public class PlayerInput : MonoBehaviour
         
         if (rewiredPlayer.GetButtonDown("Attack"))
         {
-            if (controller.collisions.below)
+            if (teleportAttack != null
+                && !animatorController.animationStates.isAttacking
+                && !animatorController.animationStates.isWallSliding
+                && !animatorController.animationStates.isHurt)
             {
-                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedAttack1Animation, PlayerAnimationParameters.GroundedAttack1Parameter);
-            }
-            else
-            {
-                MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirAttack1Animation, PlayerAnimationParameters.AirAttack1Parameter);
+                if (!standardAttack.cooldown.active)
+                {
+                    if (controller.collisions.below)
+                    {
+                        standardAttack.cooldown.StartCooldown();
+                        MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.GroundedAttack1Animation, PlayerAnimationParameters.GroundedAttack1Parameter);
+                    }
+                    else
+                    {
+                        standardAttack.cooldown.StartCooldown();
+                        MessageKit<string, string>.post(EventTypes.ATTACK_INPUT_DOWN_2P, PlayerAnimationClips.AirAttack1Animation, PlayerAnimationParameters.AirAttack1Parameter);
+                    }
+                }
+                else
+                {
+                    MessageKit<string>.post(EventTypes.UI_ELEMENT_SHAKE_1P, "Energy_Portrait");
+                }
             }
         }
 

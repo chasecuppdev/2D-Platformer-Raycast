@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Cooldown : MonoBehaviour
 {
-    public bool active;                 //Is this timer active?
+    [HideInInspector] public bool active;                 //Is this timer active?
     public float cooldown;              //How often this cooldown may be used
-    public float timer;                 //Time left on timer, can be used at 0
+    [HideInInspector] public float timer;                 //Time left on timer, can be used at 0
 
     void FixedUpdate()
     {

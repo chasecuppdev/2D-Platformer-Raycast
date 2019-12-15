@@ -12,6 +12,7 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
     public GameObject whipEffectPrefab; //Hooked up in editor
     private AudioSource playerAudioSource; //Hooked up in editor
     private AudioClip whipHitSound;
+    [HideInInspector] public Cooldown cooldown;
 
     private void Awake()
     {
@@ -20,6 +21,8 @@ public class PlayerAttackInfo : MonoBehaviour, IHitboxResponder
 
         playerAudioSource = GameObject.Find("PlayerAudioSource").GetComponent<AudioSource>();
         whipHitSound = SoundManager.Instance.PlayerWhipOnHit;
+
+        cooldown = GetComponent<Cooldown>();
     }
 
     public void collidedWith(Collider2D collider)
