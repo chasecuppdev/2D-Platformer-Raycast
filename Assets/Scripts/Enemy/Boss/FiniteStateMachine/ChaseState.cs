@@ -8,6 +8,7 @@ public class ChaseState : BaseState
     private Boss _boss;
     private MovementController movementController;
     private BoxCollider2D collider;
+    private BossAnimator animController;
     private GameObject player;
     private Vector2 horizontalDirection;
 
@@ -16,14 +17,20 @@ public class ChaseState : BaseState
         _boss = boss;
         movementController = _boss.GetComponent<MovementController>();
         collider = _boss.GetComponent<BoxCollider2D>();
+        animController = _boss.GetComponent<BossAnimator>();
         player = GameObject.Find("Player");
     }
 
     public override Type Tick()
     {
         var canAttack = CheckAttackDistance();
+        var isDead = animController.animationStates.isDead;
 
-        if (canAttack)
+        if (isDead)
+        {
+            return typeof(DeathState);
+        }
+        else if (canAttack)
         {
             return typeof(AttackState);
         }

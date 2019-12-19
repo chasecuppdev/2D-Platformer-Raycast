@@ -36,7 +36,6 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         directionalInput = new Vector2(rewiredPlayer.GetAxisRaw("Move Horizontal"), rewiredPlayer.GetAxisRaw("Move Vertical"));
-        Debug.Log(directionalInput);
         if (directionalInput.x > 0.05f)
         {
             directionalInput.x = 1;

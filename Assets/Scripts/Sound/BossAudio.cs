@@ -7,6 +7,7 @@ public class BossAudio : MonoBehaviour
     private AudioSource bossAudioSource;
     private AudioClip hurtClip;
     private AudioClip deathClip;
+    private AudioClip deathImpactClip;
     private AudioClip attackClip;
     private AudioClip footstepClip;
 
@@ -16,12 +17,13 @@ public class BossAudio : MonoBehaviour
         bossAudioSource = GetComponentInChildren<AudioSource>();
         hurtClip = SoundManager.Instance.BossHurt;
         deathClip = SoundManager.Instance.BossDeath;
+        deathImpactClip = SoundManager.Instance.BossDeathImpact;
         attackClip = SoundManager.Instance.BossHammerAttack;
         footstepClip = SoundManager.Instance.BossFootsteps;
     }
 
     /// <summary>
-    /// Plays SplicerHurt clip and is hooked up as an animation event
+    /// Plays BossHurt clip and is hooked up as an animation event
     /// </summary>
     public void PlayHurtSFX()
     {
@@ -33,7 +35,7 @@ public class BossAudio : MonoBehaviour
     }
 
     /// <summary>
-    /// Plays SplicerDeath clip and is hooked up as an animation event
+    /// Plays BossDeath clip and is hooked up as an animation event
     /// </summary>
     public void PlayDeathSFX()
     {
@@ -45,7 +47,19 @@ public class BossAudio : MonoBehaviour
     }
 
     /// <summary>
-    /// Plays SplicerAttack clip and is hooked up as an animation event
+    /// Plays SplicerDeath clip and is hooked up as an animation event
+    /// </summary>
+    public void PlayDeathImpactSFX()
+    {
+        if (deathClip != null)
+        {
+            bossAudioSource.volume = SoundManager.Instance.BossDeathImpactVolume;
+            SoundManager.Instance.PlayWithRandomizedPitch(bossAudioSource, deathImpactClip);
+        }
+    }
+
+    /// <summary>
+    /// Plays BossHammerAttack clip and is hooked up as an animation event
     /// </summary>
     public void PlayAttackSFX()
     {
@@ -57,7 +71,7 @@ public class BossAudio : MonoBehaviour
     }
 
     /// <summary>
-    /// Plays SplicerAttack clip and is hooked up as an animation event
+    /// Plays BossFootsteps clip and is hooked up as an animation event
     /// </summary>
     public void PlayFootstepsSFX()
     {

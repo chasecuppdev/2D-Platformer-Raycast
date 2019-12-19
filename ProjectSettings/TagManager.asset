@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Through
   - Obstacle
+  - EnemyHurtbox
   layers:
   - Default
   - TransparentFX

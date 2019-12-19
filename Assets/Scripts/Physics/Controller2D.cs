@@ -41,7 +41,6 @@ public class Controller2D : RaycastController
 
         //Use this for debugging if face direction is getting reset after melee attack
         //if (moveDistance.x > 0.01f)
-        //Debug.Log("X Velocity is : " + moveDistance.x);
 
         //if (moveDistance.x != 0)
         //{

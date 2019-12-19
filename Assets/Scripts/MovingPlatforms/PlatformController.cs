@@ -45,8 +45,6 @@ public class PlatformController : RaycastController
         for (int i = 0; i < localWaypoints.Length; i++)
         {
             globalWaypoints[i] = localWaypoints[i] + transform.position;
-            Debug.Log("Global: " + globalWaypoints[i]);
-            Debug.Log("Local: " + localWaypoints[i]);
         }
     }
 
@@ -84,7 +82,6 @@ public class PlatformController : RaycastController
             percentBetweenWaypoints = Mathf.Clamp01(percentBetweenWaypoints);
             float easedPercentBetweenWaypoints = Ease(percentBetweenWaypoints);
 
-            //Debug.Log(percentBetweenWaypoints);
 
             Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], easedPercentBetweenWaypoints);
 

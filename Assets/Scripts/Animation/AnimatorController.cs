@@ -37,7 +37,8 @@ public class AnimatorController : MonoBehaviour
 
         //Player specific state
         public bool isWallSliding;
-        public bool isTeleportAttacking;
+        public bool isAirTeleportAttacking;
+        public bool isGroundedTeleportAttacking;
         public bool isTeleporting;
         public bool isJumping;
     }
@@ -144,6 +145,18 @@ public class AnimatorController : MonoBehaviour
         if (currentAnimationClip)
         {
             animator.SetBool(clipParameter, true);
+
+            //We want to disable the hurtbox of anything that is in their death animation so the teleport attack doesn't collide with them anymore
+            BoxCollider2D[] colliders = gameObject.GetComponentsInChildren<BoxCollider2D>();
+
+            foreach (BoxCollider2D item in colliders)
+            {
+                if (item.tag == "EnemyHurtbox")
+                {
+                    item.enabled = false;
+                }
+            }
+
 
             yield return new WaitForSeconds(currentAnimationClip.length);
 

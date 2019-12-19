@@ -16,6 +16,13 @@ public class AttackState : BaseState
 
     public override Type Tick()
     {
+        var isDead = animController.animationStates.isDead;
+
+        if (isDead)
+        {
+            return typeof(DeathState);
+        }
+
         animController.TriggerAttackAnimation(BossAnimationClips.HammerAttackAnimation, BossAnimationParameters.HammerAttackParamater);
 
         return typeof(ChaseState);

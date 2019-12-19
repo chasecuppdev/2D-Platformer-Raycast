@@ -20,7 +20,8 @@ public class Boss : MonoBehaviour
         {
             { typeof(IdleState), new IdleState(this) },
             { typeof(ChaseState), new ChaseState(this) },
-            { typeof(AttackState), new AttackState(this) }
+            { typeof(AttackState), new AttackState(this) },
+            { typeof(DeathState), new DeathState(this) }
         };
 
         StateMachine.SetStates(states);

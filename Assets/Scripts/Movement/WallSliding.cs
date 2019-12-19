@@ -22,6 +22,7 @@ public class WallSliding : MonoBehaviour
     GravityController gravityController;
     MovementController movementController;
     JumpController jumpController;
+    AnimatorController animController;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class WallSliding : MonoBehaviour
         gravityController = GetComponent<GravityController>();
         movementController = GetComponent<MovementController>();
         jumpController = GetComponent<JumpController>();
+        animController = GetComponent<AnimatorController>();
     }
 
     private void FixedUpdate()
@@ -43,7 +45,9 @@ public class WallSliding : MonoBehaviour
     void HandleWallSliding()
     {
         //We only want the WallSliding Component to ever be the one to update wallSliding to true, since it is optional
-        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && movementController.velocity.y < 0)
+        //If the player get hurt or dies, we will stop the wallsliding for the duration of those animations
+        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && movementController.velocity.y < 0
+            && !(animController.animationStates.isHurt || animController.animationStates.isDead))
         {
             controller.collisions.wallSliding = true;
         }
@@ -87,7 +91,6 @@ public class WallSliding : MonoBehaviour
 
     public void OnJumpInputDown()
     {
-        Debug.Log("wallSliding is :" + controller.collisions.wallSliding);
         if (controller.collisions.wallSliding)
         {
             //Wall Climb
@@ -95,8 +98,6 @@ public class WallSliding : MonoBehaviour
             {
                 movementController.velocity.x = -wallDirectionX * wallJumpClimb.x;
                 movementController.velocity.y = wallJumpClimb.y;
-                Debug.Log("X: " + movementController.velocity.x);
-                Debug.Log("Y: " + movementController.velocity.y);
             }
             //Jump off the wall
             else if (movementController.directionalInput.x == 0)

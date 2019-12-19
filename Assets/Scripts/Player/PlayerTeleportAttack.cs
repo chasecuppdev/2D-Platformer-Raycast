@@ -153,9 +153,6 @@ public class PlayerTeleportAttack : MonoBehaviour
         parentAnimator.Play("Player_Teleport_Out");
 
         yield return new WaitForSeconds(teleportOutClipLength);
-
-        Debug.Log("Player position: " + player.transform.position);
-        Debug.Log("Projectile position: " + projectile.transform.position);
         
         parentAnimator.Play("Player_Teleport_In");
         player.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - teleportOffsetY, player.transform.position.z);
