@@ -110,14 +110,7 @@ public class EnemyAI : MonoBehaviour
                 currentDistance = 0;
             }
 
-
-            //Use raycast to check if we are about to walk off a ledge
-            //int directionX = movementController.controller2D.collisions.faceDir;
-            //Adding 0.5f to min.y due to floating point precision sometimes spawning the raycast inside the obstacle collider
-            Vector2 rayOrigin = (patrolDirection == -1) ? new Vector2(collider.bounds.min.x, collider.bounds.min.y + 0.5f) : new Vector2(collider.bounds.max.x, collider.bounds.min.y + 0.5f);
-            Debug.DrawRay(rayOrigin, Vector3.down);
-
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector3.down, 1f, ObstacleMask | PlatformMask);
+            RaycastHit2D hit = CheckLedges();
 
             if (!hit || movementController.controller2D.collisions.right || movementController.controller2D.collisions.left)
             {
@@ -142,6 +135,12 @@ public class EnemyAI : MonoBehaviour
             {
                 currentlyFollowingTarget = true;
                 UpdateDirection();
+                //TO-DO Need to allow the face direction to change without being tied to movement, otherwise the direction the raycast check never changes
+                RaycastHit2D ledgeHit = CheckLedges();
+                if (!ledgeHit)
+                {
+                    horizontalDirection = Vector2.zero;
+                }
             }
             else
             {
@@ -190,6 +189,21 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Use raycast to check if we are about to walk off a ledge
+    /// </summary>
+    /// <returns></returns>
+    protected virtual RaycastHit2D CheckLedges()
+    {
+        //Adding 0.5f to min.y due to floating point precision sometimes spawning the raycast inside the obstacle collider
+        Vector2 rayOrigin = (patrolDirection == -1) ? new Vector2(collider.bounds.min.x, collider.bounds.min.y + 0.5f) : new Vector2(collider.bounds.max.x, collider.bounds.min.y + 0.5f);
+        Debug.DrawRay(rayOrigin, Vector3.down);
+
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector3.down, 1f, ObstacleMask | PlatformMask);
+
+        return hit;
     }
 
     /// <summary>
