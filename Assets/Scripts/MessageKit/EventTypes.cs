@@ -13,4 +13,5 @@ public class EventTypes
     public const int DASH_ATTACK_INPUT_DOWN_2P = 6;
     public const int UI_ELEMENT_SHAKE_1P = 7;
     public const int UI_PAUSE_MENU = 8;
+    public const int BOSS_DIED = 9;
 }

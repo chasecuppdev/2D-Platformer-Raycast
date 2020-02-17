@@ -190,7 +190,7 @@ public class CameraFollow : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0, 0.4f, 0.5f, 0.25f);
+        Gizmos.color = new Color(0, 0.4f, 0.5f, 0.5f);
         Gizmos.DrawCube(focusArea.center, focusAreaSize);
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(boundingAreaCenter, boundingAreaSize);

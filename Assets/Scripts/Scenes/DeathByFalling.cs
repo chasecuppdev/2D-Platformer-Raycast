@@ -15,9 +15,12 @@ public class DeathByFalling : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player.transform.position.y < triggerDeathPositionY)
+        if (player != null)
         {
-            MessageKit.post(EventTypes.PLAYER_DIED);
+            if (player.transform.position.y < triggerDeathPositionY)
+            {
+                MessageKit.post(EventTypes.PLAYER_DIED);
+            }
         }
     }
 }

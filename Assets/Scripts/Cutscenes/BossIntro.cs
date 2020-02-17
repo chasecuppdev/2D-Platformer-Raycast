@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using TMPro;
 
@@ -20,6 +21,10 @@ public class BossIntro : MonoBehaviour
     private float triggerDistance = 16;
     [SerializeField]
     private float cameraSpeed = 2f;
+    [SerializeField]
+    private Tilemap tilemap;
+    [SerializeField]
+    private TileBase currentTile;
 
     private float moveTime;
     private float pauseTime = 0;
@@ -51,7 +56,7 @@ public class BossIntro : MonoBehaviour
             {
                 moveTime += cameraSpeed * Time.deltaTime;
                 camera.transform.position = Vector3.Lerp(initialPosition, targetPosition, moveTime);
-                if (camera.transform.position.x >= boss.transform.position.x - 0.1f)
+                if (camera.transform.position.x >= targetPosition.x - 0.1f)
                 {
                     pauseTime += Time.deltaTime;
                     if (pauseTime >= 1f)
@@ -70,9 +75,23 @@ public class BossIntro : MonoBehaviour
                 if (camera.transform.position.x == initialPosition.x)
                 {
                     cameraMoveEnabled = false;
+                    SetWall();
                     ReturnControlToPlayer();
                 }
             }
+        }
+    }
+
+    private void SetWall()
+    {
+        int xPos = 113;
+        int initialYPos = -4;
+        Vector3Int positionVector;
+
+        for (int i = initialYPos; i < 8; i++)
+        {
+            positionVector = new Vector3Int(xPos, i, 0);
+            tilemap.SetTile(positionVector, currentTile);
         }
     }
 
@@ -84,7 +103,7 @@ public class BossIntro : MonoBehaviour
         music.GetComponent<AudioSource>().Stop();
         canvas.GetComponentInChildren<TextMeshProUGUI>().enabled = true;
         initialPosition = camera.transform.position;
-        targetPosition = new Vector3(boss.transform.position.x, camera.transform.position.y, camera.transform.position.z);
+        targetPosition = new Vector3(boss.transform.position.x - 4f, camera.transform.position.y, camera.transform.position.z);
         cameraMoveEnabled = true;
     }
 

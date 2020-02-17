@@ -373,7 +373,8 @@ public class Controller2D : RaycastController
 
                 if (hit)
                 {
-                    moveDistance.y = (hit.collider.bounds.size.y + skinWidth);
+                    //moveDistance.y = (hit.collider.bounds.size.y + skinWidth);
+                    moveDistance.y = (skinWidth * 40);
                 }
             }
         }

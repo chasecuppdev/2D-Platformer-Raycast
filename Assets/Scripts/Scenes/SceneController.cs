@@ -9,6 +9,13 @@ public class SceneController : MonoBehaviour
     private void Awake()
     {
         MessageKit.addObserver(EventTypes.PLAYER_DIED, LoadTitleScene);
+        MessageKit.addObserver(EventTypes.BOSS_DIED, LoadWinScene);
+    }
+
+    static public void LoadWinScene()
+    {
+        MessageKitManager.clearAllMessageTables();
+        SceneManager.LoadScene(0);
     }
 
     static public void LoadTitleScene()

@@ -99,6 +99,22 @@ public class EnemyAI : MonoBehaviour
     {
         if (!currentlyFollowingTarget)
         {
+            RaycastHit2D hit = CheckLedges();
+
+            if (!hit || movementController.controller2D.collisions.right || movementController.controller2D.collisions.left)
+            {
+                currentDistance = 0;
+                patrolDirection = -patrolDirection;
+                if (horizontalDirection == Vector2.zero)
+                {
+                    horizontalDirection.x = -movementController.controller2D.collisions.faceDir;
+                }
+                else
+                {
+                    horizontalDirection = -horizontalDirection;
+                }
+            }
+
             if (currentDistance < patrolDistance)
             {
                 currentDistance += Mathf.Abs(movementController.velocity.x) * Time.deltaTime;
@@ -108,15 +124,6 @@ public class EnemyAI : MonoBehaviour
                 patrolDirection = -patrolDirection;
                 horizontalDirection = -horizontalDirection;
                 currentDistance = 0;
-            }
-
-            RaycastHit2D hit = CheckLedges();
-
-            if (!hit || movementController.controller2D.collisions.right || movementController.controller2D.collisions.left)
-            {
-                currentDistance = 0;
-                patrolDirection = -patrolDirection;
-                horizontalDirection = -horizontalDirection;
             }
         }
     }
@@ -135,12 +142,6 @@ public class EnemyAI : MonoBehaviour
             {
                 currentlyFollowingTarget = true;
                 UpdateDirection();
-                //TO-DO Need to allow the face direction to change without being tied to movement, otherwise the direction the raycast check never changes
-                RaycastHit2D ledgeHit = CheckLedges();
-                if (!ledgeHit)
-                {
-                    horizontalDirection = Vector2.zero;
-                }
             }
             else
             {
@@ -198,7 +199,7 @@ public class EnemyAI : MonoBehaviour
     protected virtual RaycastHit2D CheckLedges()
     {
         //Adding 0.5f to min.y due to floating point precision sometimes spawning the raycast inside the obstacle collider
-        Vector2 rayOrigin = (patrolDirection == -1) ? new Vector2(collider.bounds.min.x, collider.bounds.min.y + 0.5f) : new Vector2(collider.bounds.max.x, collider.bounds.min.y + 0.5f);
+        Vector2 rayOrigin = (movementController.controller2D.collisions.faceDir == -1) ? new Vector2(collider.bounds.min.x, collider.bounds.min.y + 0.5f) : new Vector2(collider.bounds.max.x, collider.bounds.min.y + 0.5f);
         Debug.DrawRay(rayOrigin, Vector3.down);
 
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector3.down, 1f, ObstacleMask | PlatformMask);

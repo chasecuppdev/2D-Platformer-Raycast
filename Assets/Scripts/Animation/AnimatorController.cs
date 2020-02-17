@@ -168,6 +168,10 @@ public class AnimatorController : MonoBehaviour
             {
                 MessageKit.post(EventTypes.PLAYER_DIED);
             }
+            else if (gameObject.name == "Boss")
+            {
+                MessageKit.post(EventTypes.BOSS_DIED);
+            }
         }
     }
 
