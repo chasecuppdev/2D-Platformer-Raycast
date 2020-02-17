@@ -15,7 +15,7 @@ public class SceneController : MonoBehaviour
     static public void LoadWinScene()
     {
         MessageKitManager.clearAllMessageTables();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(3);
     }
 
     static public void LoadTitleScene()
