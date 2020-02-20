@@ -41,7 +41,7 @@ public class PlayerAudio : MonoBehaviour
         if (whipAttackClip != null)
         {
             playerAudioSource.volume = SoundManager.Instance.PlayerWhipBaseVolume; ;
-            SoundManager.Instance.PlayWithRandomizedPitch(playerAudioSource, whipAttackClip);
+            SoundManager.Instance.Play(playerAudioSource, whipAttackClip);
         }
     }
 
