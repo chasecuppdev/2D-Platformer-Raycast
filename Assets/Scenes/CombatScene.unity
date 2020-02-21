@@ -1999,7 +1999,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053420007, y: 0.9816309}
+  m_Offset: {x: 0, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -2010,7 +2010,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9816309, y: 1.9632618}
+  m_Size: {x: 1, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &302624509
 Animator:
@@ -2823,7 +2823,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053420007, y: 0.9816309}
+  m_Offset: {x: 0, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -2834,7 +2834,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9816309, y: 1.9632618}
+  m_Size: {x: 1, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &490677094
 Animator:
@@ -6017,7 +6017,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053420007, y: 0.9816309}
+  m_Offset: {x: 0, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -6028,7 +6028,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9816309, y: 1.9632618}
+  m_Size: {x: 1, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &874025383
 Animator:
@@ -7796,6 +7796,8 @@ MonoBehaviour:
   music: {fileID: 1138364438}
   defaultSelection: {fileID: 563873331}
   controlMapper: {fileID: 1365127617}
+  eventSystem: {fileID: 1907100475}
+  isPaused: 0
 --- !u!1 &1148922384
 GameObject:
   m_ObjectHideFlags: 0
@@ -8707,7 +8709,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053420007, y: 0.9816309}
+  m_Offset: {x: 0, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -8718,7 +8720,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9816309, y: 1.9632618}
+  m_Size: {x: 1, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &1390979015
 Animator:
@@ -11510,7 +11512,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053420007, y: 0.9816309}
+  m_Offset: {x: 0, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -11521,7 +11523,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9816309, y: 1.9632618}
+  m_Size: {x: 1, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &1732648592
 Animator:
@@ -12400,6 +12402,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1907100475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4490696926764848658, guid: 366e89de20e9c3344be524f2fce6e775,
+    type: 3}
+  m_PrefabInstance: {fileID: 4490696925539612575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1935785432
 GameObject:
   m_ObjectHideFlags: 0
@@ -12642,7 +12656,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053420007, y: 0.9816309}
+  m_Offset: {x: 0, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -12653,7 +12667,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9816309, y: 1.9632618}
+  m_Size: {x: 1, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &1936631794
 Animator:
@@ -14253,7 +14267,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.053420007, y: 0.9816309}
+  m_Offset: {x: 0, y: 0.9816309}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -14264,7 +14278,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9816309, y: 1.9632618}
+  m_Size: {x: 1, y: 1.9632618}
   m_EdgeRadius: 0
 --- !u!95 &2140164894
 Animator:
@@ -30550,6 +30564,91 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actions.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actionCategoryMap.list.Array.data[1].actionIds.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[0]._actionId
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.mapCategories.Array.data[1]._checkConflictsWithAllCategories
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.mapCategories.Array.data[0]._checkConflictsWithAllCategories
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.configVars.runInEditMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[6]._actionId
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[6]._axisContribution
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[6]._keyboardKeyCode
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[10]._id
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[10]._name
+      value: UIPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[10]._type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[10]._descriptiveName
+      value: Action0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[10]._userAssignable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actions.Array.data[10]._categoryId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actionCategoryMap.list.Array.data[1].actionIds.Array.data[4]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205085308947599642, guid: a003709d859e2e94180278e318156777,
+        type: 3}
+      propertyPath: _userData.actionIdCounter
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a003709d859e2e94180278e318156777, type: 3}
 --- !u!1001 &4490696925539612575
@@ -30624,6 +30723,11 @@ PrefabInstance:
       propertyPath: m_FirstSelected
       value: 
       objectReference: {fileID: 563873329}
+    - target: {fileID: 4490696926764848658, guid: 366e89de20e9c3344be524f2fce6e775,
+        type: 3}
+      propertyPath: m_sendNavigationEvents
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4490696926764848659, guid: 366e89de20e9c3344be524f2fce6e775,
         type: 3}
       propertyPath: rewiredInputManager
@@ -30720,7 +30824,7 @@ PrefabInstance:
     - target: {fileID: 2544677588408996981, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: collisionMask.m_Bits
-      value: 263680
+      value: 1536
       objectReference: {fileID: 0}
     - target: {fileID: 2544677587411085988, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
@@ -30730,7 +30834,7 @@ PrefabInstance:
     - target: {fileID: 2544677587411085988, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.59
+      value: -8.7
       objectReference: {fileID: 0}
     - target: {fileID: 8427882173749894604, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
@@ -31008,6 +31112,11 @@ PrefabInstance:
     - target: {fileID: 2544677587411086008, guid: 02e16c3cd64c8d147a69bf963b0d504d,
         type: 3}
       propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 1145413833}
+    - target: {fileID: 2544677587411086008, guid: 02e16c3cd64c8d147a69bf963b0d504d,
+        type: 3}
+      propertyPath: pauseCanvas
       value: 
       objectReference: {fileID: 1145413831}
     - target: {fileID: 2544677587411086013, guid: 02e16c3cd64c8d147a69bf963b0d504d,

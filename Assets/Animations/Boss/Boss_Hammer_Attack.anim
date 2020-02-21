@@ -92,7 +92,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 1
-        value: {x: 4.09, y: 1.78, z: 0}
+        value: {x: 2.89, y: 1.78, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: Infinity, y: Infinity, z: Infinity}
         tangentMode: 0
@@ -155,7 +155,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 2.6
+        value: 3.29
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -416,7 +416,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 4.09
+        value: 2.89
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -680,7 +680,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 2.6
+        value: 3.29
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103

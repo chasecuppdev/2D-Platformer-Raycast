@@ -5,6 +5,7 @@ using Prime31.MessageKit;
 using UnityEngine.UI;
 using Rewired;
 using Rewired.UI.ControlMapper;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PauseMenu : MonoBehaviour
     AudioSource music; //Hooked up in editor
     public Button defaultSelection; //Hooked up in editor
     public ControlMapper controlMapper; //Hooked up in editor
+    public EventSystem eventSystem;
+    public bool isPaused = false;
 
     private void Start()
     {
@@ -37,19 +40,23 @@ public class PauseMenu : MonoBehaviour
         {
             if (!pauseMenu.enabled)
             {
+                isPaused = true;
                 music.Pause();
                 SetDefaultSelection();
-                EnableUIControls();
-                DisableGameplayControls();
+                defaultSelection.interactable = true;
+                //EnableUIControls();
+                //DisableGameplayControls();
                 Time.timeScale = 0;
                 dimCanvas.enabled = true;
                 pauseMenu.enabled = true;
             }
             else
             {
+                isPaused = false;
                 music.UnPause();
-                EnableGameplayControls();
-                DisableUIControls();
+                //EnableGameplayControls();
+                //DisableUIControls();
+                defaultSelection.interactable = false;
                 Time.timeScale = 1;
                 dimCanvas.enabled = false;
                 pauseMenu.enabled = false;
