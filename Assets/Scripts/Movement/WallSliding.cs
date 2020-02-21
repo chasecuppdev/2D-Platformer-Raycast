@@ -23,6 +23,7 @@ public class WallSliding : MonoBehaviour
     MovementController movementController;
     JumpController jumpController;
     AnimatorController animController;
+    PlayerAudio playerAudio;
 
     private void Start()
     {
@@ -32,6 +33,7 @@ public class WallSliding : MonoBehaviour
         movementController = GetComponent<MovementController>();
         jumpController = GetComponent<JumpController>();
         animController = GetComponent<AnimatorController>();
+        playerAudio = GetComponent<PlayerAudio>();
     }
 
     private void FixedUpdate()
@@ -49,11 +51,19 @@ public class WallSliding : MonoBehaviour
         if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && movementController.velocity.y < 0
             && !(animController.animationStates.isHurt || animController.animationStates.isDead))
         {
-            controller.collisions.wallSliding = true;
+            if (!controller.collisions.wallSliding)
+            {
+                controller.collisions.wallSliding = true;
+                playerAudio.PlayWallSlideSFX();
+            }
         }
         else
         {
-            controller.collisions.wallSliding = false;
+            if (controller.collisions.wallSliding)
+            {
+                controller.collisions.wallSliding = false;
+                playerAudio.StopWallSlideSFX();
+            }
         }
 
         //If we have a collision on the right or left and we are falling with no collisions below
