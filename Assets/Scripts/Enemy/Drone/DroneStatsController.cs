@@ -24,4 +24,9 @@ public class DroneStatsController : MonoBehaviour, IDamageable
             animator.TriggerDieAnimation(DroneAnimationClips.DeathAnimation, DroneAnimationParameters.DeathParameter);
         }
     }
+
+    public void Heal(int healAmount)
+    {
+
+    }
 }

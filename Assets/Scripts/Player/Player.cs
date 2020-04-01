@@ -16,12 +16,17 @@ public class Player : MonoBehaviour, IDamageable
         animator = GetComponent<AnimatorController>();
     }
 
+    public void Start()
+    {
+        MessageKit<int, int>.post(EventTypes.PLAYER_TAKE_DAMAGE_2P, currentHealth, maxHealth);
+    }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
         MessageKit<float, float>.post(EventTypes.CAMERA_SHAKE_2P, 0.05f, 0.15f);
-        MessageKit<int, int>.post(EventTypes.PLAYER_TAKE_DAMAGE_1P, currentHealth, maxHealth);
+        MessageKit<int, int>.post(EventTypes.PLAYER_TAKE_DAMAGE_2P, currentHealth, maxHealth);
 
         if (currentHealth > 0)
         {
@@ -31,5 +36,19 @@ public class Player : MonoBehaviour, IDamageable
         {
             animator.TriggerDieAnimation(PlayerAnimationClips.DeathAnimation, PlayerAnimationParameters.DeathParameter);
         }
+    }
+
+    public void Heal(int healAmount)
+    {
+        if (currentHealth + healAmount > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth += healAmount;
+        }
+        
+        MessageKit<int, int>.post(EventTypes.PLAYER_HEAL_DAMAGE_2P, currentHealth, maxHealth);
     }
 }

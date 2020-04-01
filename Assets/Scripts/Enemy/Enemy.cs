@@ -24,4 +24,9 @@ public class Enemy : MonoBehaviour, IDamageable
             animator.TriggerDieAnimation(SplicerAnimationClips.DeathAnimation, SplicerAnimationParameters.DeathParameter);
         }
     }
+
+    public void Heal(int healAmount)
+    {
+
+    }
 }

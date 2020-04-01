@@ -29,6 +29,11 @@ public class Hurtbox : MonoBehaviour
         parentHealthComponent.TakeDamage(damage);
     }
 
+    public void ApplyHealing(int healAmount)
+    {
+        parentHealthComponent.Heal(healAmount);
+    }
+
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

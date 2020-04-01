@@ -68,6 +68,10 @@ public class SoundManager : MonoBehaviour
     public AudioClip BossFootsteps; //Referenced in BossAudio.cs and used as an animation event
     [Range(0.0f, 1.0f)] public float BossFootstepskVolume = 1.0f;
 
+    [Header("Pickup Audio Clips")]
+    public AudioClip HeartPickup; //Referenced in HeartPickupAudio.cs
+    [Range(0.0f, 1.0f)] public float HeartPickupVolume;
+
     //Random pitch range
     [Header("Pitch Variance")]
     public float lowPitchRange = 0.95f;

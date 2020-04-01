@@ -24,4 +24,9 @@ public class BossStatsController : MonoBehaviour, IDamageable
             animator.TriggerDieAnimation(BossAnimationClips.DeathAnimation, BossAnimationParameters.DeathParameter);
         }
     }
+
+    public void Heal(int healAmount)
+    {
+
+    }
 }

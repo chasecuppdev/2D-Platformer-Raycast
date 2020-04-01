@@ -8,10 +8,11 @@ public class HUDController : MonoBehaviour
 {
     Image playerHealthBar;
 
-    void Start()
+    void Awake()
     {
         playerHealthBar = GameObject.Find("HP_Bar").GetComponent<Image>();
-        MessageKit<int, int>.addObserver(EventTypes.PLAYER_TAKE_DAMAGE_1P, UpdatePlayerHealthBar);
+        MessageKit<int, int>.addObserver(EventTypes.PLAYER_TAKE_DAMAGE_2P, UpdatePlayerHealthBar);
+        MessageKit<int, int>.addObserver(EventTypes.PLAYER_HEAL_DAMAGE_2P, UpdatePlayerHealthBar);
     }
 
     public void UpdatePlayerHealthBar(int currentHealth, int maxHealth)

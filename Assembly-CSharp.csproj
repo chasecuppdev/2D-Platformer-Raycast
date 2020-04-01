@@ -62,6 +62,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Checkpoint.cs" />
+    <Compile Include="Assets\HeartPickupAudio.cs" />
     <Compile Include="Assets\RainMaker\Demo\DemoScript.cs" />
     <Compile Include="Assets\RainMaker\Demo\DemoScript2D.cs" />
     <Compile Include="Assets\RainMaker\Demo\DemoScriptStartRainOnSpaceBar.cs" />
@@ -193,6 +195,7 @@
     <Compile Include="Assets\Scripts\Physics\GravityController.cs" />
     <Compile Include="Assets\Scripts\Physics\HitboxController.cs" />
     <Compile Include="Assets\Scripts\Physics\RaycastController.cs" />
+    <Compile Include="Assets\Scripts\Pickups\HealthPickup.cs" />
     <Compile Include="Assets\Scripts\Player\AttackManager.cs" />
     <Compile Include="Assets\Scripts\Player\Baton_Projectile.cs" />
     <Compile Include="Assets\Scripts\Player\Cooldown.cs" />
